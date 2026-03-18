@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://esml58h0suff"]
+
+[sub_resource type="GDScript" id="GDScript_sgp6g"]
+script/source = "extends Node
+
+func _ready() -> void:
+    pass
+"
+
+[node name="Main" type="Node" unique_id=743749111]
+script = SubResource("GDScript_sgp6g")

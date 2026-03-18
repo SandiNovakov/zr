@@ -1,0 +1,60 @@
+extends Object
+class_name Util
+
+## Get rotation in rad for rotating towards a given point.
+static func get_rotation_linear(from: float, to: float, speed: float, delta: float) -> float:
+    var diff: float = wrapf(to - from, -PI, PI)
+    
+    # prevent overshooting
+    if abs(diff) <= speed * delta:
+        return to
+
+    return from + sign(diff) * speed * delta
+    
+## Get formatted time from msec.
+static func format_time(time: int, include_msec: bool = false) -> String:
+    var hours: int = time / 3600000
+    var minutes: int = (time % 3600000) / 60000
+    var seconds: int = (time % 60000) / 1000
+    var msec: int = time % 1000
+    
+    var format_mask: String = '%02d:%02d:%02d.%03d'
+    var retval: String
+    
+    if include_msec:
+        format_mask = '%02d:%02d:%02d.%03d'
+        retval = format_mask % [hours, minutes, seconds, msec]
+    else:
+        format_mask = '%02d:%02d:%02d'
+        retval = format_mask % [hours, minutes, seconds, msec]
+        
+    return retval
+
+static func get_uptime_formatted() -> String:
+    return format_time(Time.get_ticks_msec(), true)
+    
+static func format_log_msg(msg: String, add_timestamp: bool = true, add_colors: bool = false) -> String:
+   
+    if add_timestamp:
+        msg = "[%s] %s" % [get_uptime_formatted(), msg]
+    
+    if add_colors:
+        var color_str: String = msg.get_slice(" ", 1)
+        var color: String = CoreConfig.LOG_LEVEL_COLOR_MAP.get(color_str, "")
+        
+        msg = "[color=%s]%s[/color]" % [color, msg]    
+    
+    return msg
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
