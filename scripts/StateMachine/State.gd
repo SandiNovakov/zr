@@ -4,7 +4,7 @@ class_name State
 
 @onready var state_machine: Node = get_parent()
 
-@abstract func set_master(master: Node) -> void
+@abstract func set_master(new_master: Node) -> void
 
 @abstract func enter() -> void
     

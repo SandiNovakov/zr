@@ -6,25 +6,16 @@ class_name StateMachine
 var current_state: State
 var initialized_states: Array[State] = []
 
-#var states: Array[State]
-#func _ready() -> void:
-    #var children: Array[Node] = get_children()
-    #for child: Node in children:
-        #if child.is_class('State'):
-            #states.append(child)
-    #if states.is_empty():
-        #Syslog.error("StateMachine in node %s has no State children!" % [master.name])
-
 func _initialize_state(state: State) -> void:
     if state not in initialized_states:
         state.set_master(master)
         initialized_states.append(state)
         
-    state.enter()
-
 func _ready() -> void:
     current_state = default_state
     _initialize_state(current_state)
+    current_state.enter()
+
 
 func _process(delta: float) -> void:
     if current_state == null:
@@ -51,11 +42,13 @@ func request_state_change(new_state: State) -> void:
             new_state.name
             ])
     
+    var old_state = current_state
     current_state = new_state
+    
     Syslog.debug("Node %s changed states from %s to %s." % [
         master.name,
-        current_state.name,
-        new_state.name
+        old_state.name,
+        current_state.name
     ])
     
     _initialize_state(current_state)
