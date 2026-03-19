@@ -8,7 +8,7 @@ const ENABLE_DEBUG_DEBUG_MESSAGES: bool = true
 ## Active log destinations
 const LOG_DESTINATIONS := {
     LogDestination.PRINT: false,
-    LogDestination.PRINT_RICH: false,
+    LogDestination.PRINT_RICH: true,
     LogDestination.LOG_FILE: false,
     LogDestination.HTML_FILE: true
 }

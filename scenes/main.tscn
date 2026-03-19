@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://esml58h0suff"]
 
+[ext_resource type="Script" uid="uid://gg1kfhxxody3" path="res://SyslogDebug.gd" id="1_o5qli"]
+
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
 script/source = "extends Node
 
@@ -9,3 +11,6 @@ func _ready() -> void:
 
 [node name="Main" type="Node" unique_id=743749111]
 script = SubResource("GDScript_sgp6g")
+
+[node name="Node" type="Node" parent="." unique_id=1795668027]
+script = ExtResource("1_o5qli")
