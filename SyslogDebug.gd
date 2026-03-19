@@ -1,23 +1,23 @@
 extends Node
 
-@export var min_interval: float = 0.2
-@export var max_interval: float = 2.0
+@export var min_interval: float = 0.01
+@export var max_interval: float = 0.01
 
 var _rng := RandomNumberGenerator.new()
 var _timer: Timer
 
 func _ready() -> void:
     if not CoreConfig.ENABLE_DEBUG_DEBUG_MESSAGES:
-        return
+        queue_free()
+    else:
+        _rng.randomize()
 
-    _rng.randomize()
+        _timer = Timer.new()
+        _timer.one_shot = true
+        add_child(_timer)
+        _timer.timeout.connect(_on_timeout)
 
-    _timer = Timer.new()
-    _timer.one_shot = true
-    add_child(_timer)
-    _timer.timeout.connect(_on_timeout)
-
-    _start_timer()
+        _start_timer()
 
 
 func _start_timer() -> void:

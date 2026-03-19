@@ -10,19 +10,19 @@ static func _log_msg(messages: Array, log_level: CoreConfig.LogLevel) -> void:
     var destinations: Dictionary = CoreConfig.LOG_DESTINATIONS
     
     if destinations[CoreConfig.LogDestination.PRINT]:
-        var f_msg = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT)
+        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT)
         LogUtility.write_log(f_msg, CoreConfig.LogDestination.PRINT)
         
     if destinations[CoreConfig.LogDestination.PRINT_RICH]:
-        var f_msg = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT_RICH)
+        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT_RICH)
         LogUtility.write_log(f_msg, CoreConfig.LogDestination.PRINT_RICH)
         
     if destinations[CoreConfig.LogDestination.LOG_FILE]:
-        var f_msg = _format_msg(msg, log_level, CoreConfig.LogDestination.LOG_FILE)
+        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.LOG_FILE)
         LogUtility.write_log(f_msg, CoreConfig.LogDestination.LOG_FILE)
         
     if destinations[CoreConfig.LogDestination.HTML_FILE]:
-        var f_msg = _format_msg(msg, log_level, CoreConfig.LogDestination.HTML_FILE)
+        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.HTML_FILE)
         LogUtility.write_log(f_msg, CoreConfig.LogDestination.HTML_FILE)
                
 static func _format_msg(msg: String, log_level: CoreConfig.LogLevel, destination: CoreConfig.LogDestination, add_timestamp: bool = true) -> String:
