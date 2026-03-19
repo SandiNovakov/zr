@@ -33,20 +33,6 @@ static func format_time(time: int, include_msec: bool = false) -> String:
 static func get_uptime_formatted() -> String:
     return format_time(Time.get_ticks_msec(), true)
     
-static func format_log_msg(msg: String, add_timestamp: bool = true, add_colors: bool = false) -> String:
-   
-    if add_timestamp:
-        msg = "[%s] %s" % [get_uptime_formatted(), msg]
-    
-    if add_colors:
-        var color_str: String = msg.get_slice(" ", 1)
-        var color: String = CoreConfig.LOG_LEVEL_COLOR_MAP.get(color_str, "")
-        
-        msg = "[color=%s]%s[/color]" % [color, msg]    
-    
-    return msg
-    
-    
     
     
     

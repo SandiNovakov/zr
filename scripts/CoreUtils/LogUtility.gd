@@ -1,19 +1,72 @@
 extends Node
 
-func write_log(msg: String) -> void:
-    var destination: CoreConfig.LogDestination = CoreConfig.LOG_DESTINATION
-    
+var html_file_ref: FileAccess
+var log_file_ref: FileAccess
+
+func write_log(msg: String, destination: CoreConfig.LogDestination) -> void:
     match destination:
         CoreConfig.LogDestination.PRINT:
-            msg = Util.format_log_msg(msg, true, false)
             print(msg)
+        
         CoreConfig.LogDestination.PRINT_RICH:
-            msg = Util.format_log_msg(msg, true, true)
             print_rich(msg)
-        _:
-            return
+        
+        CoreConfig.LogDestination.LOG_FILE:
+            if log_file_ref:
+                log_file_ref.store_line(msg)
+                log_file_ref.flush()
+            
+        CoreConfig.LogDestination.HTML_FILE:
+            if html_file_ref:            
+                html_file_ref.store_line(msg)
+                html_file_ref.flush()
 
-func _ready() -> void:
+func _ready() -> void: 
+    var destinations: Dictionary = CoreConfig.LOG_DESTINATIONS
+    
+    if destinations[CoreConfig.LogDestination.LOG_FILE]:
+        var file_name: String = _get_file_name_from_systime()
+        log_file_ref = FileAccess.open("user://%s.txt" % [file_name], FileAccess.WRITE)
+        
+    if destinations[CoreConfig.LogDestination.HTML_FILE]:
+        var file_name: String = _get_file_name_from_systime()
+        html_file_ref = FileAccess.open("user://%s.html" % [file_name], FileAccess.WRITE)
+        _write_html_header()
+        
+    _debug_messages()
+
+func _write_html_header() -> void:
+    if not html_file_ref:
+        return
+    
+    html_file_ref.store_line("<!DOCTYPE html>")
+    html_file_ref.store_line("<html>")
+    html_file_ref.store_line("<head>")
+    html_file_ref.store_line("    <meta charset='UTF-8'>")
+    html_file_ref.store_line("    <style>")
+    html_file_ref.store_line("        body {")
+    html_file_ref.store_line("            font-family: monospace;")
+    html_file_ref.store_line("            line-height: 1.4;")
+    html_file_ref.store_line("            margin: 20px;")
+    html_file_ref.store_line("            background-color: #1e1e1e;  /* Optional dark background */")
+    html_file_ref.store_line("            color: #d4d4d4;           /* Optional light text */")
+    html_file_ref.store_line("        }")
+    html_file_ref.store_line("        p {")
+    html_file_ref.store_line("            margin: 2px 0;")
+    html_file_ref.store_line("            white-space: pre-wrap;    /* Preserve whitespace */")
+    html_file_ref.store_line("            font-family: monospace;")
+    html_file_ref.store_line("        }")
+    html_file_ref.store_line("    </style>")
+    html_file_ref.store_line("</head>")
+    html_file_ref.store_line("<body>")
+    html_file_ref.flush()
+
+func _get_file_name_from_systime() -> String:
+    var prefix: String = "log_"
+    var time: String = Time.get_datetime_string_from_system().replace(":", "-")
+    return "%s%s" % [prefix, time]
+
+func _debug_messages() -> void:
     if CoreConfig.ENABLE_DEBUG_DEBUG_MESSAGES:
         Syslog.debug("Frame start")
         Syslog.info("Game initialized successfully")

@@ -16,24 +16,23 @@ func _ready() -> void:
     _initialize_state(current_state)
     current_state.enter()
 
-
 func _process(delta: float) -> void:
     if current_state == null:
-        Syslog.error("Node %s has no active state this process frame!" % [master.name])
+        Syslog.warning("Node %s has no active state this process frame!" % [master.name])
     
     current_state.update(delta)
 
 func _physics_process(delta: float) -> void:
     if current_state == null:
-        Syslog.error("Node %s has no active state this physics tick!" % [master.name])
+        Syslog.warning("Node %s has no active state this physics tick!" % [master.name])
     
     current_state.physics_update(delta)
     
 func request_state_change(new_state: State) -> void:
     if current_state == null:
-        Syslog.error("Node %s has no active state on state change!" % [master.name])
+        Syslog.warning("Node %s has no active state on state change!" % [master.name])
     
-    await current_state.exit()
+    current_state.exit()
     
     if new_state not in get_children():
         Syslog.warning("State %s on Node %s requested change to State %s but such state not in StateMachine children!" % [
@@ -42,7 +41,7 @@ func request_state_change(new_state: State) -> void:
             new_state.name
             ])
     
-    var old_state = current_state
+    var old_state: State = current_state
     current_state = new_state
     
     Syslog.debug("Node %s changed states from %s to %s." % [
