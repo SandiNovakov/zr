@@ -6,12 +6,18 @@ class_name StateMachine
 var current_state: State
 var initialized_states: Array[State] = []
 
+var lock: bool = false # lock to prevent switching state before exit and enter have been done.
+
 func _initialize_state(state: State) -> void:
     if state not in initialized_states:
+        Syslog.debug('Attempt to init state: %s' % [state.name])
         state.set_master(master)
         initialized_states.append(state)
         
 func _ready() -> void:
+    if not default_state:
+        Syslog.warning("%s's State Machine has no set default state!" % [master.name])
+
     current_state = default_state
     _initialize_state(current_state)
     current_state.enter()
@@ -29,6 +35,16 @@ func _physics_process(delta: float) -> void:
     current_state.physics_update(delta)
     
 func request_state_change(new_state: State) -> void:
+    if lock == true:
+        Syslog.warning("Node %s tried to change from state %s to %s, but couldn't because of lock." % [
+            master.name,
+            current_state.name,
+            new_state.name
+        ])
+        return
+        
+    lock = true
+    
     if current_state == null:
         Syslog.warning("Node %s has no active state on state change!" % [master.name])
     
@@ -44,6 +60,13 @@ func request_state_change(new_state: State) -> void:
     var old_state: State = current_state
     current_state = new_state
     
+    if old_state.name == current_state.name:
+        Syslog.warning("Node %s switched from state %s to %s. Possible race condition!" % [
+            master.name,
+            old_state.name,
+            current_state.name
+        ])
+        
     Syslog.debug("Node %s changed states from %s to %s." % [
         master.name,
         old_state.name,
@@ -52,3 +75,5 @@ func request_state_change(new_state: State) -> void:
     
     _initialize_state(current_state)
     current_state.enter()
+    
+    lock = false

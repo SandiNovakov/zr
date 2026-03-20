@@ -3,13 +3,13 @@ class_name CoreConfig
 
 ### PARAMS ###
 const LOG_LEVEL: LogLevel = LogLevel.DEBUG
-const ENABLE_DEBUG_DEBUG_MESSAGES: bool = true
+const ENABLE_DEBUG_DEBUG_MESSAGES: bool = false
 
 ## Active log destinations
 const LOG_DESTINATIONS := {
     LogDestination.PRINT: false,
     LogDestination.PRINT_RICH: true,
-    LogDestination.LOG_FILE: true,
+    LogDestination.LOG_FILE: false,
     LogDestination.HTML_FILE: true
 }
 
