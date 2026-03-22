@@ -22,19 +22,24 @@ class_name WeaponHandler
 @export_range(0, 10, 0.1) var charge_recovery_time: float
 @export var charged_shot_recoil: int
     
-var time_until_charging: float = 0.1
+var time_until_charging: float = 0.3
 var last_shot_timestamp: int = 0
 
-signal disabled
-signal enabled
+var allow_shoot = true
+signal invalidate_charge
 
 signal charged_shot
 
 func _ready() -> void:
     if fire_rate == 0:
         Syslog.warning("Fire rate for weapon: %s on Actor %s is 0!" % ["[replace with resource name]", master.name])
+    if automatic and can_charge:
+        Syslog.warning("%s's Weapon %s is both automatic and chargeable. Automatic will take precedence and charging will be disabled." % [master.name, self.name])
 
 func _can_shoot() -> bool:  
+    if not allow_shoot:
+        return false
+    
     var shot_delay: float = 1.0 / max(fire_rate, 1) #in seconds. max for divide by zero safety
     var shot_delay_usec: int = Util.to_usec(shot_delay)
     

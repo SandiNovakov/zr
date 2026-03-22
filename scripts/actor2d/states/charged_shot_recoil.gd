@@ -3,7 +3,7 @@ extends ActorState
 var inactive_timer: Timer
 
 func enter() -> void:
-    master.disable_weapons()
+    master.disable_shooting()
     inactive_timer = Timer.new()
     inactive_timer.wait_time = master.weapon_handler.charge_recovery_time
     inactive_timer.one_shot = true
@@ -11,14 +11,14 @@ func enter() -> void:
     add_child(inactive_timer)
     inactive_timer.start()
     
-    master.velocity = -controller.get_look_dir() * master.weapon_handler.charged_shot_recoil
+    master.velocity = -Vector2.from_angle(master.rotation).normalized() * master.weapon_handler.charged_shot_recoil
     
 func physics_update(delta: float) -> void:
     master.move(Vector2.ZERO)    
 
 func on_inactive_timer_timeout() -> void:
-    master.enable_weapons()
+    master.enable_shooting()
     state_machine.request_state_change($"../Idle")
     
 func exit() -> void:
-    master.enable_weapons()
+    master.enable_shooting()

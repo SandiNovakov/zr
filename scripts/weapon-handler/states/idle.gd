@@ -1,13 +1,14 @@
 extends WeaponState
 
-var time_until_charging: float
 var time_shoot_is_held: float = 0
 
 func enter() -> void:
     time_shoot_is_held = 0
-    master.disabled.connect(disable)
 
-func physics_update(delta: float) -> void:      
+func physics_update(delta: float) -> void:
+    if not master.allow_shoot:
+        return
+    
     if master.automatic and controller.is_shoot():
         master.shoot()
         
@@ -23,9 +24,3 @@ func physics_update(delta: float) -> void:
         if time_shoot_is_held >= master.time_until_charging:
             Syslog.info("%s began charging weapon!" % [master.master.name])
             state_machine.request_state_change($"../Charging") #will generate warning, ignore for now.
-
-func disable() -> void:
-    state_machine.request_state_change($"../Disabled")
-
-func exit() -> void:
-    master.disabled.disconnect(disable)

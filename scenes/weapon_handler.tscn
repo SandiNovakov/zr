@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://b7x3jr1ur8u5o" path="res://scripts/weapon-handler/states/idle.gd" id="3_a8i0e"]
 [ext_resource type="Script" uid="uid://dsb20a7oid1lg" path="res://scripts/weapon-handler/states/charging.gd" id="4_qkb0o"]
 [ext_resource type="Script" uid="uid://ddsbw31dta1ca" path="res://scenes/charged.gd" id="5_jio8b"]
-[ext_resource type="Script" uid="uid://dkmjyr4tfu0h3" path="res://scenes/disabled.gd" id="6_25ylq"]
 
 [node name="WeaponHandler" type="Node2D" unique_id=2011087148]
 script = ExtResource("1_hlymf")
@@ -27,8 +26,4 @@ metadata/_custom_type_script = "uid://brr547baa0xck"
 
 [node name="Charged" type="Node" parent="StateMachine" unique_id=1695152654]
 script = ExtResource("5_jio8b")
-metadata/_custom_type_script = "uid://brr547baa0xck"
-
-[node name="Disabled" type="Node" parent="StateMachine" unique_id=711489389]
-script = ExtResource("6_25ylq")
 metadata/_custom_type_script = "uid://brr547baa0xck"

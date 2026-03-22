@@ -5,7 +5,6 @@ var dash_dir: Vector2
 
 func enter() -> void:
     Syslog.info('%s says: I dashed!' % [master.name])
-    
     var dbg_flag: String
     
     dash_dir = controller.get_move_dir(false)
@@ -30,9 +29,14 @@ func enter() -> void:
     dash_timer.timeout.connect(_on_dash_timer_timeout)
     dash_timer.start()
     
+    master.disable_shooting()
+    
 func physics_update(delta: float) -> void:
     master.move(controller.get_move_dir())
     master.turn(controller.get_look_dir(), delta)
 
 func _on_dash_timer_timeout() -> void:
     state_machine.request_state_change($"../Idle")
+
+func exit() -> void:
+    master.enable_shooting()

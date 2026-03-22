@@ -27,9 +27,15 @@ func move(move_dir: Vector2) -> void:
 func turn(look_dir: Vector2, delta: float) -> void:
     if look_dir != Vector2.ZERO:
         rotation = Util.get_rotation_linear(rotation, look_dir.angle(), turn_speed, delta)
+        
+func enable_shooting() -> void:
+    Syslog.debug("%s enabled shooting!" % [self.name])
+    weapon_handler.allow_shoot = true
 
-func enable_weapons():
-    weapon_handler.enabled.emit()
+func disable_shooting() -> void:
+    Syslog.debug("%s disabled shooting!" % [self.name])
+    weapon_handler.allow_shoot = false
 
-func disable_weapons():
-    weapon_handler.disabled.emit()
+func invalidate_charges() -> void:
+    Syslog.debug("%s invalidated all charges!" % [self.name])
+    weapon_handler.invalidate_charge.emit
