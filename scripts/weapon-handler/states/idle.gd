@@ -9,13 +9,13 @@ func physics_update(delta: float) -> void:
     if not master.allow_shoot:
         return
     
-    if master.automatic and controller.is_shoot():
+    if master.weapon.automatic and controller.is_shoot():
         master.shoot()
         
-    if not master.automatic and controller.is_shoot_once():
+    if not master.weapon.automatic and controller.is_shoot_once():
         master.shoot()
         
-    if master.can_charge and not master.automatic:
+    if master.weapon.can_charge and not master.weapon.automatic:
         if controller.is_shoot():
             time_shoot_is_held += delta
         else:

@@ -13,7 +13,7 @@ func physics_update(delta: float) -> void:
     
     current_charge_time += delta
     
-    if current_charge_time >= master.charge_time:
+    if current_charge_time >= master.weapon.charge_time:
         Syslog.info("%s fully charged up!" % [master.master.name])
         state_machine.request_state_change($"../Charged")
 
