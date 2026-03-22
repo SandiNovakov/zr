@@ -16,7 +16,7 @@ func _initialize_state(state: State) -> void:
         
 func _ready() -> void:
     if not default_state:
-        Syslog.warning("%s's State Machine has no set default state!" % [master.name])
+        Syslog.error("%s's State Machine has no set default state!" % [master.name])
 
     current_state = default_state
     _initialize_state(current_state)
@@ -24,13 +24,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
     if current_state == null:
-        Syslog.warning("Node %s has no active state this process frame!" % [master.name])
+        Syslog.error("Node %s has no active state this process frame!" % [master.name])
     
     current_state.update(delta)
 
 func _physics_process(delta: float) -> void:
     if current_state == null:
-        Syslog.warning("Node %s has no active state this physics tick!" % [master.name])
+        Syslog.error("Node %s has no active state this physics tick!" % [master.name])
     
     current_state.physics_update(delta)
     
@@ -46,7 +46,7 @@ func request_state_change(new_state: State) -> void:
     lock = true
     
     if current_state == null:
-        Syslog.warning("Node %s has no active state on state change!" % [master.name])
+        Syslog.error("Node %s has no active state on state change!" % [master.name])
     
     current_state.exit()
     

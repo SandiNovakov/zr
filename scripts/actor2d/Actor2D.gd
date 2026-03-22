@@ -3,6 +3,7 @@ class_name Actor2D
 
 @export var controller: ActorController
 @export var state_machine: StateMachine
+@export var weapon_handler: WeaponHandler
 
 var speed: int = 750
 var acceleration: int = speed/6
@@ -26,3 +27,9 @@ func move(move_dir: Vector2) -> void:
 func turn(look_dir: Vector2, delta: float) -> void:
     if look_dir != Vector2.ZERO:
         rotation = Util.get_rotation_linear(rotation, look_dir.angle(), turn_speed, delta)
+
+func enable_weapons():
+    weapon_handler.enabled.emit()
+
+func disable_weapons():
+    weapon_handler.disabled.emit()

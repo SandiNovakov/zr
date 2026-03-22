@@ -34,8 +34,11 @@ static func get_uptime_formatted() -> String:
     return format_time(Time.get_ticks_msec(), true)
     
     
-    
-    
+static func to_msec(seconds: float) -> float:
+    return seconds * 1_000.0
+
+static func to_usec(seconds: float) -> float:
+    return seconds * 1_000_000.0
     
     
     

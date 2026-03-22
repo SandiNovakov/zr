@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dpuwytub1fhs8"]
+
+[ext_resource type="Script" uid="uid://cbiccjlbug5xl" path="res://WeaponHandler.gd" id="1_hlymf"]
+[ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="2_dmdmg"]
+[ext_resource type="Script" uid="uid://b7x3jr1ur8u5o" path="res://scripts/weapon-handler/states/idle.gd" id="3_a8i0e"]
+[ext_resource type="Script" uid="uid://dsb20a7oid1lg" path="res://scripts/weapon-handler/states/charging.gd" id="4_qkb0o"]
+[ext_resource type="Script" uid="uid://ddsbw31dta1ca" path="res://scenes/charged.gd" id="5_jio8b"]
+[ext_resource type="Script" uid="uid://dkmjyr4tfu0h3" path="res://scenes/disabled.gd" id="6_25ylq"]
+
+[node name="WeaponHandler" type="Node2D" unique_id=2011087148]
+script = ExtResource("1_hlymf")
+charged_shot_recoil = 2000
+metadata/_custom_type_script = "uid://cbiccjlbug5xl"
+
+[node name="StateMachine" type="Node" parent="." unique_id=1930622946 node_paths=PackedStringArray("default_state")]
+script = ExtResource("2_dmdmg")
+default_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://coctqesumuueb"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=553278850]
+script = ExtResource("3_a8i0e")
+metadata/_custom_type_script = "uid://brr547baa0xck"
+
+[node name="Charging" type="Node" parent="StateMachine" unique_id=1789778373]
+script = ExtResource("4_qkb0o")
+metadata/_custom_type_script = "uid://brr547baa0xck"
+
+[node name="Charged" type="Node" parent="StateMachine" unique_id=1695152654]
+script = ExtResource("5_jio8b")
+metadata/_custom_type_script = "uid://brr547baa0xck"
+
+[node name="Disabled" type="Node" parent="StateMachine" unique_id=711489389]
+script = ExtResource("6_25ylq")
+metadata/_custom_type_script = "uid://brr547baa0xck"

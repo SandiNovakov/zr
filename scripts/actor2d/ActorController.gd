@@ -3,16 +3,21 @@ class_name ActorController
 
 @onready var master: Actor2D = get_parent()
 
+func is_shoot_once() -> bool:
+    return InputBuffer.is_action_press_buffered(&"shoot")
+
+func is_shoot() -> bool:
+    return Input.is_action_pressed(&"shoot")
+
 func is_dash() -> bool:
-    Syslog.warning('Used deprecated function ActorController.is_dash()!')
-    if InputBuffer.is_action_press_buffered("test"):
-        return true
-    return false  
-    
+    return InputBuffer.is_action_press_buffered(&"dash")
+
 func get_action_buffered(action: StringName) -> bool:
-    if InputBuffer.is_action_press_buffered(action):
-        return true
-    return false  
+    Syslog.warning('Used deprecated function ActorController.get_action_buffered()! See code for more details.')
+    #ActorController will eventually be replaced with a generic version of the controller that will allow us to
+    #give instructions based on ai, not just player input, so any functions to do with input will have to be done away with for now.
+    
+    return InputBuffer.is_action_press_buffered(action)
 
 func get_move_dir(allow_slow: bool = true) -> Vector2:
     var move_dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")

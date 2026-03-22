@@ -2,14 +2,13 @@ extends Node
 
 ### ENUMS ###
 enum LogLevel {
-	ERROR = 0,
-	WARNING = 1,
-	INFO = 2,
-	DEBUG = 3
+    ERROR = 0,
+    WARNING = 1,
+    INFO = 2,
+    DEBUG = 3
 }
 
 enum LogDestination {PRINT, PRINT_RICH, LOG_FILE, HTML_FILE}
-
 
 ### EXPORTS ###
 @export_category("Logger")
@@ -30,7 +29,7 @@ enum LogDestination {PRINT, PRINT_RICH, LOG_FILE, HTML_FILE}
 @export var debug_color: Color = Color("#9aa0a6")
 
 
-### RUNTIME VARS ###
+## DEPRECATED vars in question:
 var ENABLE_DEBUG_DEBUG_MESSAGES: bool = fake_debug_messages
 var LOG_LEVEL: LogLevel = log_level
 
@@ -38,22 +37,22 @@ var LOG_LEVEL: LogLevel = log_level
 ### MAPS ###
 ## Active log destinations
 var LOG_DESTINATIONS := {
-	LogDestination.PRINT: log_to_print,
-	LogDestination.PRINT_RICH: log_to_print_rich,
-	LogDestination.LOG_FILE: log_to_text_file,
-	LogDestination.HTML_FILE: log_to_html_file
+    LogDestination.PRINT: log_to_print,
+    LogDestination.PRINT_RICH: log_to_print_rich,
+    LogDestination.LOG_FILE: log_to_text_file,
+    LogDestination.HTML_FILE: log_to_html_file
 }
 
 const LOG_LEVEL_MAP := {
-	LogLevel.ERROR: "  [ERROR]",
-	LogLevel.WARNING: "[WARNING]",
-	LogLevel.INFO: "   [INFO]",
-	LogLevel.DEBUG: "  [DEBUG]",
+    LogLevel.ERROR: "  [ERROR]",
+    LogLevel.WARNING: "[WARNING]",
+    LogLevel.INFO: "   [INFO]",
+    LogLevel.DEBUG: "  [DEBUG]",
 }
 
-var LOG_LEVEL_COLOR_MAP := {
-	LogLevel.ERROR: "#" + error_color.to_html(),
-	LogLevel.WARNING: "#" + warning_color.to_html(),
-	LogLevel.INFO: "#" + info_color.to_html(),
-	LogLevel.DEBUG: "#" + debug_color.to_html(),
+@onready var LOG_LEVEL_COLOR_MAP := {
+    LogLevel.ERROR: "#" + error_color.to_html(),
+    LogLevel.WARNING: "#" + warning_color.to_html(),
+    LogLevel.INFO: "#" + info_color.to_html(),
+    LogLevel.DEBUG: "#" + debug_color.to_html(),
 }
