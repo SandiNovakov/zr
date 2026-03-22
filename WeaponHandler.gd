@@ -41,6 +41,8 @@ func shoot() -> void:
     last_shot_timestamp = Time.get_ticks_usec()
     Syslog.info("%s says: I shot my weapon!" % [master.name])
     
+    Input.start_joy_vibration(0, 1, 0.5, 0.1)
+    
 func shoot_charged() -> void:
     Syslog.info("%s says: I performed a charged shot!" % [master.name])
     charged_shot.emit()

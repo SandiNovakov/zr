@@ -7,7 +7,7 @@ func enter() -> void:
     Syslog.info('%s says: I dashed!' % [master.name])
     var dbg_flag: String
     
-    dash_dir = controller.get_move_dir(false)
+    dash_dir = controller.get_move_dir(false).normalized()
     dbg_flag = 'move_dir'
     
     if dash_dir == Vector2.ZERO:
@@ -30,6 +30,9 @@ func enter() -> void:
     dash_timer.start()
     
     master.disable_shooting()
+    
+    Input.start_joy_vibration(0, 0.5, 0, 0.1)
+
     
 func physics_update(delta: float) -> void:
     master.move(controller.get_move_dir())

@@ -5,10 +5,13 @@ var current_charge_time: float = 0
 func enter() -> void:
     current_charge_time = 0
     master.invalidate_charge.connect(on_invalidate_charge)
+    Input.start_joy_vibration(0, 0.05, 0)
+
     
 func physics_update(delta: float) -> void:      
     if not controller.is_shoot():
         Syslog.info("%s stopped charging!" % [master.master.name])
+        master.shoot()
         state_machine.request_state_change($"../Idle")
     
     current_charge_time += delta
@@ -22,3 +25,4 @@ func on_invalidate_charge() -> void:
 
 func exit() -> void:
     master.invalidate_charge.disconnect(on_invalidate_charge)
+    Input.stop_joy_vibration(0)
