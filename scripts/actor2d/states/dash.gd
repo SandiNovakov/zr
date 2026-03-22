@@ -8,7 +8,7 @@ func enter() -> void:
     
     var dbg_flag: String
     
-    dash_dir = controller.get_move_dir()
+    dash_dir = controller.get_move_dir(false)
     dbg_flag = 'move_dir'
     
     if dash_dir == Vector2.ZERO:

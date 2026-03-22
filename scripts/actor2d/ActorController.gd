@@ -1,9 +1,6 @@
 extends Node
 class_name ActorController
 
-var move_dir: Vector2
-var look_dir: Vector2
-
 @onready var master: Actor2D = get_parent()
 
 func is_dash() -> bool:
@@ -17,8 +14,12 @@ func get_action_buffered(action: StringName) -> bool:
         return true
     return false  
 
-func get_move_dir() -> Vector2:
-    return Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
+func get_move_dir(allow_slow: bool = true) -> Vector2:
+    var move_dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
+    if allow_slow and Input.is_action_pressed("slow"):
+        move_dir *= 0.5
+    
+    return move_dir
 
 func get_look_dir() -> Vector2:
     match InputDeviceManager.current_input_device:
