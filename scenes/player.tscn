@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ccl8najixufmd"]
 
 [ext_resource type="Script" uid="uid://b3704tgoj3qq4" path="res://scripts/actor2d/Actor2D.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/statemachine/StateMachine.gd" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://simpleSpace_tilesheet.png" id="2_tuyoq"]
+[ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bl7omt8xh82is" path="res://simpleSpace_tilesheet.png" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://bcxus6gqq1243" path="res://scripts/actor2d/ActorController.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scenes/idle.gd" id="3_qlg0r"]
-[ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scenes/dash.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scripts/actor2d/states/idle.gd" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine")]
 script = ExtResource("1_g2els")
