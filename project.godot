@@ -21,6 +21,7 @@ LogUtility="*uid://b3gcc86r33uyl"
 InputBuffer="*uid://d0sfhvg1r8wna"
 InputDeviceManager="*uid://bsu1562weehca"
 CoreConfig="*uid://ddrcx64e43cn"
+RumbleController="*uid://bhauvwib6f2y8"
 
 [debug]
 

@@ -2,11 +2,14 @@ extends WeaponState
 
 var current_charge_time: float = 0
 var vfx: Node2D
+var rumble_handle: String
 
 func enter() -> void:
     current_charge_time = 0
     master.invalidate_charge.connect(on_invalidate_charge)
-    Input.start_joy_vibration(0, 0.05, 0)
+    
+    #Input.start_joy_vibration(0, 0.05, 0)
+    rumble_handle = RumbleController.start(0.05, 0)
     
     vfx = master.weapon.charging_vfx.instantiate()
     
@@ -30,5 +33,8 @@ func on_invalidate_charge() -> void:
 
 func exit() -> void:
     master.invalidate_charge.disconnect(on_invalidate_charge)
-    Input.stop_joy_vibration(0)
+    
+    #Input.stop_joy_vibration(0)
+    RumbleController.end(rumble_handle)
+    
     master.stop_vfx(vfx)
