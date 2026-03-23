@@ -7,7 +7,7 @@ func enter() -> void:
     Syslog.info('%s says: I dashed!' % [master.name])
     var dbg_flag: String
     
-    dash_dir = controller.get_move_dir(false).normalized()
+    dash_dir = controller.get_move_dir().normalized()
     dbg_flag = 'move_dir'
     
     if dash_dir == Vector2.ZERO:

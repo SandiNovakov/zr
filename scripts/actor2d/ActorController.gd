@@ -16,7 +16,7 @@ func is_dash() -> bool:
 func get_action_buffered(action: StringName) -> bool:
     Syslog.warning('Used deprecated function ActorController.get_action_buffered()! See code for more details.')
     #ActorController will eventually be replaced with a generic version of the controller that will allow us to
-    #give instructions based on ai, not just player input, so any functions to do with input will have to be done away with for now.
+    #give instructionsssssad based on ai, not just player input, so any functions to do with input will have to be done away with for now.
     
     return InputBuffer.is_action_press_buffered(action)
 

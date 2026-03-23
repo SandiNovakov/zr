@@ -43,6 +43,15 @@ func shoot() -> void:
     
     Input.start_joy_vibration(0, 1, 0.5, 0.1)
     
+    var bullet: Bullet = weapon.bullet.instantiate()
+    bullet.global_position = shot_origin.global_position
+    bullet.direction = Vector2.from_angle(shot_origin.global_rotation)
+    bullet.speed = 1500
+    bullet.damage = weapon.damage
+    
+    add_child(bullet)
+    bullet.set_as_top_level(true)
+    
 func shoot_charged() -> void:
     Syslog.info("%s says: I performed a charged shot!" % [master.name])
     charged_shot.emit()

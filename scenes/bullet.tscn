@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cyci24154tn4i"]
+
+[ext_resource type="Script" uid="uid://dqdnc6hljsiwp" path="res://Bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://bl7omt8xh82is" path="res://simpleSpace_tilesheet.png" id="2_l5glv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
+radius = 6.3245554
+
+[node name="Bullet" type="Area2D" unique_id=93633230]
+script = ExtResource("1_y25gk")
+metadata/_custom_type_script = "uid://dqdnc6hljsiwp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=135057820]
+shape = SubResource("CircleShape2D_eoqba")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2145227657]
+modulate = Color(1, 0.54509807, 0.015686275, 1)
+texture = ExtResource("2_l5glv")
+hframes = 8
+vframes = 6
+frame = 28

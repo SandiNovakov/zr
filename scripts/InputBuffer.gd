@@ -4,7 +4,6 @@ var buffer_time: float = 9.0/60.0
 var actions: Array
 
 func _unhandled_input(event: InputEvent) -> void:
-    
     for action in InputMap.get_actions():
         if Input.is_action_just_pressed(action):
             var found: bool = false
