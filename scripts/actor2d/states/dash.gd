@@ -31,7 +31,8 @@ func enter() -> void:
     
     master.disable_shooting()
     
-    Input.start_joy_vibration(0, 0.5, 0, 0.1)
+    #Input.start_joy_vibration(0, 0.5, 0, 0.1)
+    RumbleController.add(0.5, 0, 0.1)
 
     
 func physics_update(delta: float) -> void:

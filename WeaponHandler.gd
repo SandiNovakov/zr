@@ -41,7 +41,8 @@ func shoot() -> void:
     last_shot_timestamp = Time.get_ticks_usec()
     Syslog.info("%s says: I shot my weapon!" % [master.name])
     
-    Input.start_joy_vibration(0, 1, 0, 0.1)
+    #Input.start_joy_vibration(0, 1, 0, 0.1)
+    RumbleController.add(1, 0, 0.1)
     
     var bullet: Bullet = weapon.bullet.instantiate()
     _spawn_bullet(bullet)
