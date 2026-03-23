@@ -25,6 +25,6 @@ func on_invalidate_charge() -> void:
 func exit() -> void:
     master.invalidate_charge.disconnect(on_invalidate_charge)
     Input.stop_joy_vibration(0)
-    Input.start_joy_vibration(0, 1, 1, 0.25)
+    Input.start_joy_vibration(0, 1, 0.5, 0.25)
     
     master.stop_vfx(vfx)

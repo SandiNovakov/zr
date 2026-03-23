@@ -10,8 +10,18 @@ func _ready() -> void:
     pass
 "
 
+[sub_resource type="Environment" id="Environment_0wfyh"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.5
+glow_hdr_threshold = 0.0
+
 [node name="Main" type="Node" unique_id=743749111]
 script = SubResource("GDScript_sgp6g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=591433863]
+environment = SubResource("Environment_0wfyh")
 
 [node name="Node" type="Node" parent="." unique_id=1795668027]
 script = ExtResource("1_o5qli")
