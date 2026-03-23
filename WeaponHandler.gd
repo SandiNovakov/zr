@@ -44,6 +44,15 @@ func shoot() -> void:
     Input.start_joy_vibration(0, 1, 0.5, 0.1)
     
     var bullet: Bullet = weapon.bullet.instantiate()
+    _spawn_bullet(bullet)
+    
+func shoot_charged() -> void:
+    Syslog.info("%s says: I performed a charged shot!" % [master.name])
+    charged_shot.emit()
+    var bullet: Bullet = weapon.charge_bullet.instantiate()
+    _spawn_bullet(bullet)
+
+func _spawn_bullet(bullet: Bullet) -> void:
     bullet.global_position = shot_origin.global_position
     bullet.direction = Vector2.from_angle(shot_origin.global_rotation)
     bullet.speed = 1500
@@ -51,7 +60,9 @@ func shoot() -> void:
     
     add_child(bullet)
     bullet.set_as_top_level(true)
-    
-func shoot_charged() -> void:
-    Syslog.info("%s says: I performed a charged shot!" % [master.name])
-    charged_shot.emit()
+
+func start_vfx(vfx: Node2D) -> void:
+    shot_origin.add_child(vfx)
+
+func stop_vfx(vfx: Node2D) -> void:
+    vfx.queue_free()

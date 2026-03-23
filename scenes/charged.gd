@@ -1,9 +1,14 @@
 extends WeaponState
 
+var vfx: Node2D
+
 func enter() -> void:
     master.invalidate_charge.connect(on_invalidate_charge)
     Input.start_joy_vibration(0, 0.1, 0.1)
+    vfx = master.weapon.charged_vfx.instantiate()
 
+    
+    master.start_vfx(vfx)
 
 func physics_update(delta: float) -> void:   
     if not controller.is_shoot() and master.allow_shoot:
@@ -21,3 +26,5 @@ func exit() -> void:
     master.invalidate_charge.disconnect(on_invalidate_charge)
     Input.stop_joy_vibration(0)
     Input.start_joy_vibration(0, 1, 1, 0.25)
+    
+    master.stop_vfx(vfx)

@@ -7,6 +7,7 @@
 radius = 6.3245554
 
 [node name="Bullet" type="Area2D" unique_id=93633230]
+z_index = -4096
 script = ExtResource("1_y25gk")
 metadata/_custom_type_script = "uid://dqdnc6hljsiwp"
 

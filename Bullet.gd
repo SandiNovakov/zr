@@ -5,6 +5,8 @@ var damage: int
 var speed: int
 var direction: Vector2
 
+var lifetime: float = 25
+
 func _ready() -> void:
     if damage == null:
         Syslog.warning("Origin: %s, damage isn't initialized." % [self])
@@ -18,6 +20,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     position += direction * speed * delta
+
+    lifetime -= delta
+    if lifetime <= 0:
+        Syslog.info("bullet %s lifetime expired." % [self])
+        queue_free()
 
 func on_body_entered(body: Node2D) -> void:
     Syslog.info("bullet %s collided with body: %s" % [self, body.name])

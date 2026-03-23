@@ -15,3 +15,6 @@ class_name WeaponData
 @export var charge_damage: int
 @export_range(0, 10, 0.1)var charge_recovery_time: float
 @export var charged_shot_recoil: int
+
+@export var charging_vfx: PackedScene
+@export var charged_vfx: PackedScene

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cvhnp2ajpe8cx"]
+
+[ext_resource type="Texture2D" uid="uid://bl7omt8xh82is" path="res://simpleSpace_tilesheet.png" id="1_comp1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_comp1"]
+atlas = ExtResource("1_comp1")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o25mt"]
+atlas = ExtResource("1_comp1")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qngd3"]
+atlas = ExtResource("1_comp1")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gji7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_comp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o25mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qngd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qngd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o25mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_comp1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_comp1"]
+script/source = "extends AnimatedSprite2D
+
+func _ready() -> void:
+    play(\"default\")
+"
+
+[node name="charging_vfx" type="AnimatedSprite2D" unique_id=1200617565]
+modulate = Color(1, 0.53333336, 0, 1)
+z_index = -4096
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_gji7r")
+frame_progress = 0.62784445
+script = SubResource("GDScript_comp1")

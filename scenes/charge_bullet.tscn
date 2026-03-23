@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://djyvosr140cjt"]
+
+[ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet.tscn" id="1_t56pl"]
+
+[node name="ChargeBullet" unique_id=93633230 instance=ExtResource("1_t56pl")]
+
+[node name="Sprite2D" parent="." index="1" unique_id=2145227657]
+modulate = Color(0.01999998, 0.755, 1, 1)
+frame = 26

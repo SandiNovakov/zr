@@ -5,9 +5,9 @@ class_name Actor2D
 @export var state_machine: StateMachine
 @export var weapon_handler: WeaponHandler
 
-var speed: int = 750
-var acceleration: int = speed/6
-var dash_duration: float = 0.3
+@export var speed: int = 750
+@export var acceleration: int = speed/6
+@export var dash_duration: float = 0.3
 var turn_speed := 2 * PI / 0.3 #roughly 300ms to make full circle
 
 func move(move_dir: Vector2) -> void:
