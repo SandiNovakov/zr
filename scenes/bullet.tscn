@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyci24154tn4i"]
 
-[ext_resource type="Script" uid="uid://dqdnc6hljsiwp" path="res://Bullet.gd" id="1_y25gk"]
-[ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://simpleSpace_tilesheet.png" id="2_l5glv"]
+[ext_resource type="Script" uid="uid://dqdnc6hljsiwp" path="res://scripts/weapon-handler/Bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://bl7omt8xh82is" path="res://simpleSpace_tilesheet.png" id="2_l5glv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
 radius = 6.3245554
