@@ -28,31 +28,42 @@ enum LogDestination {PRINT, PRINT_RICH, LOG_FILE, HTML_FILE}
 @export var info_color: Color = Color("#6ecbff")
 @export var debug_color: Color = Color("#9aa0a6")
 
+func get_log_level() -> LogLevel:
+    return log_level
 
-## DEPRECATED vars in question:
-var ENABLE_DEBUG_DEBUG_MESSAGES: bool = fake_debug_messages
-var LOG_LEVEL: LogLevel = log_level
+func get_log_color(level: LogLevel) -> String:
+    match level:
+        LogLevel.ERROR:
+            return "#" + error_color.to_html()
+        LogLevel.WARNING:
+            return "#" + warning_color.to_html()
+        LogLevel.INFO:
+            return "#" + info_color.to_html()
+        LogLevel.DEBUG:
+            return "#" + debug_color.to_html()
+        _:
+            return ""
 
+func get_log_level_string(level: LogLevel) -> String:
+    match level:
+        LogLevel.ERROR:
+            return "  [ERROR]"
+        LogLevel.WARNING:
+            return "[WARNING]"
+        LogLevel.INFO:
+            return "   [INFO]"
+        LogLevel.DEBUG:
+            return "  [DEBUG]"
+        _:
+            return ""
+    
+func get_active_log_destinations() -> Dictionary:
+    return {
+        LogDestination.PRINT: log_to_print,
+        LogDestination.PRINT_RICH: log_to_print_rich,
+        LogDestination.LOG_FILE: log_to_text_file,
+        LogDestination.HTML_FILE: log_to_html_file
+    }
 
-### MAPS ###
-## Active log destinations
-var LOG_DESTINATIONS := {
-    LogDestination.PRINT: log_to_print,
-    LogDestination.PRINT_RICH: log_to_print_rich,
-    LogDestination.LOG_FILE: log_to_text_file,
-    LogDestination.HTML_FILE: log_to_html_file
-}
-
-const LOG_LEVEL_MAP := {
-    LogLevel.ERROR: "  [ERROR]",
-    LogLevel.WARNING: "[WARNING]",
-    LogLevel.INFO: "   [INFO]",
-    LogLevel.DEBUG: "  [DEBUG]",
-}
-
-@onready var LOG_LEVEL_COLOR_MAP := {
-    LogLevel.ERROR: "#" + error_color.to_html(),
-    LogLevel.WARNING: "#" + warning_color.to_html(),
-    LogLevel.INFO: "#" + info_color.to_html(),
-    LogLevel.DEBUG: "#" + debug_color.to_html(),
-}
+func get_fake_debug_messages_enabled() -> bool:
+    return fake_debug_messages
