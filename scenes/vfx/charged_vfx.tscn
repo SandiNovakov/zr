@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://brb31qrl3tkic"]
 
-[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/charging_vfx.tscn" id="1_urb53"]
+[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/charging_vfx.tscn" id="1_urb53"]
 
 [node name="charging_vfx" unique_id=1200617565 instance=ExtResource("1_urb53")]
 modulate = Color(0, 0.7166667, 1, 1)

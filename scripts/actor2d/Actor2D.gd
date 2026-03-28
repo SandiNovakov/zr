@@ -38,4 +38,4 @@ func disable_shooting() -> void:
 
 func invalidate_charges() -> void:
     Syslog.debug("%s invalidated all charges!" % [self.name])
-    weapon_handler.invalidate_charge.emit
+    weapon_handler.invalidate_charge.emit()

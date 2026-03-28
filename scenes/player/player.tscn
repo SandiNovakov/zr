@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" uid="uid://b3704tgoj3qq4" path="res://scripts/actor2d/Actor2D.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://bl7omt8xh82is" path="res://simpleSpace_tilesheet.png" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://assets/img/simpleSpace_tilesheet.png" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://bcxus6gqq1243" path="res://scripts/actor2d/ActorController.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scripts/actor2d/states/idle.gd" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://wpfnk3a8x282" path="res://scripts/actor2d/states/charged_shot_recoil.gd" id="6_smehm"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/weapon_handler.tscn" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://fy2kx1pmjlsi" path="res://scripts/weapon-handler/WeaponData.gd" id="9_ur7pv"]
-[ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet.tscn" id="9_y4r1p"]
-[ext_resource type="PackedScene" uid="uid://djyvosr140cjt" path="res://scenes/charge_bullet.tscn" id="10_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://brb31qrl3tkic" path="res://scenes/charged_vfx.tscn" id="11_jej6c"]
-[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/charging_vfx.tscn" id="12_f1ej7"]
+[ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="9_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://djyvosr140cjt" path="res://scenes/bullet/charge_bullet.tscn" id="10_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://brb31qrl3tkic" path="res://scenes/vfx/charged_vfx.tscn" id="11_jej6c"]
+[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/charging_vfx.tscn" id="12_f1ej7"]
 
 [sub_resource type="Resource" id="Resource_y4r1p"]
 script = ExtResource("9_ur7pv")

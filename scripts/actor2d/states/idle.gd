@@ -1,7 +1,6 @@
 extends ActorState
 
 func enter() -> void:
-    Syslog.info('%s says: I\'m free~!' % [master.name])
     master.weapon_handler.charged_shot.connect(on_charged_shot)
 
 func physics_update(delta: float) -> void:

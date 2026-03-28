@@ -23,9 +23,9 @@ func _physics_process(delta: float) -> void:
 
     lifetime -= delta
     if lifetime <= 0:
-        Syslog.info("bullet %s lifetime expired." % [self])
+        Syslog.debug("bullet %s lifetime expired." % [self])
         queue_free()
 
 func on_body_entered(body: Node2D) -> void:
-    Syslog.info("bullet %s collided with body: %s" % [self, body.name])
+    Syslog.debug("bullet %s collided with body: %s" % [self, body.name])
     queue_free()

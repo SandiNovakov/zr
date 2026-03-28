@@ -22,5 +22,4 @@ func physics_update(delta: float) -> void:
             time_shoot_is_held = 0
         
         if time_shoot_is_held >= master.time_until_charging:
-            Syslog.info("%s began charging weapon!" % [master.master.name])
             state_machine.request_state_change($"../Charging") #will generate warning, ignore for now.
