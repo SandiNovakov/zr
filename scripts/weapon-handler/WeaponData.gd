@@ -5,6 +5,7 @@ class_name WeaponData
 @export_category("Weapon")
 @export var bullet_vfx: PackedScene
 @export var bullet: PackedScene
+@export var bullet_speed: int
 @export var charge_bullet: PackedScene
 @export var fire_rate: int # shots/sec
 @export var damage: int

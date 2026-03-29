@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://wpfnk3a8x282" path="res://scripts/actor2d/states/charged_shot_recoil.gd" id="6_smehm"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/weapon_handler.tscn" id="7_fjrip"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
-[ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handler")]
 script = ExtResource("1_g2els")
@@ -25,7 +24,7 @@ rotation = 1.5707964
 texture = ExtResource("2_tuyoq")
 hframes = 8
 vframes = 6
-frame = 17
+frame = 4
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1876382094]
 
@@ -54,18 +53,12 @@ metadata/_custom_type_script = "uid://bcxus6gqq1243"
 
 [node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("7_fjrip")]
 controller = NodePath("../ActorController")
-shoot_action = &"shoot_right"
+shoot_action = &"ShootRight"
 weapon = ExtResource("9_5gtgg")
 shot_origin = NodePath("../BulletOriginRight")
 
-[node name="WeaponHandler2" parent="." unique_id=356521293 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("7_fjrip")]
-controller = NodePath("../ActorController")
-shoot_action = &"shoot_left"
-weapon = ExtResource("10_h17s1")
-shot_origin = NodePath("../BulletOriginLeft")
-
 [node name="BulletOriginRight" type="Marker2D" parent="." unique_id=452897967]
-position = Vector2(-7, 15)
+position = Vector2(3, 10)
 
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
-position = Vector2(-7, -15)
+position = Vector2(3, -10)

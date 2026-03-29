@@ -3,10 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="1_t56pl"]
 [ext_resource type="Texture2D" uid="uid://0leejlyq8k2p" path="res://assets/img/simpleSpace_tilesheet@2.png" id="2_fssq4"]
 
-[sub_resource type="Gradient" id="Gradient_jkjnd"]
-offsets = PackedFloat32Array(0, 0.51341, 1)
-colors = PackedColorArray(0.8392157, 0.93333334, 1, 1, 0, 0.6833334, 1, 0.49803922, 0, 0, 0, 0)
-
 [node name="ChargeBullet" unique_id=93633230 instance=ExtResource("1_t56pl")]
 
 [node name="Sprite2D" parent="." index="1" unique_id=2145227657]
@@ -15,7 +11,6 @@ texture = ExtResource("2_fssq4")
 
 [node name="Trail2D" parent="." index="2" unique_id=1520931933]
 width = 20.0
-gradient = SubResource("Gradient_jkjnd")
 max_length = 10
 color_start = 2
 color_middle = 4

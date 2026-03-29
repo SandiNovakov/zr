@@ -25,7 +25,7 @@ rotation = 1.5707964
 texture = ExtResource("2_tuyoq")
 hframes = 8
 vframes = 6
-frame = 17
+frame = 4
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1876382094]
 
@@ -65,7 +65,7 @@ weapon = ExtResource("10_h17s1")
 shot_origin = NodePath("../BulletOriginLeft")
 
 [node name="BulletOriginRight" type="Marker2D" parent="." unique_id=452897967]
-position = Vector2(-7, 15)
+position = Vector2(3, 10)
 
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
-position = Vector2(-7, -15)
+position = Vector2(3, -10)

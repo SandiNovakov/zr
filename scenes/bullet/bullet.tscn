@@ -5,11 +5,7 @@
 [ext_resource type="Script" uid="uid://bxwew27e8r0px" path="res://scripts/trail2D.gd" id="3_c6pnf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
-radius = 6.3245554
-
-[sub_resource type="Gradient" id="Gradient_c6pnf"]
-offsets = PackedFloat32Array(0, 0.51341, 1)
-colors = PackedColorArray(1, 0.94509804, 0.8392157, 1, 1, 0.65, 0, 0.49803922, 0, 0, 0, 0)
+radius = 4.0
 
 [node name="Bullet" type="Area2D" unique_id=93633230]
 z_index = -4096
@@ -27,7 +23,6 @@ vframes = 6
 frame = 28
 
 [node name="Trail2D" type="Line2D" parent="." unique_id=1520931933]
-gradient = SubResource("Gradient_c6pnf")
 script = ExtResource("3_c6pnf")
 max_length = 5
 use_gradient = true

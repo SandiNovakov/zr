@@ -7,13 +7,13 @@ func enter() -> void:
     master.invalidate_charge.connect(on_invalidate_charge)
     
     #Input.start_joy_vibration(0, 0.1, 0.1)
-    rumble_handle = RumbleController.start(0.1, 0.1)
+    rumble_handle = RumbleController.start(0.25, 0)
     
     vfx = master.weapon.charged_vfx.instantiate()
     master.start_vfx(vfx)
 
 func physics_update(delta: float) -> void:   
-    if not controller.is_shoot() and master.allow_shoot:
+    if not controller.is_shoot(master.shoot_action) and master.allow_shoot:
         master.shoot_charged()
         
         # just in case something goes wrong in the pipeline, weapons will stay disabled.
@@ -30,6 +30,6 @@ func exit() -> void:
     #Input.start_joy_vibration(0, 1, 0.5, 0.25)
     
     RumbleController.end(rumble_handle)
-    RumbleController.add(1, 0.5, 0.25)
+    RumbleController.add(1, 0, 0.25)
     
     master.stop_vfx(vfx)

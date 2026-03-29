@@ -17,7 +17,7 @@ func enter() -> void:
 
     
 func physics_update(delta: float) -> void:      
-    if not controller.is_shoot():
+    if not controller.is_shoot(master.shoot_action):
         master.shoot()
         state_machine.request_state_change($"../Idle")
     

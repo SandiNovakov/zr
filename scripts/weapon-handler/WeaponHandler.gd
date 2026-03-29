@@ -3,11 +3,12 @@ class_name WeaponHandler
 
 @onready var master: Actor2D = get_parent()
 @export var controller: ActorController
+@export var shoot_action: StringName
 
-@export_category("Handler")
 @export var weapon: WeaponData
 @export var shot_origin: Marker2D
-    
+
+## Only used for player characters    
 var time_until_charging: float = 0.3
 var last_shot_timestamp: int = 0
 
@@ -27,6 +28,7 @@ func _can_shoot() -> bool:
         return false
     
     var shot_delay: float = 1.0 / max(weapon.fire_rate, 1) #in seconds. max for divide by zero safety
+    @warning_ignore("narrowing_conversion")
     var shot_delay_usec: int = Util.to_usec(shot_delay)
     
     if Time.get_ticks_usec() - last_shot_timestamp >= shot_delay_usec:
@@ -41,7 +43,7 @@ func shoot() -> void:
     last_shot_timestamp = Time.get_ticks_usec()
     
     #Input.start_joy_vibration(0, 1, 0, 0.1)
-    RumbleController.add(1, 0, 0.1)
+    RumbleController.add(0.5, 0, 0.1)
     
     var bullet: Bullet = weapon.bullet.instantiate()
     _spawn_bullet(bullet)
@@ -54,7 +56,7 @@ func shoot_charged() -> void:
 func _spawn_bullet(bullet: Bullet) -> void:
     bullet.global_position = shot_origin.global_position
     bullet.direction = Vector2.from_angle(shot_origin.global_rotation)
-    bullet.speed = 1500
+    bullet.speed = weapon.bullet_speed
     bullet.damage = weapon.damage
     
     add_child(bullet)

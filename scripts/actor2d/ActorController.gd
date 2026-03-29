@@ -3,12 +3,12 @@ class_name ActorController
 
 @onready var master: Actor2D = get_parent()
 
-func is_shoot_once() -> bool:
+func is_shoot_once(shoot_action: StringName) -> bool:
     #return InputBuffer.is_action_press_buffered(&"shoot")
-    return InputBuffer.is_action_press_buffered(&"shoot")
+    return InputBuffer.is_action_press_buffered(shoot_action)
 
-func is_shoot() -> bool:
-    return Input.is_action_pressed(&"shoot")
+func is_shoot(shoot_action: StringName) -> bool:
+    return Input.is_action_pressed(shoot_action)
 
 func is_dash() -> bool:
     return InputBuffer.is_action_press_buffered(&"dash")

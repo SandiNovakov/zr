@@ -29,13 +29,17 @@ func _ready() -> void:
     top_level = true
     
     if use_gradient:
-        
-        if not gradient:
-            gradient = Gradient.new()
 
-        gradient.add_point(0, Util.nvl(Pallete.get_color(color_start), default_color_start))
-        gradient.add_point(0.5, Util.nvl(Pallete.get_color(color_middle), default_color_middle))
-        gradient.add_point(1, Util.nvl(Pallete.get_color(color_end), default_color_end))
+        var gradient_data := {
+            0.0: Util.nvl(Pallete.get_color(color_start), default_color_start),
+            0.5: Util.nvl(Pallete.get_color(color_middle), default_color_middle),
+            1.0: Util.nvl(Pallete.get_color(color_end), default_color_end)
+        }
+
+        gradient = Gradient.new()
+        gradient.offsets = gradient_data.keys()
+        gradient.colors = gradient_data.values() 
+
 
 func _physics_process(delta: float) -> void:
     queue.push_front(parent.position)

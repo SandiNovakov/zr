@@ -11,8 +11,9 @@
 script = ExtResource("6_h4keh")
 bullet_vfx = ExtResource("2_si1ga")
 bullet = ExtResource("1_rk576")
+bullet_speed = 1500
 charge_bullet = ExtResource("3_1n0fm")
-fire_rate = 12
+fire_rate = 5
 can_charge = true
 charge_time = 1.0
 charge_recovery_time = 0.3

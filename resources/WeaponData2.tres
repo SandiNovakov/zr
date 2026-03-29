@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bm25s2w4k42r"]
+
+[ext_resource type="PackedScene" uid="uid://euydg63tp65l" path="res://scenes/bullet/bullet_auto.tscn" id="1_hol8a"]
+[ext_resource type="PackedScene" uid="uid://5fvkrrg2poip" path="res://scenes/vfx/bullet_vfx.tscn" id="2_eqfkl"]
+[ext_resource type="PackedScene" uid="uid://djyvosr140cjt" path="res://scenes/bullet/charge_bullet.tscn" id="3_xqfva"]
+[ext_resource type="Script" uid="uid://fy2kx1pmjlsi" path="res://scripts/weapon-handler/WeaponData.gd" id="6_hxxkr"]
+
+[resource]
+script = ExtResource("6_hxxkr")
+bullet_vfx = ExtResource("2_eqfkl")
+bullet = ExtResource("1_hol8a")
+bullet_speed = 1500
+charge_bullet = ExtResource("3_xqfva")
+fire_rate = 7
+automatic = true
+metadata/_custom_type_script = "uid://fy2kx1pmjlsi"
