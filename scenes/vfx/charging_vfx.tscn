@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cvhnp2ajpe8cx"]
 
 [ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://assets/img/simpleSpace_tilesheet.png" id="1_comp1"]
+[ext_resource type="Script" uid="uid://ba1jmpttjrd23" path="res://ModulateFlasher.gd" id="2_wfiq5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_comp1"]
 atlas = ExtResource("1_comp1")
@@ -43,8 +44,12 @@ animations = [{
 [sub_resource type="GDScript" id="GDScript_comp1"]
 script/source = "extends AnimatedSprite2D
 
+@export var color: Pallete.Colors
+
 func _ready() -> void:
     play(\"default\")
+    if color:
+        modulate = Pallete.get_color(color)
 "
 
 [node name="charging_vfx" type="AnimatedSprite2D" unique_id=1200617565]
@@ -54,3 +59,14 @@ scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gji7r")
 frame_progress = 0.62784445
 script = SubResource("GDScript_comp1")
+color = 1
+
+[node name="ModulateFlasher" type="Node" parent="." unique_id=965494691]
+script = ExtResource("2_wfiq5")
+enabled = true
+color_1 = 1
+color_2 = 3
+flash_speed = 0.1
+transition = 7
+easing = 2
+metadata/_custom_type_script = "uid://ba1jmpttjrd23"

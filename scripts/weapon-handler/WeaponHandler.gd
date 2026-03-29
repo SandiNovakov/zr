@@ -59,9 +59,21 @@ func _spawn_bullet(bullet: Bullet) -> void:
     
     add_child(bullet)
     bullet.set_as_top_level(true)
+    
+    var vfx: Node2D = weapon.bullet_vfx.instantiate()
+    add_vfx(vfx)
+
+## Same as start_vfx but better communicates that this for vfx which free themselves.
+func add_vfx(vfx: Node2D) -> void:
+    shot_origin.add_child(vfx)
 
 func start_vfx(vfx: Node2D) -> void:
     shot_origin.add_child(vfx)
 
 func stop_vfx(vfx: Node2D) -> void:
-    vfx.queue_free()
+    if vfx is GPUParticles2D or vfx is CPUParticles2D:
+        vfx.emitting = false
+        await vfx.finished
+        vfx.queue_free()
+    else:
+        vfx.queue_free()

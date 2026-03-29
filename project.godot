@@ -22,6 +22,7 @@ InputBuffer="*uid://d0sfhvg1r8wna"
 InputDeviceManager="*uid://bsu1562weehca"
 CoreConfig="*uid://ddrcx64e43cn"
 RumbleController="*uid://bhauvwib6f2y8"
+Pallete="*uid://bcwpis2nkkbm0"
 
 [debug]
 
@@ -32,6 +33,13 @@ gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/integer_division=0
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/size/initial_position_type=3
 
 [input]
 
@@ -101,6 +109,8 @@ shoot={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
 
 [rendering]
 

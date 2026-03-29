@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dari45h4fdcu5"]
+
+[ext_resource type="Script" uid="uid://dqdnc6hljsiwp" path="res://scripts/weapon-handler/Bullet.gd" id="1_a8yxr"]
+[ext_resource type="Texture2D" uid="uid://yqcbaaluocr1" path="res://assets/img/particles/trace_01_rotated.png" id="3_eguw4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nq615"]
+radius = 2.0
+height = 36.0
+
+[node name="Bullet1" type="Area2D" unique_id=1073366812]
+modulate = Color(1.353256, 0.84549344, 0, 1)
+z_index = -4096
+script = ExtResource("1_a8yxr")
+metadata/_custom_type_script = "uid://dqdnc6hljsiwp"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=243305133]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_eguw4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=52951898]
+position = Vector2(19, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_nq615")

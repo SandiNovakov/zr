@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bcwpis2nkkbm0"]
+
+[ext_resource type="Script" uid="uid://dltwmfui2vq0b" path="res://pallete.gd" id="1_jl1yl"]
+
+[node name="Pallete" type="Node" unique_id=100671370]
+script = ExtResource("1_jl1yl")
+bullet_ballistic = Color(1, 0.94509804, 0.8392157, 1)
+charged_bullet_ballistic = Color(0.8392157, 0.93333334, 1, 1)
+bullet_ballistic_trail = Color(1, 0.6509804, 0, 1)
+charged_bullet_ballistic_trail = Color(0, 0.68235296, 1, 1)
+bullet_ballistic_trail_end = Color(1, 0.65, 0, 0)
+charged_bullet_ballistic_trail_end = Color(0, 0.6833334, 1, 0)
+player = Color(1, 1, 1, 1)
+enemy = Color(1, 0, 0, 1)

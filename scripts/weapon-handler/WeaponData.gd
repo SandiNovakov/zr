@@ -3,6 +3,7 @@ extends Resource
 class_name WeaponData
 
 @export_category("Weapon")
+@export var bullet_vfx: PackedScene
 @export var bullet: PackedScene
 @export var charge_bullet: PackedScene
 @export var fire_rate: int # shots/sec

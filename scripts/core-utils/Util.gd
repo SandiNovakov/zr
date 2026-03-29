@@ -39,11 +39,12 @@ static func to_msec(seconds: float) -> float:
 
 static func to_usec(seconds: float) -> float:
     return seconds * 1_000_000.0
-    
-    
-    
-    
-    
-    
-    
-    
+
+static func nvl(value: Variant, fallback: Variant) -> Variant:
+    return value if value != null else fallback
+
+static func has_property(obj: Object, prop_name: String) -> bool:
+    for p in obj.get_property_list():
+        if p.name == prop_name:
+            return true
+    return false

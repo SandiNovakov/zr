@@ -8,24 +8,7 @@
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://wpfnk3a8x282" path="res://scripts/actor2d/states/charged_shot_recoil.gd" id="6_smehm"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/weapon_handler.tscn" id="7_fjrip"]
-[ext_resource type="Script" uid="uid://fy2kx1pmjlsi" path="res://scripts/weapon-handler/WeaponData.gd" id="9_ur7pv"]
-[ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="9_y4r1p"]
-[ext_resource type="PackedScene" uid="uid://djyvosr140cjt" path="res://scenes/bullet/charge_bullet.tscn" id="10_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://brb31qrl3tkic" path="res://scenes/vfx/charged_vfx.tscn" id="11_jej6c"]
-[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/charging_vfx.tscn" id="12_f1ej7"]
-
-[sub_resource type="Resource" id="Resource_y4r1p"]
-script = ExtResource("9_ur7pv")
-bullet = ExtResource("9_y4r1p")
-charge_bullet = ExtResource("10_d2wvv")
-fire_rate = 12
-can_charge = true
-charge_time = 1.0
-charge_recovery_time = 0.3
-charged_shot_recoil = 1500
-charging_vfx = ExtResource("12_f1ej7")
-charged_vfx = ExtResource("11_jej6c")
-metadata/_custom_type_script = "uid://fy2kx1pmjlsi"
+[ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handler")]
 script = ExtResource("1_g2els")
@@ -70,7 +53,7 @@ metadata/_custom_type_script = "uid://bcxus6gqq1243"
 
 [node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("7_fjrip")]
 controller = NodePath("../ActorController")
-weapon = SubResource("Resource_y4r1p")
+weapon = ExtResource("9_5gtgg")
 shot_origin = NodePath("../BulletOrigin")
 
 [node name="BulletOrigin" type="Marker2D" parent="." unique_id=452897967]
