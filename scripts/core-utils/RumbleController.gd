@@ -4,7 +4,6 @@ var id_serial: int = 0
 var rumble_weak_str: float = 0.0
 var rumble_strong_str: float = 0.0
 
-
 class Rumble:
     func _init(p_id: int, p_weak_str: float, p_strong_str: float, p_duration: float) -> void:
         id = str(p_id)
@@ -87,13 +86,13 @@ func _update_rumbles(delta: float) -> void:
 func _physics_process(delta: float) -> void:
     _update_rumbles(delta)
     
-    #if InputDeviceManager.current_input_device != InputDeviceManager.InputDevices.CONTROLLER:
-        #if Input.get_joy_vibration_strength(0) != Vector2.ZERO:
-            #Input.stop_joy_vibration(0)
-            #rumble_strong_str = 0
-            #rumble_weak_str = 0
-        #
-        #return
+    if InputDeviceManager.current_input_device != InputDeviceManager.InputDevices.CONTROLLER:
+        if Input.get_joy_vibration_strength(0) != Vector2.ZERO:
+            Input.stop_joy_vibration(0)
+            rumble_strong_str = 0
+            rumble_weak_str = 0
+        
+        return
     
     var max_strong_str: float = _get_max_strong()
     var max_weak_str: float = _get_max_weak()

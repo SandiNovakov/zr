@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://wpfnk3a8x282" path="res://scripts/actor2d/states/charged_shot_recoil.gd" id="6_smehm"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/weapon_handler.tscn" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://cw5l0fpkkh12a" path="res://scripts/actor2d/states/boost_charge.gd" id="7_je7p5"]
+[ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="8_fm80t"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 
@@ -16,7 +18,7 @@ script = ExtResource("1_g2els")
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handler = NodePath("WeaponHandler")
-dash_duration = 0.1
+boost_speed = 100
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638740608]
@@ -46,6 +48,14 @@ metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="ChargedShotRecoil" type="Node" parent="StateMachine" unique_id=190782318]
 script = ExtResource("6_smehm")
+metadata/_custom_type_script = "uid://b2bv12o52f4ur"
+
+[node name="BoostCharge" type="Node" parent="StateMachine" unique_id=1311578857]
+script = ExtResource("7_je7p5")
+metadata/_custom_type_script = "uid://b2bv12o52f4ur"
+
+[node name="Boost" type="Node" parent="StateMachine" unique_id=775871742]
+script = ExtResource("8_fm80t")
 metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="ActorController" type="Node" parent="." unique_id=327908448]

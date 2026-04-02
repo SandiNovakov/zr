@@ -23,7 +23,7 @@ func _ready() -> void:
     if weapon.automatic and weapon.can_charge:
         Syslog.warning("%s's Weapon %s is both automatic and chargeable. Automatic will take precedence and charging will be disabled." % [master.name, self.name])
 
-func _can_shoot() -> bool:  
+func can_shoot() -> bool:  
     if not allow_shoot:
         return false
     
@@ -37,8 +37,6 @@ func _can_shoot() -> bool:
     return false
     
 func shoot() -> void:
-    if not _can_shoot():
-        return
     
     last_shot_timestamp = Time.get_ticks_usec()
     

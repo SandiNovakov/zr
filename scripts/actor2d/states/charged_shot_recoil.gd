@@ -14,7 +14,7 @@ func enter() -> void:
     master.velocity = -Vector2.from_angle(master.rotation).normalized() * master.weapon_handler.weapon.charged_shot_recoil
     
 func physics_update(delta: float) -> void:
-    master.move(Vector2.ZERO)    
+    master.move(Vector2.ZERO)
 
 func on_inactive_timer_timeout() -> void:
     master.enable_shooting()
