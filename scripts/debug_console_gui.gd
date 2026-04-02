@@ -5,6 +5,9 @@ extends CanvasLayer
 @onready var input: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/LineEdit
 
 var is_open := false
+var history: Array = []
+var history_idx: int
+var previous_text: String
 
 func _ready() -> void:
     panel.visible = false
@@ -21,6 +24,35 @@ func _input(event: InputEvent) -> void:
     if input.has_focus() and event.is_action_pressed(&"ui_cancel"):
         input.clear()
         toggle_console()
+        
+    if input.has_focus() and event.is_action_pressed(&"ui_up"):
+        if history.size() == 0:
+            return
+        
+        var input_col: int = input.caret_column
+        if history_idx == null:
+            history_idx = history.size()
+        else:
+            history_idx = max(history_idx - 1, 0)
+        
+        input.text = history[history_idx]
+        input.caret_column = max(input_col, input.text.length())
+    
+    if input.has_focus() and event.is_action_pressed(&"ui_down"):
+        if history.size() == 0:
+            return
+        
+        if history_idx == history.size()-1:
+            return
+        
+        var input_col: int = input.caret_column
+        if history_idx == null:
+            history_idx = history.size()
+        else:
+            history_idx = min(history_idx + 1, history.size()-1)
+        
+        input.text = history[history_idx]
+        input.caret_column = max(input_col, input.text.length())
 
 func toggle_console() -> void:
     is_open = !is_open
@@ -33,12 +65,27 @@ func toggle_console() -> void:
         input.release_focus()
 
 func on_submit(text: String) -> void:
+    var args: Array = []
+    
     if input.text == "":
         return
+        
+    history.append(text)
+    history_idx = history.size()
+    
+    args = text.split(" ", false)
     
     input.clear()
-    var nullp: Variant = DebugConsole.execute_command(text)
     
+    
+    var nullp: Variant
+    
+    if args.size() > 1:
+        var command: String = args.pop_front() # the command will always be the first entry
+        nullp = DebugConsole.execute_command(command, args)
+    else:
+        nullp = DebugConsole.execute_command(text)
+        
     if nullp != null:
         var ret_msg: String = nullp
         show_message(ret_msg)
