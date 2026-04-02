@@ -11,6 +11,6 @@ bullet_vfx = ExtResource("2_eqfkl")
 bullet = ExtResource("1_hol8a")
 bullet_speed = 1500
 charge_bullet = ExtResource("3_xqfva")
-fire_rate = 7
+fire_rate = 12
 automatic = true
 metadata/_custom_type_script = "uid://fy2kx1pmjlsi"

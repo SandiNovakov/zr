@@ -12,13 +12,17 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed(&"toggle_console"):
-        open_console()
+        toggle_console()
         
     if input.has_focus() and event.is_action_pressed(&"ui_text_indent"):
         input.text = DebugConsole.get_autocomplete(input.text);
         input.caret_column = input.text.length()
+        
+    if input.has_focus() and event.is_action_pressed(&"ui_cancel"):
+        input.clear()
+        toggle_console()
 
-func open_console() -> void:
+func toggle_console() -> void:
     is_open = !is_open
     panel.visible = is_open
     input.clear()
@@ -29,6 +33,9 @@ func open_console() -> void:
         input.release_focus()
 
 func on_submit(text: String) -> void:
+    if input.text == "":
+        return
+    
     input.clear()
     var nullp: Variant = DebugConsole.execute_command(text)
     
@@ -54,9 +61,9 @@ func show_message(text: String) -> void:
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 
-    t.tween_interval(1.0)
+    t.tween_interval(1)
 
-    t.tween_property(msg, "modulate:a", 0.0, 1.5)\
+    t.tween_property(msg, "modulate:a", 0.0, 1.0)\
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 
