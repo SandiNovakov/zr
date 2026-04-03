@@ -26,6 +26,7 @@ Pallete="*uid://bcwpis2nkkbm0"
 DebugConsole="*uid://btlodihivktn5"
 DebugConsoleGui="*uid://bl8d2weiiw5bv"
 HotkeysManager="*uid://bfnqd55hvy76e"
+RingBuffer="*uid://cktsd4e0r3x5p"
 
 [debug]
 
@@ -34,7 +35,11 @@ gdscript/warnings/unused_local_constant=0
 gdscript/warnings/unused_private_class_variable=0
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
+gdscript/warnings/shadowed_variable=2
+gdscript/warnings/shadowed_variable_base_class=2
+gdscript/warnings/shadowed_global_identifier=2
 gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
 gdscript/warnings/integer_division=0
 gdscript/warnings/narrowing_conversion=0
 

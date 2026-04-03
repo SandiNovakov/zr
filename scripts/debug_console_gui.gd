@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var panel: PanelContainer = $PanelContainer
 @onready var container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer
 @onready var input: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/LineEdit
+@onready var fps: Label = $FpsMarginContainer/FpsLabel
 
 var is_open := false
 var history: Array = []
@@ -14,11 +15,15 @@ func _ready() -> void:
     input.text_submitted.connect(on_submit)
 
 func _input(event: InputEvent) -> void:
+    
     if event.is_action_pressed(&"toggle_console"):
         toggle_console()
         
     if input.has_focus() and event.is_action_pressed(&"ui_text_indent"):
-        input.text = DebugConsole.get_autocomplete(input.text);
+        input.text = DebugConsole.get_autocomplete(input.text.trim_suffix(" "))
+        if input.text != "" and Callable(DebugConsole, input.text).get_argument_count() > 0:
+            input.text += " "
+        
         input.caret_column = input.text.length()
         
     if input.has_focus() and event.is_action_pressed(&"ui_cancel"):
@@ -36,7 +41,7 @@ func _input(event: InputEvent) -> void:
             history_idx = max(history_idx - 1, 0)
         
         input.text = history[history_idx]
-        input.caret_column = max(input_col, input.text.length())
+        input.caret_column = min(input_col, input.text.length())
     
     if input.has_focus() and event.is_action_pressed(&"ui_down"):
         if history.size() == 0:
@@ -52,7 +57,7 @@ func _input(event: InputEvent) -> void:
             history_idx = min(history_idx + 1, history.size()-1)
         
         input.text = history[history_idx]
-        input.caret_column = max(input_col, input.text.length())
+        input.caret_column = min(input_col, input.text.length())
 
 func toggle_console() -> void:
     is_open = !is_open
@@ -67,8 +72,10 @@ func toggle_console() -> void:
 func on_submit(text: String) -> void:
     var args: Array = []
     
-    if input.text == "":
+    if text == "":
         return
+    
+    text = text.trim_suffix(" ")
         
     history.append(text)
     history_idx = history.size()

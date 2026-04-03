@@ -5,7 +5,7 @@ var damage: int
 var speed: int
 var direction: Vector2
 
-var lifetime: float = 25
+var lifetime: float = 10
 
 func _ready() -> void:
     if damage == null:

@@ -3,7 +3,7 @@ class_name Actor2D
 
 @export var controller: ActorController
 @export var state_machine: StateMachine
-@export var weapon_handler: WeaponHandler
+@export var weapon_handlers: Array[WeaponHandler]
 
 @export var speed: int = 750
 @export var acceleration: int = speed/6
@@ -14,6 +14,15 @@ class_name Actor2D
 
 var turn_speed: float = 2 * PI / 0.3 #300ms to make full circle
 var boost_turn_speed: float = 2 * PI / 0.1 #half as fast as turn_speed.
+
+var allow_shoot: bool = true
+var charged_shot_recovery_time: float = 0.3
+
+signal charged_shot(handler: WeaponHandler)
+
+func _ready() -> void:
+    for handler in weapon_handlers:
+        handler.charged_shot.connect(func (): charged_shot.emit(handler))
 
 func move(move_dir: Vector2, p_speed: int = speed) -> void:
     if move_dir.length() > 1 + 0.000001:
@@ -35,12 +44,15 @@ func turn(look_dir: Vector2, p_turn_speed: int, delta: float) -> void:
         
 func enable_shooting() -> void:
     Syslog.debug("%s enabled shooting!" % [self.name])
-    weapon_handler.allow_shoot = true
+    for handler in weapon_handlers:
+        handler.allow_shoot = true
 
 func disable_shooting() -> void:
     Syslog.debug("%s disabled shooting!" % [self.name])
-    weapon_handler.allow_shoot = false
+    for handler in weapon_handlers:
+        handler.allow_shoot = false
 
 func invalidate_charges() -> void:
     Syslog.debug("%s invalidated all charges!" % [self.name])
-    weapon_handler.invalidate_charge.emit()
+    for handler in weapon_handlers:
+        handler.invalidate_charge.emit()

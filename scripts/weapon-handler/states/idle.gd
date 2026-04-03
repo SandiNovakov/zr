@@ -6,7 +6,7 @@ func enter() -> void:
     time_shoot_is_held = 0
 
 func physics_update(delta: float) -> void:
-    if not master.allow_shoot or not master.can_shoot():
+    if not master.can_shoot():
         return
     
     if master.weapon.automatic and controller.is_shoot(master.shoot_action):

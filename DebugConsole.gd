@@ -7,8 +7,62 @@ var callable_map: Dictionary = {
     "invalid_args": 'invalid_args',
     "hello": "hello",
     "fullscreen": "fullscreen",
-    "weapon_set": "weapon_set"
+    "weapon_set": "weapon_set",
+    "resolution": "resolution",
+    "resolution_scale": "resolution_scale",
+    "fps": "fps",
+    "set_post_processing": "set_post_processing",
 }
+
+func set_post_processing(args: Array) -> String:
+    var on_off: String = args[0]
+    var env: Environment = get_node("/root/Main/WorldEnvironment").environment
+        
+    if env == null:
+        Syslog.error("No WorldEnvironment found!")
+        return "No WorldEnvironment found!"
+    
+    match on_off:
+        "on":
+            env.glow_enabled = true
+        "off":
+            env.glow_enabled = false
+        _:
+            return "Wrong argument type. Expected either 'on' or 'off', got %s" % [on_off]
+
+    return "post_processing turned %s" % [on_off]
+    
+
+func resolution(args: Array) -> String:
+    var x: int = int(args[0])
+    var y: int = int(args[1])
+
+    var mode = DisplayServer.window_get_mode()
+    if mode != DisplayServer.WINDOW_MODE_WINDOWED:
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+    DisplayServer.window_set_size(Vector2i(x, y))
+
+    return "Resolution set to %dx%d" % [x, y]
+    
+func resolution_scale(args: Array) -> String:
+    var retval: String = ""
+    var preset = args[0]
+    
+    match preset:
+        "low":
+            get_viewport().scaling_3d_scale = 0.5
+            retval = "Resolution scale set to low preset."
+        "medium":
+            get_viewport().scaling_3d_scale = 0.75
+            retval = "Resolution scale set to medium preset."
+        "high":
+            get_viewport().scaling_3d_scale = 1.0
+            retval = "Resolution scale set to high preset."
+        _:
+            retval = "No such preset. Resolution scale unchanged."
+            
+    return retval
 
 func weapon_set(args: Array) -> String:
     var handler: String = args[0]
@@ -76,10 +130,22 @@ func execute_command(command: String, args: Array = []) -> Variant:
     if args.size() > 0 and Callable(self, callable).get_argument_count() > 0:
         Syslog.debug(args)        
         retval = call(callable, args)
-    else:
+    elif args.size() == 0 and Callable(self, callable).get_argument_count() == 0:
         retval = call(callable)
+    else:
+        retval = call('invalid_args', [Callable(self, callable).get_argument_count(), args.size()])
         
     return retval
+
+func fps() -> String:
+    var fps_visible: bool = DebugConsoleGui.fps.visible
+    if not fps_visible:
+        DebugConsoleGui.fps.visible = true
+        return "FPS counter on."
+    else:
+        DebugConsoleGui.fps.visible = false
+        return "FPS counter off."
+    
 
 func get_autocomplete(text: String) -> String:
     if text == "":

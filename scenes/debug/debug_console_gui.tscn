@@ -3,6 +3,23 @@
 [ext_resource type="Script" uid="uid://c0dcpq7j0j0wp" path="res://scripts/debug_console_gui.gd" id="1_44xxp"]
 [ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="2_ht77c"]
 
+[sub_resource type="GDScript" id="GDScript_ht77c"]
+script/source = "extends Label
+
+var accum := 0.0
+var frames := 0
+
+func _process(delta):
+    accum += delta
+    frames += 1
+
+    if accum >= 0.5:
+        var fps := frames / accum
+        text = \"FPS: %d\" % int(fps)
+        accum = 0.0
+        frames = 0
+"
+
 [node name="DebugConsoleGUI" type="CanvasLayer" unique_id=277615795]
 script = ExtResource("1_44xxp")
 
@@ -36,3 +53,15 @@ context_menu_enabled = false
 emoji_menu_enabled = false
 flat = true
 caret_blink = true
+
+[node name="FpsMarginContainer" type="MarginContainer" parent="." unique_id=1042430159]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_ht77c")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="FpsLabel" type="Label" parent="FpsMarginContainer" unique_id=19829881]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_ht77c")
