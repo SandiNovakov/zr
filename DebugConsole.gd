@@ -12,7 +12,21 @@ var callable_map: Dictionary = {
     "resolution_scale": "resolution_scale",
     "fps": "fps",
     "set_post_processing": "set_post_processing",
+    "vsync": "vsync"
 }
+
+func vsync(args: Array) -> String:
+    var value := str(args[0]).to_lower()
+
+    if value == "on":
+        DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+        return "VSync turned on"
+
+    if value == "off":
+        DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+        return "VSync turned off"
+
+    return "Invalid argument: use 'on' or 'off'"
 
 func set_post_processing(args: Array) -> String:
     var on_off: String = args[0]
