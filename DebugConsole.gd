@@ -12,8 +12,32 @@ var callable_map: Dictionary = {
     "resolution_scale": "resolution_scale",
     "fps": "fps",
     "set_post_processing": "set_post_processing",
-    "vsync": "vsync"
+    "vsync": "vsync",
+    "set_tps": "set_tps",
+    "set_interpolation": "set_interpolation"
 }
+
+func set_tps(args: Array) -> String:
+    var tps := int(args[0])
+
+    if tps <= 0:
+        return "TPS must be a positive integer"
+
+    Engine.physics_ticks_per_second = tps
+    return "Physics TPS set to %d" % tps
+
+func set_interpolation(args: Array) -> String:
+    var value := str(args[0]).to_lower()
+
+    if value == "on":
+        get_tree().physics_interpolation = true
+        return "Physics interpolation enabled"
+
+    if value == "off":
+        get_tree().physics_interpolation = false
+        return "Physics interpolation disabled"
+
+    return "Invalid argument: use 'on' or 'off'"
 
 func vsync(args: Array) -> String:
     var value := str(args[0]).to_lower()
