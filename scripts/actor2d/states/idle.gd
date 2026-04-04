@@ -3,8 +3,8 @@ extends ActorState
 func enter() -> void:
     master.charged_shot.connect(on_charged_shot)
 
-func physics_update(delta: float) -> void:
-    master.move(controller.get_move_dir())
+func update(delta: float) -> void:
+    master.move(controller.get_move_dir(), delta)
     master.turn(controller.get_look_dir(), master.turn_speed, delta)
     
     if controller.is_dash():

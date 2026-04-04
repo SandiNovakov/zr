@@ -6,7 +6,7 @@ class_name Actor2D
 @export var weapon_handlers: Array[WeaponHandler]
 
 @export var speed: int = 750
-@export var acceleration: int = speed/6
+@export var acceleration: int = speed / 0.1
 @export var dash_duration: float = 0.3
 @export var boost_speed: int = 1500
 
@@ -24,7 +24,10 @@ func _ready() -> void:
     for handler in weapon_handlers:
         handler.charged_shot.connect(func (): charged_shot.emit(handler))
 
-func move(move_dir: Vector2, p_speed: int = speed) -> void:
+func _physics_process(delta):
+    move_and_slide()
+
+func move(move_dir: Vector2, delta: float, p_speed: int = speed) -> void:
     if move_dir.length() > 1 + 0.000001:
         Syslog.warning(
             "Origin: %s, move_dir is not normalized! Length: %s, (x,y): (%s)" % [
@@ -35,8 +38,7 @@ func move(move_dir: Vector2, p_speed: int = speed) -> void:
             
         move_dir = move_dir.normalized()
         
-    velocity = velocity.move_toward(move_dir * p_speed, acceleration) 
-    move_and_slide()
+    velocity = velocity.move_toward(move_dir * p_speed, acceleration*delta)
 
 func turn(look_dir: Vector2, p_turn_speed: int, delta: float) -> void:
     if look_dir != Vector2.ZERO:

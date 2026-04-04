@@ -12,7 +12,10 @@ func enter() -> void:
     vfx = master.weapon.charged_vfx.instantiate()
     master.start_vfx(vfx)
 
-func physics_update(delta: float) -> void:   
+func update(delta: float) -> void:   
+    if not master.allow_charge:
+        state_machine.request_state_change($"../Idle")
+    
     if not controller.is_shoot(master.shoot_action) and master.allow_shoot:
         master.shoot_charged()
         

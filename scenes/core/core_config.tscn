@@ -4,5 +4,3 @@
 
 [node name="CoreConfig" type="Node" unique_id=783952009]
 script = ExtResource("1_k2i5v")
-log_level = 2
-log_to_html_file = false

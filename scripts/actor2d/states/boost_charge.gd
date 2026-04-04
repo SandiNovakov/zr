@@ -8,8 +8,8 @@ func enter() -> void:
     master.invalidate_charges()
     time_boost_is_held = 0
 
-func physics_update(delta: float) -> void:
-    master.move(Vector2.ZERO)
+func update(delta: float) -> void:
+    master.move(Vector2.ZERO, delta)
     master.turn(controller.get_look_dir(), master.boost_turn_speed, delta)
     
     if controller.is_boost():

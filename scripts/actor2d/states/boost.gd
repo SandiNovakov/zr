@@ -1,10 +1,10 @@
 extends ActorState
 
-func physics_update(delta: float) -> void:
+func update(delta: float) -> void:
     var direction: Vector2
     
     if controller.is_boost():
-        master.move(controller.get_boost_dir(), master.boost_speed)
+        master.move(controller.get_boost_dir(), delta, master.boost_speed)
         master.turn(controller.get_move_dir().normalized(), master.boost_turn_speed, delta)
     
     else:

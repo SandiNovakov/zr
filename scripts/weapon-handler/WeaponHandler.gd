@@ -13,6 +13,7 @@ var time_until_charging: float = 0.3
 var last_shot_timestamp: int = 0
 
 var allow_shoot: bool = true
+var allow_charge: bool = true
 signal invalidate_charge
 
 signal charged_shot

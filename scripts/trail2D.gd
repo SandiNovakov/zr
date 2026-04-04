@@ -21,6 +21,9 @@ var default_color_start: Color = Color.WHITE
 var default_color_middle: Color = Color.from_rgba8(127, 127, 127, 127)
 var default_color_end: Color = Color.from_rgba8(0, 0, 0, 0)
 
+var prev_pos: Vector2
+var curr_pos: Vector2
+
 func _ready() -> void:
     if get_parent() is not Node2D:
         Syslog.error("Node Trail2D: %s expected Node2D parent, got %s instead!" % [self, get_parent().get_class()])
@@ -40,9 +43,18 @@ func _ready() -> void:
         gradient.offsets = gradient_data.keys()
         gradient.colors = gradient_data.values() 
 
+    prev_pos = parent.position
+    curr_pos = parent.position
 
 func _physics_process(delta: float) -> void:
-    queue.push_front(parent.position)
+    prev_pos = curr_pos
+    curr_pos = parent.position
+
+func _process(delta: float) -> void:
+    var alpha := Engine.get_physics_interpolation_fraction()
+    var interpolated_pos := prev_pos.lerp(curr_pos, alpha)
+    
+    queue.push_front(interpolated_pos)
     
     if queue.size() > max_length:
         queue.pop_back()

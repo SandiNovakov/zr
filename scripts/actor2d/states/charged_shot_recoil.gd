@@ -14,8 +14,8 @@ func enter() -> void:
     
     master.velocity = -Vector2.from_angle(master.rotation).normalized() * handler.weapon.charged_shot_recoil
     
-func physics_update(delta: float) -> void:
-    master.move(Vector2.ZERO)
+func update(delta: float) -> void:
+    master.move(Vector2.ZERO, delta)
 
 func on_inactive_timer_timeout() -> void:
     state_machine.request_state_change($"../Idle")

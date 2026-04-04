@@ -33,8 +33,8 @@ func enter() -> void:
     #Input.start_joy_vibration(0, 0.5, 0, 0.1)
     RumbleController.add(0.5, 0, 0.1)
     
-func physics_update(delta: float) -> void:
-    master.move(controller.get_move_dir())
+func update(delta: float) -> void:
+    master.move(controller.get_move_dir(), delta)
     master.turn(controller.get_look_dir(), master.turn_speed, delta)
 
 func _on_dash_timer_timeout() -> void:

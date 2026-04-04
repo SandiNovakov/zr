@@ -5,7 +5,27 @@ var time_shoot_is_held: float = 0
 func enter() -> void:
     time_shoot_is_held = 0
 
-func physics_update(delta: float) -> void:
+func update(delta: float) -> void:
+    check_shoot()
+    check_charge(delta)
+    
+    if time_shoot_is_held >= master.time_until_charging:
+        state_machine.request_state_change($"../Charging")
+
+func check_charge(delta: float) -> void:    
+    if not master.allow_charge:
+        time_shoot_is_held = 0
+        return
+    
+    if master.weapon.can_charge and not master.weapon.automatic:
+        if controller.is_shoot(master.shoot_action):
+            time_shoot_is_held += delta
+        else:
+            time_shoot_is_held = 0
+        
+
+
+func check_shoot() -> void:
     if not master.can_shoot():
         return
     
@@ -14,12 +34,3 @@ func physics_update(delta: float) -> void:
         
     if not master.weapon.automatic and controller.is_shoot_once(master.shoot_action):
         master.shoot()
-        
-    if master.weapon.can_charge and not master.weapon.automatic:
-        if controller.is_shoot(master.shoot_action):
-            time_shoot_is_held += delta
-        else:
-            time_shoot_is_held = 0
-        
-        if time_shoot_is_held >= master.time_until_charging:
-            state_machine.request_state_change($"../Charging") #will generate warning, ignore for now.
