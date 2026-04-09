@@ -3,19 +3,32 @@ class_name ActorController
 
 @onready var master: Actor2D = get_parent()
 
+func _is_ui_focused() -> bool:
+    return get_viewport().gui_get_focus_owner() != null
+
 func is_shoot_once(shoot_action: StringName) -> bool:
-    #return InputBuffer.is_action_press_buffered(&"shoot")
+    if _is_ui_focused():
+        return false #this is probably unnecessary since InputBuffer works using _unhandled_input in the first place.
     return InputBuffer.is_action_press_buffered(shoot_action)
 
+
 func is_shoot(shoot_action: StringName) -> bool:
+    if _is_ui_focused():
+        return false
     return Input.is_action_pressed(shoot_action)
 
+
 func is_dash() -> bool:
+    if _is_ui_focused():
+        return false
     return InputBuffer.is_action_press_buffered(&"dash")
 
-func is_boost() -> bool:
-    return Input.is_action_pressed(&"boost")
 
+func is_boost() -> bool:
+    if _is_ui_focused():
+        return false
+    return Input.is_action_pressed(&"boost")
+    
 func get_action_buffered(action: StringName) -> bool:
     Syslog.warning('Used deprecated function ActorController.get_action_buffered()! See code for more details.')
     #ActorController will eventually be replaced with a generic version of the controller that will allow us to
@@ -24,6 +37,9 @@ func get_action_buffered(action: StringName) -> bool:
     return InputBuffer.is_action_press_buffered(action)
 
 func get_boost_dir() -> Vector2:
+    if _is_ui_focused():
+        return Vector2.ZERO
+    
     match InputDeviceManager.current_input_device:
         InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
             var dir: Vector2 = Vector2.from_angle(master.global_rotation)
@@ -45,6 +61,9 @@ func get_boost_dir() -> Vector2:
             return Vector2.ZERO
 
 func get_move_dir() -> Vector2:
+    if _is_ui_focused():
+        return Vector2.ZERO
+    
     var move_dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
     if Input.is_action_pressed("slow"):
         move_dir *= 0.5
@@ -52,6 +71,9 @@ func get_move_dir() -> Vector2:
     return move_dir
 
 func get_look_dir() -> Vector2:
+    if _is_ui_focused():
+        return Vector2.ZERO
+    
     match InputDeviceManager.current_input_device:
         InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
             return (master.get_global_mouse_position() - master.global_position).normalized()
