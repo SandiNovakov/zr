@@ -17,6 +17,17 @@ glow_normalized = true
 glow_bloom = 0.5
 glow_hdr_threshold = 0.0
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0wfyh"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sugp2"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jyhfs"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tbgi4"]
+
 [node name="Main" type="Node" unique_id=743749111]
 script = SubResource("GDScript_sgp6g")
 
@@ -28,3 +39,19 @@ script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(536, 300)
+
+[node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
+
+[node name="Left" type="CollisionShape2D" parent="WorldBoundary" unique_id=1973977341]
+shape = SubResource("WorldBoundaryShape2D_0wfyh")
+
+[node name="Up" type="CollisionShape2D" parent="WorldBoundary" unique_id=863511880]
+shape = SubResource("WorldBoundaryShape2D_sugp2")
+
+[node name="Down" type="CollisionShape2D" parent="WorldBoundary" unique_id=1691496221]
+position = Vector2(1920, 1080)
+shape = SubResource("WorldBoundaryShape2D_jyhfs")
+
+[node name="Right" type="CollisionShape2D" parent="WorldBoundary" unique_id=1380447202]
+position = Vector2(1920, 1080)
+shape = SubResource("WorldBoundaryShape2D_tbgi4")

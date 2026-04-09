@@ -13,7 +13,12 @@
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
+radius = 5.9
+height = 28.95
+
 [node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers")]
+collision_layer = 2
 script = ExtResource("1_g2els")
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
@@ -32,6 +37,9 @@ frame = 17
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1876382094]
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=1807979183]
+position = Vector2(-6.085, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_fm80t")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1710464391 node_paths=PackedStringArray("default_state")]
 script = ExtResource("2_qhqgy")

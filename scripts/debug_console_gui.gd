@@ -66,7 +66,9 @@ func toggle_console() -> void:
 
     if is_open:
         input.grab_focus()
+        Syslog.info("Debug console opened.")
     else:
+        Syslog.info("Debug console closed.")
         input.release_focus()
 
 func on_submit(text: String) -> void:

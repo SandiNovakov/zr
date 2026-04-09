@@ -148,6 +148,9 @@ func execute_command(command: String, args: Array = []) -> Variant:
         retval = call(callable)
     else:
         retval = call('invalid_args', [Callable(self, callable).get_argument_count(), args.size()])
+    
+    if retval != "":
+        Syslog.info("Debug: %s" % [retval])
         
     return retval
 

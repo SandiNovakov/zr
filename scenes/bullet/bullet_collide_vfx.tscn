@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://drs1erw5rb3rr"]
+
+[ext_resource type="Texture2D" uid="uid://cty0s8nw5mtcb" path="res://assets/img/particles/circle_05.png" id="1_klc8q"]
+
+[sub_resource type="Gradient" id="Gradient_xxemr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.53246754, 1)
+colors = PackedColorArray(1, 0.811, 0.45999998, 1, 1, 0.65, 0, 1, 1, 0.65, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_casb3"]
+gradient = SubResource("Gradient_xxemr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t88xh"]
+particle_flag_disable_z = true
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.03
+scale_max = 0.03
+color_ramp = SubResource("GradientTexture1D_casb3")
+
+[sub_resource type="GDScript" id="GDScript_klc8q"]
+script/source = "extends GPUParticles2D
+
+func _ready() -> void:
+    emitting = true
+    one_shot = true
+    finished.connect(func (): queue_free())
+"
+
+[node name="BulletCollideVfx" type="GPUParticles2D" unique_id=2023029930]
+amount = 16
+texture = ExtResource("1_klc8q")
+lifetime = 0.3
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_t88xh")
+script = SubResource("GDScript_klc8q")

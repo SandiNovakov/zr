@@ -1,16 +1,20 @@
 [gd_scene format=3 uid="uid://cyci24154tn4i"]
 
 [ext_resource type="Script" uid="uid://dqdnc6hljsiwp" path="res://scripts/weapon-handler/Bullet.gd" id="1_y25gk"]
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/bullet/bullet_collide_vfx.tscn" id="2_0vdx3"]
 [ext_resource type="Texture2D" uid="uid://lpfgl2efyq5n" path="res://assets/img/simpleSpace_tilesheet.png" id="2_l5glv"]
 [ext_resource type="Script" uid="uid://bxwew27e8r0px" path="res://scripts/trail2D.gd" id="3_c6pnf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
 radius = 4.0
 
-[node name="Bullet" type="Area2D" unique_id=93633230]
+[node name="Bullet" type="CharacterBody2D" unique_id=1707831964]
+top_level = true
 z_index = -4096
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_y25gk")
-metadata/_custom_type_script = "uid://dqdnc6hljsiwp"
+collide_vfx = ExtResource("2_0vdx3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=135057820]
 shape = SubResource("CircleShape2D_eoqba")
