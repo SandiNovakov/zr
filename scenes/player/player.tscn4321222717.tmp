@@ -24,6 +24,7 @@ script = ExtResource("1_g2els")
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
+boost_speed = 1500
 boost_charge_vfx = ExtResource("2_gx1jg")
 boost_charge_vfx_anchor = NodePath("BoostChargeAnchor")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
@@ -91,4 +92,4 @@ position = Vector2(-7, 15)
 position = Vector2(-7, -15)
 
 [node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=445196033]
-position = Vector2(-27, 0)
+position = Vector2(-20, 0)

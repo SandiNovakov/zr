@@ -42,20 +42,21 @@ func get_boost_dir() -> Vector2:
     
     match InputDeviceManager.current_input_device:
         InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
-            var dir: Vector2 = Vector2.from_angle(master.global_rotation)
+            #var dir: Vector2 = Vector2.from_angle(master.global_rotation)
+#
+            #var rotated: Vector2 = dir
+#
+            #if Input.is_action_pressed("move_left"):
+                #rotated = dir.rotated(-PI / 2)
+            #elif Input.is_action_pressed("move_right"):
+                #rotated = dir.rotated(PI / 2)
+            #
+            #return rotated
 
-            var rotated: Vector2 = dir
-
-            if Input.is_action_pressed("move_left"):
-                rotated = dir.rotated(-PI / 2)
-            elif Input.is_action_pressed("move_right"):
-                rotated = dir.rotated(PI / 2)
-            
-            return rotated
-                                    
+            return Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")                                    
             
         InputDeviceManager.InputDevices.CONTROLLER:             
-            return Vector2.from_angle(master.rotation).normalized()
+            return Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
         _:
             Syslog.error('Current input device is not in InputDevices enum!')
             return Vector2.ZERO

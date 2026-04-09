@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://euydg63tp65l"]
 
 [ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="1_tn2ct"]
+[ext_resource type="PackedScene" uid="uid://dvwjwg4qwtfbu" path="res://scenes/bullet/bullet_2_collide_vfx.tscn" id="2_0y0kh"]
 
 [node name="BulletAuto" unique_id=93633230 instance=ExtResource("1_tn2ct")]
+collide_vfx = ExtResource("2_0y0kh")
 
 [node name="Sprite2D" parent="." index="1" unique_id=2145227657]
 modulate = Color(1, 0.8392157, 0.8392157, 1)

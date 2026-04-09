@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dvwjwg4qwtfbu"]
+
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/bullet/bullet_collide_vfx.tscn" id="1_rvtls"]
+
+[node name="Bullet2CollideVfx" unique_id=2023029930 instance=ExtResource("1_rvtls")]
+color_start = 7
+color_middle = 7
+color_end = 8

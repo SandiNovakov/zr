@@ -2,8 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="1_t56pl"]
 [ext_resource type="Texture2D" uid="uid://0leejlyq8k2p" path="res://assets/img/simpleSpace_tilesheet@2.png" id="2_fssq4"]
+[ext_resource type="PackedScene" uid="uid://bpgkpgrenw4bu" path="res://scenes/bullet/charged_bullet_collide_vfx.tscn" id="2_lq5q4"]
 
 [node name="ChargeBullet" unique_id=93633230 instance=ExtResource("1_t56pl")]
+collide_vfx = ExtResource("2_lq5q4")
 
 [node name="Sprite2D" parent="." index="1" unique_id=2145227657]
 modulate = Color(0.8392157, 0.93333334, 1, 1)

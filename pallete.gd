@@ -25,7 +25,9 @@ enum Colors{
     CHARGED_BULLET_BALLISTIC_TRAIL_END,
     BULLET_BALLISTIC_2,
     BULLET_BALLISTIC_2_TRAIL,
-    BULLET_BALLISTIC_2_TRAIL_END
+    BULLET_BALLISTIC_2_TRAIL_END,
+    PLAYER,
+    ENEMY
 }
 @onready var color_map: Dictionary = {
     Colors.NULL: null,
@@ -37,7 +39,9 @@ enum Colors{
     Colors.CHARGED_BULLET_BALLISTIC_TRAIL_END: charged_bullet_ballistic_trail_end,
     Colors.BULLET_BALLISTIC_2: bullet_ballistic_2,
     Colors.BULLET_BALLISTIC_2_TRAIL: bullet_ballistic_2_trail,
-    Colors.BULLET_BALLISTIC_2_TRAIL_END: bullet_ballistic_2_trail_end
+    Colors.BULLET_BALLISTIC_2_TRAIL_END: bullet_ballistic_2_trail_end,
+    Colors.PLAYER: player,
+    Colors.ENEMY: enemy,
 }
 
 func get_color(color: Colors) -> Variant:

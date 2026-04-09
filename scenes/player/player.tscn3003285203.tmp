@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ccl8najixufmd"]
 
 [ext_resource type="Script" uid="uid://b3704tgoj3qq4" path="res://scripts/actor2d/Actor2D.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://dcmuu1ieivw5i" path="res://scenes/vfx/boost_charging_vfx.tscn" id="2_gx1jg"]
 [ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://assets/img/simpleSpace_tilesheet.png" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://bcxus6gqq1243" path="res://scripts/actor2d/ActorController.gd" id="3_qhqgy"]
@@ -18,14 +17,13 @@
 radius = 5.9
 height = 28.95
 
-[node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "boost_charge_vfx_anchor")]
+[node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers")]
 collision_layer = 2
 script = ExtResource("1_g2els")
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
-boost_charge_vfx = ExtResource("2_gx1jg")
-boost_charge_vfx_anchor = NodePath("BoostChargeAnchor")
+boost_speed = 1500
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638740608]
@@ -89,6 +87,3 @@ position = Vector2(-7, 15)
 
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
 position = Vector2(-7, -15)
-
-[node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=445196033]
-position = Vector2(-27, 0)

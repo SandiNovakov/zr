@@ -48,3 +48,25 @@ static func has_property(obj: Object, prop_name: String) -> bool:
         if p.name == prop_name:
             return true
     return false
+
+static func make_3point_gradient(
+    start: Color,
+    middle: Color,
+    end: Color,
+    start_alpha: float = 1.0,
+    middle_alpha: float = 0.5,
+    end_alpha: float = 0.0
+) -> Gradient:
+    var s: = start
+    var m: = middle
+    var e: = end
+
+    s.a = start_alpha
+    m.a = middle_alpha
+    e.a = end_alpha
+
+    var g := Gradient.new()
+    g.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
+    g.colors = PackedColorArray([s, m, e])
+
+    return g

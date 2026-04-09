@@ -25,12 +25,12 @@ func _physics_process(delta: float) -> void:
     var collision: KinematicCollision2D = move_and_collide(motion)
 
     if collision:
-        var r: Vector2 = direction.bounce(collision.get_normal())
-
+        var normal: Vector2 = collision.get_normal()
+        
         if collide_vfx:
             var c: Node2D = collide_vfx.instantiate()
             c.global_position = collision.get_position()
-            c.global_rotation = r.angle()
+            c.global_rotation = normal.angle()
             main.add_child(c)
  
         queue_free()
