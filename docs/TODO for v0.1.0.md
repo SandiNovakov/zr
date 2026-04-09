@@ -1,5 +1,5 @@
 ## <span style="color:red;">Important</span>
-- [x] Fix bug with weapon charging.
+- [ ] Fix bug with weapon charging.
   - Current behavior: When charging and dashing, time spent charging while dashing isn't counted.
   - Expected behavior: Charge time should count whether dashing or idling.
   - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.

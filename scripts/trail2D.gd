@@ -51,13 +51,10 @@ func _physics_process(delta: float) -> void:
     curr_pos = parent.position
 
 func _process(delta: float) -> void:
-    if get_tree().physics_interpolation:
-        var alpha := Engine.get_physics_interpolation_fraction()
-        var interpolated_pos := prev_pos.lerp(curr_pos, alpha)
-        
-        queue.push_front(interpolated_pos)
-    else:
-        queue.push_front(curr_pos)
+    var alpha := Engine.get_physics_interpolation_fraction()
+    var interpolated_pos := prev_pos.lerp(curr_pos, alpha)
+    
+    queue.push_front(interpolated_pos)
     
     if queue.size() > max_length:
         queue.pop_back()
