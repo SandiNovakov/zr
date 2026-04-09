@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var input: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/LineEdit
 @onready var fps: Label = $FpsMarginContainer/FpsLabel
 
-var is_open := false
+var is_open: bool = false
 var history: Array = []
 var history_idx: int
 var previous_text: String
@@ -100,7 +100,7 @@ func on_submit(text: String) -> void:
         show_message(ret_msg)
         
 func show_message(text: String) -> void:
-    var msg := RichTextLabel.new()
+    var msg: RichTextLabel = RichTextLabel.new()
     msg.bbcode_enabled = true
     msg.text = text
     msg.modulate.a = 0.0

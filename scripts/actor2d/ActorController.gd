@@ -64,4 +64,3 @@ func get_look_dir() -> Vector2:
         _:
             Syslog.error('Current input device is not in InputDevices enum!')
             return Vector2.ZERO
-        

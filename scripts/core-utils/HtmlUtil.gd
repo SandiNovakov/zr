@@ -5,7 +5,7 @@ static func write_html_header(html_file_ref: FileAccess) -> void:
     if not html_file_ref:
         return
     
-    var start_time := Time.get_datetime_string_from_system()
+    var start_time: String = Time.get_datetime_string_from_system()
     
     html_file_ref.store_line("<!DOCTYPE html>")
     html_file_ref.store_line("<html>")

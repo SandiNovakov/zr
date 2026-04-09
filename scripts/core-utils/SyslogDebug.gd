@@ -3,7 +3,7 @@ extends Node
 @export var min_interval: float = 0.02
 @export var max_interval: float = 0.5
 
-var _rng := RandomNumberGenerator.new()
+var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _timer: Timer
 
 func _ready() -> void:

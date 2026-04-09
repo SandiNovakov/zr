@@ -25,7 +25,7 @@ script/source = "extends GPUParticles2D
 func _ready() -> void:
     emitting = true
     one_shot = true
-    finished.connect(func (): queue_free())
+    finished.connect(func () -> void: queue_free())
 "
 
 [node name="BulletCollideVfx" type="GPUParticles2D" unique_id=2023029930]

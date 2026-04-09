@@ -1,3 +1,4 @@
+@warning_ignore_start("inferred_declaration")
 extends Line2D
 class_name Trail2D
 
