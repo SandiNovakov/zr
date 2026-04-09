@@ -113,7 +113,7 @@
 
 ## Code quality / consistency
 
-- [ ] Enforce explicit type declarations everywhere  
+- [x] Enforce explicit type declarations everywhere  
   - Fix all inferred type definitions to adhere to project spec
 
 - [ ] Remove redundant or unnecessary Syslog.debug() calls  

@@ -105,8 +105,3 @@ func _physics_process(delta: float) -> void:
             Input.stop_joy_vibration(0)
         else:
             Input.start_joy_vibration(0, rumble_weak_str, rumble_strong_str)
-    
-        
-    
-    
-    
