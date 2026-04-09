@@ -29,7 +29,6 @@ func _ready() -> void:
 "
 
 [node name="BulletCollideVfx" type="GPUParticles2D" unique_id=2023029930]
-amount = 16
 texture = ExtResource("1_klc8q")
 lifetime = 0.3
 explosiveness = 1.0
