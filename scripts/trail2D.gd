@@ -19,8 +19,8 @@ var parent: Node2D
 @export var color_end: Pallete.Colors
 
 var default_color_start: Color = Color.WHITE
-var default_color_middle: Color = Color.from_rgba8(127, 127, 127, 127)
-var default_color_end: Color = Color.from_rgba8(0, 0, 0, 0)
+var default_color_middle: Color = Color.from_rgba8(127, 127, 127, 255)
+var default_color_end: Color = Color.from_rgba8(0, 0, 0, 255)
 
 var prev_pos: Vector2
 var curr_pos: Vector2
@@ -34,10 +34,18 @@ func _ready() -> void:
     
     if use_gradient:
 
+        var color_start_value: Color = Util.nvl(Pallete.get_color(color_start), default_color_start)
+        var color_middle_value: Color = Util.nvl(Pallete.get_color(color_middle), default_color_middle)
+        var color_end_value: Color = Util.nvl(Pallete.get_color(color_end), default_color_end)
+
+        color_start_value.a = 1
+        color_middle_value.a = 0.5
+        color_end_value.a = 0
+
         var gradient_data := {
-            0.0: Util.nvl(Pallete.get_color(color_start), default_color_start),
-            0.5: Util.nvl(Pallete.get_color(color_middle), default_color_middle),
-            1.0: Util.nvl(Pallete.get_color(color_end), default_color_end)
+            0.0: color_start_value,
+            0.5: color_middle_value,
+            1.0: color_end_value
         }
 
         gradient = Gradient.new()
