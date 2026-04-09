@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "TODO for v0.1.0.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -200,8 +200,8 @@
   },
   "active": "69fad281461f32a0",
   "lastOpenFiles": [
-    "Cheat Code Spec.md",
+    "Welcome.md",
     "TODO for v0.1.0.md",
-    "Welcome.md"
+    "Cheat Code Spec.md"
   ]
 }

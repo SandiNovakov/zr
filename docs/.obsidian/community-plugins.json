@@ -1,4 +1,7 @@
 [
   "advanced-canvas",
-  "obsidian-dynamic-background"
+  "obsidian-dynamic-background",
+  "gdscript-syntax-highlighting",
+  "obsidian-minimal-settings",
+  "auto-strikethrough-task"
 ]

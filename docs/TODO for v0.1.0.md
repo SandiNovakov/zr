@@ -1,11 +1,12 @@
-## <span style="color:red;">Important</span>
-- [ ] Fix bug with weapon charging.
+# Urgent
+- [x] ~~Fix bug with weapon charging.~~
   - Current behavior: When charging and dashing, time spent charging while dashing isn't counted.
   - Expected behavior: Charge time should count whether dashing or idling.
   - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.
+# Normal
 ## Core architecture / refactors
 
-- [ ] Introduce a bind-variable system for states and state machine  
+- [ ] Introduce a bind-variable system for states and state machine
   - See: StateMachine Bind Variable Spec
 
 - [ ] Improve scene-to-scene referencing  
