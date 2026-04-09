@@ -15,6 +15,10 @@ extends Node
 @export var player: Color
 @export var enemy: Color
 
+@export var boost_start: Color
+@export var boost_middle: Color
+@export var boost_end: Color
+
 enum Colors{
     NULL,
     BULLET_BALLISTIC,
@@ -27,7 +31,10 @@ enum Colors{
     BULLET_BALLISTIC_2_TRAIL,
     BULLET_BALLISTIC_2_TRAIL_END,
     PLAYER,
-    ENEMY
+    ENEMY,
+    BOOST_START,
+    BOOST_MIDDLE,
+    BOOST_END
 }
 @onready var color_map: Dictionary = {
     Colors.NULL: null,
@@ -42,6 +49,9 @@ enum Colors{
     Colors.BULLET_BALLISTIC_2_TRAIL_END: bullet_ballistic_2_trail_end,
     Colors.PLAYER: player,
     Colors.ENEMY: enemy,
+    Colors.BOOST_START: boost_start,
+    Colors.BOOST_MIDDLE: boost_middle,
+    Colors.BOOST_END: boost_end
 }
 
 func get_color(color: Colors) -> Variant:

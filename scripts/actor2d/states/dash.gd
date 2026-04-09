@@ -2,6 +2,7 @@ extends ActorState
 
 var dash_timer: Timer
 var dash_dir: Vector2
+var trail_handle: Trail2D
 
 func enter() -> void:
     var dbg_flag: String
@@ -33,6 +34,18 @@ func enter() -> void:
     #Input.start_joy_vibration(0, 0.5, 0, 0.1)
     RumbleController.add(0.5, 0, 0.1)
     
+    trail_handle = Trail2D.new()
+
+    trail_handle.color_start = Pallete.Colors.BOOST_MIDDLE
+    trail_handle.color_middle = Pallete.Colors.BOOST_MIDDLE
+    trail_handle.color_end = Pallete.Colors.BOOST_END
+    trail_handle.use_gradient = true
+    trail_handle.max_length = 7
+    trail_handle.width = 15
+    trail_handle.z_index = -4096
+    
+    master.add_child(trail_handle)
+    
 func update(delta: float) -> void:
     master.move(controller.get_move_dir(), delta)
     master.turn(controller.get_look_dir(), master.turn_speed, delta)
@@ -41,4 +54,5 @@ func _on_dash_timer_timeout() -> void:
     state_machine.request_state_change($"../Idle")
 
 func exit() -> void:
+    trail_handle.queue_free()
     master.enable_shooting()

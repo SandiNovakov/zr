@@ -59,7 +59,7 @@ scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gji7r")
 frame_progress = 0.62784445
 script = SubResource("GDScript_comp1")
-color = 1
+color = 12
 
 [node name="ModulateFlasher" type="Node" parent="." unique_id=965494691]
 script = ExtResource("2_wfiq5")

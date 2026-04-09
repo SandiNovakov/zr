@@ -6,9 +6,9 @@ var rumble_handle: String
 func enter() -> void:
     trail_handle = Trail2D.new()
 
-    trail_handle.color_start = Pallete.Colors.BULLET_BALLISTIC_2
-    trail_handle.color_middle = Pallete.Colors.BULLET_BALLISTIC_2_TRAIL
-    trail_handle.color_end = Pallete.Colors.BULLET_BALLISTIC_2_TRAIL_END
+    trail_handle.color_start = Pallete.Colors.BOOST_START
+    trail_handle.color_middle = Pallete.Colors.BOOST_MIDDLE
+    trail_handle.color_end = Pallete.Colors.BOOST_END
     trail_handle.use_gradient = true
     trail_handle.max_length = 20
     trail_handle.width = 15
