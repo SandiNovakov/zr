@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3704tgoj3qq4" path="res://scripts/actor2d/Actor2D.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://lpfgl2efyq5n" path="res://assets/img/simpleSpace_tilesheet.png" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://assets/img/simpleSpace_tilesheet.png" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://bcxus6gqq1243" path="res://scripts/actor2d/ActorController.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scripts/actor2d/states/idle.gd" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
