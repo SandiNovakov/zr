@@ -74,7 +74,7 @@ func _get_max_strong() -> float:
     return retval
 
 func _update_rumbles(delta: float) -> void:
-    for i in range(rumbles.size() -1, -1, -1):
+    for i: int in range(rumbles.size() -1, -1, -1):
         var rumble: Rumble = rumbles[i]
         if rumble.lifetime != INF:
             rumble.lifetime -= delta

@@ -44,7 +44,7 @@ static func nvl(value: Variant, fallback: Variant) -> Variant:
     return value if value != null else fallback
 
 static func has_property(obj: Object, prop_name: String) -> bool:
-    for p in obj.get_property_list():
+    for p: Dictionary in obj.get_property_list():
         if p.name == prop_name:
             return true
     return false

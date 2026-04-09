@@ -1,13 +1,13 @@
 extends Node
 
-const JOY_DEADZONE := 0.2
+const JOY_DEADZONE: float = 0.2
 
 enum InputDevices { # Only for actual input logic
     CONTROLLER,
     KEYBOARD_MOUSE
 }
 
-const InputDevicesName := {
+const InputDevicesName: Dictionary = {
     InputDevices.CONTROLLER: "CONTROLLER",
     InputDevices.KEYBOARD_MOUSE: "KEYBOARD_MOUSE"
 }

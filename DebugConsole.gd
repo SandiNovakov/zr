@@ -1,4 +1,6 @@
 extends Node
+@warning_ignore_start("inferred_declaration")
+@warning_ignore_start("untyped_declaration")
 
 var history: Array = []
 
@@ -16,7 +18,7 @@ var callable_map: Dictionary = {
 }
 
 func vsync(args: Array) -> String:
-    var value := str(args[0]).to_lower()
+    var value: String = str(args[0]).to_lower()
 
     if value == "on":
         DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)

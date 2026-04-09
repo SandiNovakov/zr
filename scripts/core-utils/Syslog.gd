@@ -5,7 +5,7 @@ static func _log_msg(messages: Array, log_level: CoreConfig.LogLevel) -> void:
     if CoreConfig.get_log_level() < log_level:
         return
         
-    var msg := _join_msg(messages)
+    var msg: String = _join_msg(messages)
     
     var destinations: Dictionary = CoreConfig.get_active_log_destinations()
     

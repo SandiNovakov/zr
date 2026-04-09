@@ -5,16 +5,16 @@ var actions: Array
 
 func _unhandled_input(event: InputEvent) -> void:
     
-    for action in InputMap.get_actions():
+    for action: StringName in InputMap.get_actions():
         if Input.is_action_just_pressed(action):
             var found: bool = false
             for i: Dictionary in actions:
-                
                 if i["name"] == action:
                     i["timestamp"] = Time.get_ticks_usec()
                     i["consumed"] = false
                     found = true
-            if not found:                    
+                    
+            if not found:
                 actions.append({
                     "name": action,
                     "timestamp": Time.get_ticks_usec(),

@@ -21,10 +21,10 @@ var charged_shot_recovery_time: float = 0.3
 signal charged_shot(handler: WeaponHandler)
 
 func _ready() -> void:
-    for handler in weapon_handlers:
-        handler.charged_shot.connect(func (): charged_shot.emit(handler))
+    for handler: WeaponHandler in weapon_handlers:
+        handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
     move_and_slide()
 
 func move(move_dir: Vector2, delta: float, p_speed: int = speed) -> void:
@@ -46,15 +46,15 @@ func turn(look_dir: Vector2, p_turn_speed: int, delta: float) -> void:
         
 func enable_shooting() -> void:
     Syslog.debug("%s enabled shooting!" % [self.name])
-    for handler in weapon_handlers:
+    for handler: WeaponHandler in weapon_handlers:
         handler.allow_shoot = true
 
 func disable_shooting() -> void:
     Syslog.debug("%s disabled shooting!" % [self.name])
-    for handler in weapon_handlers:
+    for handler: WeaponHandler in weapon_handlers:
         handler.allow_shoot = false
 
 func invalidate_charges() -> void:
     Syslog.debug("%s invalidated all charges!" % [self.name])
-    for handler in weapon_handlers:
+    for handler: WeaponHandler in weapon_handlers:
         handler.invalidate_charge.emit()

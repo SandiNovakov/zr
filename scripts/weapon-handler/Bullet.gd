@@ -9,7 +9,7 @@ var lifetime: float = 10
 
 @export var collide_vfx: PackedScene
 
-@onready var main := get_node("/root/Main")
+@onready var main: Node = get_node("/root/Main")
 
 func _ready() -> void:
     direction = direction.normalized()
@@ -21,8 +21,8 @@ func _physics_process(delta: float) -> void:
         queue_free()
         return
 
-    var motion := direction * speed * delta
-    var collision := move_and_collide(motion)
+    var motion: Vector2 = direction * speed * delta
+    var collision: KinematicCollision2D = move_and_collide(motion)
 
     if collision:
         var r: Vector2 = direction.bounce(collision.get_normal())
