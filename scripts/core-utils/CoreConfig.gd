@@ -28,6 +28,9 @@ enum LogDestination {PRINT, PRINT_RICH, LOG_FILE, HTML_FILE}
 @export var info_color: Color = Color("#6ecbff")
 @export var debug_color: Color = Color("#9aa0a6")
 
+@export_group("Vibration")
+@export var enable_vibration: bool = true
+
 func get_log_level() -> LogLevel:
     return log_level
 

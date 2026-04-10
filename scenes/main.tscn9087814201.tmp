@@ -17,7 +17,7 @@ shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/bigStarSlow = 2.0
 shader_parameter/mediumStarSlow = 6.0
-shader_parameter/smallStarSlow = 16.0
+shader_parameter/smallStarSlow = 8.0
 shader_parameter/smallStarAmount = 0.002
 shader_parameter/mediumStarAmount = 0.01
 shader_parameter/bigStarAmount = 0.02
@@ -58,9 +58,9 @@ func on_boost_charge_started() -> void:
         boost_tween.kill()
 
     boost_tween = create_tween()
-    boost_tween.tween_property(self, \"zoom\", boost_zoom, player.boost_charge_time)
-        #.set_trans(Tween.TRANS_CIRC)\\
-       # .set_ease(Tween.EASE_OUT_IN)
+    boost_tween.tween_property(self, \"zoom\", boost_zoom, player.boost_charge_time)\\
+        .set_trans(Tween.TRANS_CUBIC)\\
+        .set_ease(Tween.EASE_IN_OUT)
     
 func on_boost_charge_ended() -> void:
     if boost_tween:
@@ -68,8 +68,8 @@ func on_boost_charge_ended() -> void:
 
     boost_tween = create_tween()
     boost_tween.tween_property(self, \"zoom\", default_zoom, 0.3)\\
-        .set_trans(Tween.TRANS_BACK)\\
-        .set_ease(Tween.EASE_OUT)
+        .set_trans(Tween.TRANS_CUBIC)\\
+        .set_ease(Tween.EASE_IN_OUT)
 "
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0wfyh"]
@@ -90,7 +90,7 @@ script = SubResource("GDScript_sgp6g")
 z_index = -4096
 
 [node name="SubViewport" type="SubViewport" parent="Background" unique_id=56327333]
-size = Vector2i(1920, 1080)
+size = Vector2i(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="Background/SubViewport" unique_id=1848412542]
 material = SubResource("ShaderMaterial_sugp2")
@@ -98,12 +98,10 @@ offset_right = 3840.0
 offset_bottom = 2160.0
 script = SubResource("GDScript_sugp2")
 
-[node name="BGDisplay" type="TextureRect" parent="Background" unique_id=1245307606]
-modulate = Color(1, 1, 1, 0.49803922)
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1245307606]
 offset_right = 3840.0
 offset_bottom = 2160.0
 texture = SubResource("ViewportTexture_jyhfs")
-stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=591433863]
 environment = SubResource("Environment_0wfyh")
@@ -113,9 +111,6 @@ script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-dash_duration = 0.1
-boost_speed = 2000
-boost_charge_time = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=277623342]
 limit_left = 0

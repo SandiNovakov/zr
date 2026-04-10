@@ -54,5 +54,5 @@ func _on_dash_timer_timeout() -> void:
     state_machine.request_state_change($"../Idle")
 
 func exit() -> void:
-    trail_handle.queue_free()
+    trail_handle.stop()
     master.enable_shooting()

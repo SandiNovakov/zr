@@ -38,11 +38,9 @@ func _ready() -> void:
             0.0
         )
     
-    emitting = true
+    finished.connect(queue_free)
     one_shot = true
-    finished.connect(func () -> void: queue_free())
-
-    
+    restart()
 "
 
 [node name="BulletCollideVfx" type="GPUParticles2D" unique_id=2023029930]
@@ -55,3 +53,5 @@ script = SubResource("GDScript_klc8q")
 color_start = 1
 color_middle = 1
 color_end = 3
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -31,6 +31,7 @@ func _ready() -> void:
     
     parent = get_parent()
     top_level = true
+    reparent.call_deferred(get_node(^"/root/Main"))
     
     if use_gradient:
 
@@ -39,7 +40,7 @@ func _ready() -> void:
         var color_end_value: Color = Util.nvl(Pallete.get_color(color_end), default_color_end)
 
         color_start_value.a = 1
-        color_middle_value.a = 0.5
+        color_middle_value.a = 1
         color_end_value.a = 0
 
         var gradient_data := {
@@ -54,24 +55,51 @@ func _ready() -> void:
 
     prev_pos = parent.position
     curr_pos = parent.position
+    
+    parent.tree_exiting.connect(stop.bind(0.1))
+    
+    begin_cap_mode = Line2D.LINE_CAP_ROUND
+    end_cap_mode = Line2D.LINE_CAP_ROUND
 
 func _physics_process(delta: float) -> void:
-    prev_pos = curr_pos
-    curr_pos = parent.position
+    if parent:
+        prev_pos = curr_pos
+        curr_pos = parent.position
 
 func _process(delta: float) -> void:
-    if get_tree().physics_interpolation:
-        var alpha := Engine.get_physics_interpolation_fraction()
-        var interpolated_pos := prev_pos.lerp(curr_pos, alpha)
-        
-        queue.push_front(interpolated_pos)
-    else:
-        queue.push_front(curr_pos)
+    if parent:
+        if get_tree().physics_interpolation:
+            var alpha := Engine.get_physics_interpolation_fraction()
+            var interpolated_pos := prev_pos.lerp(curr_pos, alpha)
+            
+            queue.push_front(interpolated_pos)
+        else:
+            queue.push_front(curr_pos)
     
-    if queue.size() > max_length:
-        queue.pop_back()
+        if queue.size() > max_length:
+            queue.pop_back()
+    #else:
+            #queue.pop_back()
+            #if queue.size() == 0:
+                #queue_free()
     
     clear_points()
     
     for point: Vector2 in queue:
         add_point(point)
+        
+func stop(time: float = 0.3) -> void:
+    reparent(get_node(^"/root/Main"), true)
+    
+    var t: Tween = create_tween()
+    var t2: Tween = create_tween()
+
+    t.tween_property(self, "width", 0.0, time)\
+        .set_trans(Tween.TRANS_CUBIC)\
+        .set_ease(Tween.EASE_IN_OUT)
+
+    t2.tween_property(self, "modulate:a", 0.5, time)\
+        .set_trans(Tween.TRANS_CUBIC)\
+        .set_ease(Tween.EASE_IN_OUT)
+
+    t.tween_callback(queue_free)
