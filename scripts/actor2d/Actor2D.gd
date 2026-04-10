@@ -22,6 +22,8 @@ var allow_shoot: bool = true
 var charged_shot_recovery_time: float = 0.3
 
 signal charged_shot(handler: WeaponHandler)
+signal boost_charge_started
+signal boost_charge_ended
 
 func _ready() -> void:
     for handler: WeaponHandler in weapon_handlers:

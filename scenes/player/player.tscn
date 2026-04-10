@@ -30,6 +30,7 @@ metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638740608]
 modulate = Color(0.8776157, 0.8776158, 0.8776157, 1)
+z_index = 16
 rotation = 1.5707964
 texture = ExtResource("2_tuyoq")
 hframes = 8
@@ -90,5 +91,5 @@ position = Vector2(-7, 15)
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
 position = Vector2(-7, -15)
 
-[node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=445196033]
+[node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=928079377]
 position = Vector2(-27, 0)

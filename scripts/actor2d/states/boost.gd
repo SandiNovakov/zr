@@ -11,11 +11,11 @@ func enter() -> void:
     trail_handle.color_end = Pallete.Colors.BOOST_END
     trail_handle.use_gradient = true
     trail_handle.max_length = 20
-    trail_handle.width = 15
+    trail_handle.width = 12
     trail_handle.z_index = -4096
     
-    master.add_child(trail_handle)
-    
+    #master.add_child(trail_handle)
+    master.add_child(trail_handle)    
     rumble_handle = RumbleController.start(0.3, 0)
 
 func update(delta: float) -> void:
@@ -33,5 +33,5 @@ func update(delta: float) -> void:
 func exit() -> void:
     master.enable_shooting()
     master.enable_charging()
-    trail_handle.queue_free()
+    trail_handle.stop()
     RumbleController.end(rumble_handle)

@@ -11,13 +11,13 @@ func _ready() -> void:
     pass
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
 shader = ExtResource("1_sugp2")
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0.027599998, 0.031919997, 0.06, 1)
 shader_parameter/offset = Vector2(0, 0)
-shader_parameter/bigStarSlow = 2.0
-shader_parameter/mediumStarSlow = 6.0
-shader_parameter/smallStarSlow = 16.0
+shader_parameter/bigStarSlow = 1.0
+shader_parameter/mediumStarSlow = 2.0
+shader_parameter/smallStarSlow = 8.0
 shader_parameter/smallStarAmount = 0.002
 shader_parameter/mediumStarAmount = 0.01
 shader_parameter/bigStarAmount = 0.02
@@ -26,51 +26,17 @@ shader_parameter/bigStarAmount = 0.02
 script/source = "extends ColorRect
 
 func _process(delta: float) -> void:
-    var camera = $\"../../../Player/Camera2D\"
-    if camera:
-        material.set_shader_parameter(\"offset\", camera.global_position)
+    var player: Actor2D = $\"../Player\"
+    if player:
+        set_instance_shader_parameter(\"offset\", player.global_position)
 "
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_jyhfs"]
-viewport_path = NodePath("Background/SubViewport")
 
 [sub_resource type="Environment" id="Environment_0wfyh"]
 background_mode = 3
 glow_enabled = true
 glow_normalized = true
-glow_bloom = 0.98
-
-[sub_resource type="GDScript" id="GDScript_jyhfs"]
-script/source = "extends Camera2D
-
-@onready var player: Actor2D = get_parent()
-
-var boost_tween: Tween
-var default_zoom := Vector2.ONE
-var boost_zoom := Vector2(1.1, 1.1)
-
-func _ready() -> void:
-    player.boost_charge_started.connect(on_boost_charge_started)
-    player.boost_charge_ended.connect(on_boost_charge_ended)
-
-func on_boost_charge_started() -> void:
-    if boost_tween:
-        boost_tween.kill()
-
-    boost_tween = create_tween()
-    boost_tween.tween_property(self, \"zoom\", boost_zoom, player.boost_charge_time)
-        #.set_trans(Tween.TRANS_CIRC)\\
-       # .set_ease(Tween.EASE_OUT_IN)
-    
-func on_boost_charge_ended() -> void:
-    if boost_tween:
-        boost_tween.kill()
-
-    boost_tween = create_tween()
-    boost_tween.tween_property(self, \"zoom\", default_zoom, 0.3)\\
-        .set_trans(Tween.TRANS_BACK)\\
-        .set_ease(Tween.EASE_OUT)
-"
+glow_bloom = 0.5
+glow_hdr_threshold = 0.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0wfyh"]
 normal = Vector2(1, 0)
@@ -86,24 +52,13 @@ normal = Vector2(-1, 0)
 [node name="Main" type="Node" unique_id=743749111]
 script = SubResource("GDScript_sgp6g")
 
-[node name="Background" type="Node2D" parent="." unique_id=1765964052]
+[node name="Background" type="ColorRect" parent="." unique_id=1088540925]
 z_index = -4096
-
-[node name="SubViewport" type="SubViewport" parent="Background" unique_id=56327333]
-size = Vector2i(1920, 1080)
-
-[node name="ColorRect" type="ColorRect" parent="Background/SubViewport" unique_id=1848412542]
-material = SubResource("ShaderMaterial_sugp2")
+material = SubResource("ShaderMaterial_jyhfs")
 offset_right = 3840.0
 offset_bottom = 2160.0
+mouse_filter = 2
 script = SubResource("GDScript_sugp2")
-
-[node name="BGDisplay" type="TextureRect" parent="Background" unique_id=1245307606]
-modulate = Color(1, 1, 1, 0.49803922)
-offset_right = 3840.0
-offset_bottom = 2160.0
-texture = SubResource("ViewportTexture_jyhfs")
-stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=591433863]
 environment = SubResource("Environment_0wfyh")
@@ -113,19 +68,16 @@ script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-dash_duration = 0.1
-boost_speed = 2000
-boost_charge_time = 1.0
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=277623342]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=192199601]
 limit_left = 0
 limit_top = 0
 limit_right = 3840
 limit_bottom = 2160
+limit_smoothed = true
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-script = SubResource("GDScript_jyhfs")
 
 [node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
 

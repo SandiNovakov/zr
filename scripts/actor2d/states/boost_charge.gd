@@ -17,6 +17,8 @@ func enter() -> void:
         master.boost_charge_vfx_anchor.add_child(vfx)
         
     rumble_handle = RumbleController.start(0.1, 0)
+    
+    master.boost_charge_started.emit()
 
 func update(delta: float) -> void:
     master.move(Vector2.ZERO, delta)
@@ -34,6 +36,8 @@ func update(delta: float) -> void:
         state_machine.request_state_change($"../Boost")
 
 func exit() -> void:
+    master.boost_charge_ended.emit()
+    
     if vfx:    
         vfx.queue_free()
 

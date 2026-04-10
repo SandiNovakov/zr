@@ -84,6 +84,13 @@ func _update_rumbles(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+    if not CoreConfig.enable_vibration:
+        if Input.get_joy_vibration_strength(0) != Vector2.ZERO:
+            Input.stop_joy_vibration(0)
+            rumble_strong_str = 0
+            rumble_weak_str = 0
+        return
+    
     _update_rumbles(delta)
     
     if InputDeviceManager.current_input_device != InputDeviceManager.InputDevices.CONTROLLER:

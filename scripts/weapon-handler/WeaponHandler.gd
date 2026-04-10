@@ -62,6 +62,7 @@ func _spawn_bullet(bullet: Bullet) -> void:
     #bullet.set_as_top_level(true)
     
     var vfx: Node2D = weapon.bullet_vfx.instantiate()
+    vfx.z_index = 1
     add_vfx(vfx)
 
 ## Same as start_vfx but better communicates that this for vfx which free themselves.
