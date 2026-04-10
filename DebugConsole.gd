@@ -16,8 +16,22 @@ var callable_map: Dictionary = {
     "set_post_processing": "set_post_processing",
     "vsync": "vsync",
     "set_tps": "set_tps",
-    "set_interpolation": "set_interpolation"
+    "set_interpolation": "set_interpolation",
+    "vibration": "vibration"
 }
+
+func vibration(args: Array) -> String:
+    var value: String = str(args[0]).to_lower()
+
+    if value == "on":
+        CoreConfig.enable_vibration = true
+        return "Vibration enabled"
+
+    if value == "off":
+        CoreConfig.enable_vibration = false
+        return "Vibration disabled"
+
+    return "Invalid argument: use 'on' or 'off'"
 
 func set_tps(args: Array) -> String:
     var tps := int(args[0])
