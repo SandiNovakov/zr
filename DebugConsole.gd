@@ -1,254 +1,290 @@
 extends Node
-@warning_ignore_start("inferred_declaration")
-@warning_ignore_start("untyped_declaration")
 
-var history: Array = []
-
-var callable_map: Dictionary = {
-    "invalid": 'invalid',
-    "invalid_args": 'invalid_args',
-    "hello": "hello",
-    "fullscreen": "fullscreen",
-    "weapon_set": "weapon_set",
-    "resolution": "resolution",
-    "resolution_scale": "resolution_scale",
-    "fps": "fps",
-    "set_post_processing": "set_post_processing",
-    "vsync": "vsync",
-    "set_tps": "set_tps",
-    "set_interpolation": "set_interpolation",
-    "vibration": "vibration",
-    "vibration_strength": "vibration_strength"
+var autocomplete_state: Dictionary = {
+    "query": "",
+    "idx": 0,
 }
 
-func vibration_strength(args: Array) -> String:
-    var retval: String = ""
-    var preset = args[0]
+func get_command(command_name: StringName) -> Variant:
+    for command: DebugCommands.Command in DebugCommands.commands:
+        if command.callable.get_method() == command_name:
+            return command
     
-    match preset:
-        "low":
-            CoreConfig.vibration_strength = 0.33
-            retval = "Vibration strength set to low preset (33%)."
-        "medium":
-            CoreConfig.vibration_strength = 0.66
-            retval = "Vibration strength set to medium preset (66%)."
-        "high":
-            CoreConfig.vibration_strength = 1.0
-            retval = "Vibration strength set to high preset (100%)."
-        _:
-            retval = "No such preset. Vibration strength unchanged. Use 'low', 'medium', or 'high'."
-            
-    return retval
+    return null
 
-func vibration(args: Array) -> String:
-    var value: String = str(args[0]).to_lower()
-
-    if value == "on":
-        CoreConfig.enable_vibration = true
-        return "Vibration enabled"
-
-    if value == "off":
-        CoreConfig.enable_vibration = false
-        return "Vibration disabled"
-
-    return "Invalid argument: use 'on' or 'off'"
-
-func set_tps(args: Array) -> String:
-    var tps := int(args[0])
-
-    if tps <= 0:
-        return "TPS must be a positive integer"
-
-    Engine.physics_ticks_per_second = tps
-    return "Physics TPS set to %d" % tps
-
-func set_interpolation(args: Array) -> String:
-    var value := str(args[0]).to_lower()
-
-    if value == "on":
-        get_tree().physics_interpolation = true
-        return "Physics interpolation enabled"
-
-    if value == "off":
-        get_tree().physics_interpolation = false
-        return "Physics interpolation disabled"
-
-    return "Invalid argument: use 'on' or 'off'"
-
-func vsync(args: Array) -> String:
-    var value: String = str(args[0]).to_lower()
-
-    if value == "on":
-        DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-        return "VSync turned on"
-
-    if value == "off":
-        DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-        return "VSync turned off"
-
-    return "Invalid argument: use 'on' or 'off'"
-
-func set_post_processing(args: Array) -> String:
-    var on_off: String = args[0]
-    var env: Environment = get_node("/root/Main/WorldEnvironment").environment
-        
-    if env == null:
-        Syslog.error("No WorldEnvironment found!")
-        return "No WorldEnvironment found!"
+func get_command_arg_count(command: DebugCommands.Command, required_only: bool = false) -> int:
+    if required_only == false:
+        return command.args.size()
     
-    match on_off:
-        "on":
-            env.glow_enabled = true
-        "off":
-            env.glow_enabled = false
-        _:
-            return "Wrong argument type. Expected either 'on' or 'off', got %s" % [on_off]
-
-    return "post_processing turned %s" % [on_off]
-    
-
-func resolution(args: Array) -> String:
-    var x: int = int(args[0])
-    var y: int = int(args[1])
-
-    var mode = DisplayServer.window_get_mode()
-    if mode != DisplayServer.WINDOW_MODE_WINDOWED:
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-
-    DisplayServer.window_set_size(Vector2i(x, y))
-
-    return "Resolution set to %dx%d" % [x, y]
-    
-func resolution_scale(args: Array) -> String:
-    var retval: String = ""
-    var preset = args[0]
-    
-    match preset:
-        "low":
-            get_viewport().scaling_3d_scale = 0.5
-            retval = "Resolution scale set to low preset."
-        "medium":
-            get_viewport().scaling_3d_scale = 0.75
-            retval = "Resolution scale set to medium preset."
-        "high":
-            get_viewport().scaling_3d_scale = 1.0
-            retval = "Resolution scale set to high preset."
-        _:
-            retval = "No such preset. Resolution scale unchanged."
-            
-    return retval
-
-func weapon_set(args: Array) -> String:
-    var handler: String = args[0]
-    var property: String = args[1]
-    var value: Variant = args[2]
-    
-    var main: Node = get_node("/root/Main")
-    Syslog.debug("main_children: %s" % [main.get_children()])
-    var player: Node = main.find_child("Player", true, false)
-    var weapon: WeaponData
-    
-    var weapon_handler: WeaponHandler = player.find_child(handler, true, false)
-    if weapon_handler == null:
-        return "WeaponHandler not found: %s" % handler
-    
-    weapon = weapon_handler.weapon
-    
-    weapon.set_indexed(property, value)
-    return "set %s.%s to %s" % [handler, property, value]
-        
-
-func hello() -> String:
-    return "hello from cruxade with love!"
-
-func invalid(args: Array) -> String:
-    var text: String = args[0]
-    var possible_text: String = ""
-    var message_extension: String = ""
-    
-    if text == "invalid":
-        return "This is the fallback command! You just started it manually. You deserve this: 🥚"
-        
-    possible_text = get_autocomplete(text)
-    
-    if possible_text != text: # if get_autocomplete returned text that means there was no match. If there was a match then we wouldn't be here, now would we?
-        message_extension = " Did you mean: '%s'?" % [possible_text]
-    
-    return "[color='#FF0000']Error. No such command exists.[/color]%s" % [message_extension]
-
-func invalid_args(args: Array) -> String:
-    var expected: int = args[0]
-    var given: int = args[1]
-    
-    return "[color='#FF0000']Wrong number of arguments for this command. Expected: [/color]%s[color='#FF0000'], got [/color]%s[color='#FF0000'].[/color]" % [expected, given]
-
-func fullscreen() -> String:
-    HotkeysManager.toggle_borderless() #TODO: This is all wrong lmao
-    return "Toggled fullscreen mode."
-
-@warning_ignore("untyped_declaration")
-func execute_command(command: String, args: Array = []) -> Variant:     
-    #var nullp: Variant = callable_map.get(command, 'invalid')
-    #
-    #if nullp == null:
-        #return
-        #
-    #var callable: StringName = str(nullp)
-    #
-    ##sends command to invalid to offer guidance.
-    #if callable == 'invalid':
-        #args = [command]
-    #
-    #var retval: Variant
-    #
-    #if args.size() > 0 and Callable(self, callable).get_argument_count() > 0:
-        #Syslog.debug(args)        
-        #retval = call(callable, args)
-    #elif args.size() == 0 and Callable(self, callable).get_argument_count() == 0:
-        #retval = call(callable)
-    #else:
-        #retval = call('invalid_args', [Callable(self, callable).get_argument_count(), args.size()])
-    #
-    #if retval != "":
-        #Syslog.info("Debug: %s" % [retval])
-        #
-    #return retval
-    
-    return DebugCommands.execute_command(command, args)
-
-func fps() -> String:
-    var fps_visible: bool = DebugConsoleGui.fps.visible
-    if not fps_visible:
-        DebugConsoleGui.fps.visible = true
-        return "FPS counter on."
     else:
-        DebugConsoleGui.fps.visible = false
-        return "FPS counter off."
-    
+        var count: int = 0
+        
+        for i: int in range(0, command.args.size(), 1):
+            if command.args[i].default == null:
+                count += 1
+        
+        return count
 
-func get_autocomplete(text: String) -> String:
-    if text == "":
+func is_valid_type(expected_type: DebugCommands.ArgTypes, value: String) -> bool:
+    value = value.to_lower()
+    
+    match expected_type:
+        DebugCommands.ArgTypes.INT:
+            return value.is_valid_int()
+            
+        DebugCommands.ArgTypes.FLOAT:
+            return value.is_valid_float()
+            
+        DebugCommands.ArgTypes.STRING:
+            return true
+            
+        DebugCommands.ArgTypes.BOOL:
+            return DebugCommands.bool_map.has(value)
+            
+        DebugCommands.ArgTypes.LEVEL:
+            return DebugCommands.level_map.has(value)
+            
+        DebugCommands.ArgTypes.BOOL_LEVEL:
+            return DebugCommands.bool_level_map.has(value)
+            
+        _:
+            return false
+
+func is_within_range(expected_type: DebugCommands.ArgTypes, value: String, min_val: Variant, max_val: Variant) -> bool:
+    match expected_type:
+        DebugCommands.ArgTypes.INT:
+            var v: int = int(value)
+            
+            if min_val != null and v < int(min_val):
+                return false
+            if max_val != null and v > int(max_val):
+                return false
+                
+        DebugCommands.ArgTypes.FLOAT:
+            var v: float = float(value)
+            
+            if min_val != null and v < float(min_val):
+                return false
+            if max_val != null and v > float(max_val):
+                return false
+                
+        DebugCommands.ArgTypes.STRING:
+            var count: int = value.length()
+            
+            if min_val != null and count < int(min_val):
+                return false
+            if max_val != null and count > int(max_val):
+                return false
+                
+        _:
+            pass
+    
+    return true
+
+func convert_value(expected_type: DebugCommands.ArgTypes, value: String) -> Variant:
+    value = value.to_lower()
+    
+    match expected_type:
+        DebugCommands.ArgTypes.INT:
+            return int(value)
+            
+        DebugCommands.ArgTypes.FLOAT:
+            return float(value)
+            
+        DebugCommands.ArgTypes.STRING:
+            return value
+            
+        DebugCommands.ArgTypes.BOOL:
+            return DebugCommands.bool_map.get(value)
+            
+        DebugCommands.ArgTypes.LEVEL:
+            return DebugCommands.level_map.get(value)
+            
+        DebugCommands.ArgTypes.BOOL_LEVEL:
+            return DebugCommands.bool_level_map.get(value)
+            
+        _:
+            return null    
+
+func type_to_string(t: DebugCommands.ArgTypes) -> String:
+    match t:
+        DebugCommands.ArgTypes.INT: return "int"
+        DebugCommands.ArgTypes.FLOAT: return "float"
+        DebugCommands.ArgTypes.STRING: return "string"
+        DebugCommands.ArgTypes.BOOL: return "bool"
+        DebugCommands.ArgTypes.LEVEL: return "level"
+        DebugCommands.ArgTypes.BOOL_LEVEL: return "bool_level"
+        _: return "unknown"
+
+func build_arg_syntax(arg: DebugCommands.CommandArg) -> String:
+    var type_str := type_to_string(arg.type)
+    
+    var constraint := ""
+    
+    match arg.type:
+        DebugCommands.ArgTypes.INT, DebugCommands.ArgTypes.FLOAT:
+            if arg.min_val != null or arg.max_val != null:
+                constraint = " (%s..%s)" % [
+                    arg.min_val if arg.min_val != null else "-inf",
+                    arg.max_val if arg.max_val != null else "+inf"
+                ]
+                
+        DebugCommands.ArgTypes.STRING:
+            if arg.min_val != null or arg.max_val != null:
+                constraint = " (len %s..%s)" % [
+                    arg.min_val if arg.min_val != null else "0",
+                    arg.max_val if arg.max_val != null else "∞"
+                ]
+                
+        DebugCommands.ArgTypes.BOOL:
+            constraint = " (on/off)"
+            
+        DebugCommands.ArgTypes.LEVEL:
+            constraint = " (low/medium/high)"
+            
+        DebugCommands.ArgTypes.BOOL_LEVEL:
+            constraint = " (off/low/medium/high)"
+    
+    var base := "%s:%s%s" % [arg.display, type_str, constraint]
+    
+    # optional vs required
+    if arg.default != null:
+        return "[%s=%s]" % [base, str(arg.default)]
+    else:
+        return "<%s>" % base
+        
+func get_command_usage(command_name: StringName) -> String:
+    var command: DebugCommands.Command = get_command(command_name)
+    
+    if command == null:
+        return "No such command."
+    
+    var parts: Array[String] = []
+    
+    for arg in command.args:
+        parts.append(build_arg_syntax(arg))
+    
+    return "%s %s" % [
+        command_name,
+        " ".join(parts)
+    ]
+
+func get_autocomplete(query: String) -> String:
+    if query == "":
         return ""
     
-    var autocompletes: Array = callable_map.keys()
-    var matches: Array[String] #yes this rebuilds the array every time, even for the same input string. Caching isn't a big deal on this few entries.
+    if query != autocomplete_state.get("query"):
+        autocomplete_state.set("query", query)
+        autocomplete_state.set("idx", 0)
     
-    for i in range(0, autocompletes.size()):
-         if autocompletes[i].match(text+'*'):
-            matches.append(autocompletes[i])
+    var matches: Array[String] = []
     
-    if matches.size() <= 0:
-        return text
+    for cmd in DebugCommands.commands:
+        var cmd_name: String = cmd.callable.get_method()
+        if cmd_name.match(query+"*"):
+            matches.append(cmd_name)
     
-    var current_index: int #current selected match from matches. If none, will return first result.
+    if matches.is_empty():
+        return query
     
-    for i in range(0, matches.size()):
-        if matches[i] == text:
-            Syslog.debug("text: %s, string: %s, idx: %s" % [text, matches[i], i])
-            current_index = (i + 1) % matches.size()
-            Syslog.debug("idx_after: %s" % [current_index])
-            break
-    if current_index != null:
-        return matches[current_index]
+    matches.sort()
+    
+    var idx: int = autocomplete_state.get("idx")
+    var result: String = matches[idx]
+    
+    autocomplete_state.set("idx", (idx + 1) % matches.size())
+    
+    if get_command_arg_count(get_command(result)) > 0:
+        result += " "
+    
+    return result
+    
+func execute_command(input: String) -> String:
+    var command_name: StringName
+    var args: Array = []
+    
+    Syslog.debug(input)
+    
+    input = input.trim_suffix(" ")
+    var parts = input.split(" ", false)
+    
+    if parts.size() > 0:
+        command_name = parts[0]
+        args = parts.slice(1)
     else:
-        return matches[0]
+        command_name = input
+    
+    var command: DebugCommands.Command
+    var null_ref: Variant = get_command(command_name)
+    
+    if null_ref == null:
+        return "No such command exists."
+    else:
+        command = null_ref
+    
+    if args.size() == 1 and args[0] == "?":
+        return "Usage: %s" % get_command_usage(command_name)
+    
+    var argc_min: int = get_command_arg_count(command, true)
+    var argc_max: int = get_command_arg_count(command, false)
+    
+    if args.size() < argc_min or args.size() > argc_max:
+        return "Wrong number of arguments. Expected at least %s and at most %s.\nUsage: %s" % [
+            argc_min, argc_max, get_command_usage(command_name)
+        ]
+    
+    var final_args: Array = []
+    var errors: Array[String] = []
+    
+    for i in range(command.args.size()):
+        var arg_def: DebugCommands.CommandArg = command.args[i]
+        
+        # handle missing optional args
+        if i >= args.size():
+            final_args.append(arg_def.default)
+            continue
+        
+        var raw_value: String = str(args[i])
+        
+        # --- type check ---
+        if not is_valid_type(arg_def.type, raw_value):
+            errors.append(
+                "Arg %d (%s): invalid type. Expected %s." % [
+                    i, arg_def.display, type_to_string(arg_def.type)
+                ]
+            )
+            continue
+        
+        # --- range check ---
+        if not is_within_range(arg_def.type, raw_value, arg_def.min_val, arg_def.max_val):
+            errors.append(
+                "Arg %d (%s): value out of range." % [
+                    i, arg_def.display
+                ]
+            )
+            continue
+        
+        # --- conversion ---
+        var converted: Variant = convert_value(arg_def.type, raw_value)
+        
+        if converted == null and arg_def.type != DebugCommands.ArgTypes.STRING:
+            errors.append(
+                "Arg %d (%s): failed to convert value." % [
+                    i, arg_def.display
+                ]
+            )
+            continue
+        
+        final_args.append(converted)
+    
+    # --- error handling ---
+    if errors.size() > 0:
+        return "%s\nUsage: %s" % [
+            "\n".join(errors),
+            get_command_usage(command_name)
+        ]
+    
+    # --- execution ---
+    var msg: String = command.callable.callv(final_args)
+    Syslog.info("Console: %s" % [msg])
+    return msg

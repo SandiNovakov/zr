@@ -70,3 +70,21 @@ static func make_3point_gradient(
     g.colors = PackedColorArray([s, m, e])
 
     return g
+
+static func on_off(val: bool) -> String:
+    if val:
+        return "on"
+    else:
+        return "off"
+        
+static func true_false(val: bool) -> String:
+    if val:
+        return "true"
+    else:
+        return "false"
+        
+static func enabled_disabled(val: bool) -> String:
+    if val:
+        return "enabled"
+    else:
+        return "disabled"
