@@ -30,6 +30,7 @@ enum LogDestination {PRINT, PRINT_RICH, LOG_FILE, HTML_FILE}
 
 @export_group("Vibration")
 @export var enable_vibration: bool = true
+@export var vibration_strength: float = 0.5
 
 func get_log_level() -> LogLevel:
     return log_level

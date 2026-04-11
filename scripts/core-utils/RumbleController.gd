@@ -28,20 +28,20 @@ func add(weak_str: float, strong_str: float, duration: float) -> void:
     rumbles.append(
         Rumble.new(
             _get_id(),
-            weak_str,
-            strong_str,
+            weak_str * CoreConfig.vibration_strength,
+            strong_str * CoreConfig.vibration_strength,
             duration,
         )
     )
         
-func start(weak_str: float, strong_str: float) -> String:
+func start(weak_str: float, strong_str: float) -> String:    
     var new_id: int = _get_id()
     
     rumbles.append(
         Rumble.new(
             new_id,
-            weak_str,
-            strong_str,
+            weak_str * CoreConfig.vibration_strength,
+            strong_str * CoreConfig.vibration_strength,
             0
         )
     )    

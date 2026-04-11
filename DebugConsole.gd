@@ -17,8 +17,28 @@ var callable_map: Dictionary = {
     "vsync": "vsync",
     "set_tps": "set_tps",
     "set_interpolation": "set_interpolation",
-    "vibration": "vibration"
+    "vibration": "vibration",
+    "vibration_strength": "vibration_strength"
 }
+
+func vibration_strength(args: Array) -> String:
+    var retval: String = ""
+    var preset = args[0]
+    
+    match preset:
+        "low":
+            CoreConfig.vibration_strength = 0.33
+            retval = "Vibration strength set to low preset (33%)."
+        "medium":
+            CoreConfig.vibration_strength = 0.66
+            retval = "Vibration strength set to medium preset (66%)."
+        "high":
+            CoreConfig.vibration_strength = 1.0
+            retval = "Vibration strength set to high preset (100%)."
+        _:
+            retval = "No such preset. Vibration strength unchanged. Use 'low', 'medium', or 'high'."
+            
+    return retval
 
 func vibration(args: Array) -> String:
     var value: String = str(args[0]).to_lower()
