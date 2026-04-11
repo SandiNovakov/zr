@@ -117,9 +117,9 @@ func type_to_string(t: DebugCommands.ArgTypes) -> String:
         _: return "unknown"
 
 func build_arg_syntax(arg: DebugCommands.CommandArg) -> String:
-    var type_str := type_to_string(arg.type)
+    var type_str: String = type_to_string(arg.type)
     
-    var constraint := ""
+    var constraint: String = ""
     
     match arg.type:
         DebugCommands.ArgTypes.INT, DebugCommands.ArgTypes.FLOAT:
@@ -145,7 +145,7 @@ func build_arg_syntax(arg: DebugCommands.CommandArg) -> String:
         DebugCommands.ArgTypes.BOOL_LEVEL:
             constraint = " (off/low/medium/high)"
     
-    var base := "%s:%s%s" % [arg.display, type_str, constraint]
+    var base: String = "%s:%s%s" % [arg.display, type_str, constraint]
     
     # optional vs required
     if arg.default != null:
@@ -161,7 +161,7 @@ func get_command_usage(command_name: StringName) -> String:
     
     var parts: Array[String] = []
     
-    for arg in command.args:
+    for arg: Variant in command.args:
         parts.append(build_arg_syntax(arg))
     
     return "%s %s" % [
@@ -169,17 +169,22 @@ func get_command_usage(command_name: StringName) -> String:
         " ".join(parts)
     ]
 
-func get_autocomplete(query: String) -> String:
+func reset_autocomplete_state() -> void:
+    autocomplete_state.set("query", "")
+    autocomplete_state.set("idx", 0)
+
+func get_autocomplete(query: String, next: int = 1) -> String:
     if query == "":
         return ""
     
     if query != autocomplete_state.get("query"):
         autocomplete_state.set("query", query)
         autocomplete_state.set("idx", 0)
+        next = 0
     
     var matches: Array[String] = []
     
-    for cmd in DebugCommands.commands:
+    for cmd: DebugCommands.Command in DebugCommands.commands:
         var cmd_name: String = cmd.callable.get_method()
         if cmd_name.match(query+"*"):
             matches.append(cmd_name)
@@ -190,10 +195,13 @@ func get_autocomplete(query: String) -> String:
     matches.sort()
     
     var idx: int = autocomplete_state.get("idx")
+    idx = (idx + next) % matches.size()
+    if idx < 0:
+        idx = matches.size() -1
+    autocomplete_state.set("idx", idx)
+
+    
     var result: String = matches[idx]
-    
-    autocomplete_state.set("idx", (idx + 1) % matches.size())
-    
     if get_command_arg_count(get_command(result)) > 0:
         result += " "
     
@@ -203,10 +211,10 @@ func execute_command(input: String) -> String:
     var command_name: StringName
     var args: Array = []
     
-    Syslog.debug(input)
+    #Syslog.debug(input)
     
     input = input.trim_suffix(" ")
-    var parts = input.split(" ", false)
+    var parts: PackedStringArray = input.split(" ", false)
     
     if parts.size() > 0:
         command_name = parts[0]
@@ -236,7 +244,7 @@ func execute_command(input: String) -> String:
     var final_args: Array = []
     var errors: Array[String] = []
     
-    for i in range(command.args.size()):
+    for i: int in range(command.args.size()):
         var arg_def: DebugCommands.CommandArg = command.args[i]
         
         # handle missing optional args
@@ -286,5 +294,4 @@ func execute_command(input: String) -> String:
     
     # --- execution ---
     var msg: String = command.callable.callv(final_args)
-    Syslog.info("Console: %s" % [msg])
     return msg

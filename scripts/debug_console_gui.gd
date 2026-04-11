@@ -24,10 +24,16 @@ func _input(event: InputEvent) -> void:
         
     if not input.has_focus():
         return
-        
-    if event.is_action_pressed(&"ui_text_indent"):
+    
+    if event.is_action_pressed(&"ui_autocomplete") and not event.is_action_pressed(&"ui_autocomplete_back"):
         enable_text_changed_event = false
-        input.text = DebugConsole.get_autocomplete(command)       
+        input.text = DebugConsole.get_autocomplete(command)
+        input.caret_column = input.text.length()
+        enable_text_changed_event = true
+    
+    if event.is_action_pressed(&"ui_autocomplete_back"):
+        enable_text_changed_event = false
+        input.text = DebugConsole.get_autocomplete(command, -1)
         input.caret_column = input.text.length()
         enable_text_changed_event = true
         
@@ -47,6 +53,7 @@ func _input(event: InputEvent) -> void:
         
         input.text = history[history_idx]
         input.caret_column = min(input_col, input.text.length())
+        get_viewport().set_input_as_handled()
     
     if event.is_action_pressed(&"ui_down"):
         if history.size() == 0:
@@ -63,11 +70,12 @@ func _input(event: InputEvent) -> void:
         
         input.text = history[history_idx]
         input.caret_column = min(input_col, input.text.length())
+        get_viewport().set_input_as_handled()
 
 func on_text_changed(new_text: String) -> void:
     if enable_text_changed_event:
         command = new_text
-    
+        DebugConsole.reset_autocomplete_state()
 
 func toggle_console() -> void:
     is_open = !is_open
@@ -83,14 +91,14 @@ func toggle_console() -> void:
        
 func on_submit(text: String) -> void:
     command = text
-    Syslog.debug(command)
+    Syslog.debug("Console: ", command)
     
     if command.is_empty():
         return
     
     history.append(command)
     history_idx = history.size()
-        
+    
     var result: String = DebugConsole.execute_command(command)
     
     if result != "":
@@ -100,6 +108,7 @@ func on_submit(text: String) -> void:
 
         
 func show_message(text: String) -> void:
+    Syslog.info("Console: ", text)
     var msg: RichTextLabel = RichTextLabel.new()
     msg.bbcode_enabled = true
     msg.text = text
@@ -117,9 +126,9 @@ func show_message(text: String) -> void:
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 
-    t.tween_interval(1)
+    t.tween_interval(5)
 
-    t.tween_property(msg, "modulate:a", 0.0, 5.0)\
+    t.tween_property(msg, "modulate:a", 0.0, 1.0)\
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 

@@ -62,13 +62,13 @@ func fullscreen() -> String:
     return "Toggled fullscreen mode."
 
 func set_resolution_scale(preset: Levels) -> String:
-    var scale_map = {
+    var scale_map: Dictionary = {
         Levels.LOW: 0.5,
         Levels.MEDIUM: 0.75,
         Levels.HIGH: 1.0
     }
     
-    var scale = scale_map[preset]
+    var scale: float = scale_map[preset]
     get_viewport().scaling_3d_scale = scale
     return "Resolution scale set to %s preset (%.0f%%)." % [preset, scale * 100]
 
@@ -131,7 +131,7 @@ func help() -> String:
     var names: Array[String] = []
     
     # collect command names
-    for cmd in commands:
+    for cmd: Command in commands:
         names.append(String(cmd.callable.get_method()))
     
     # sort alphabetically
