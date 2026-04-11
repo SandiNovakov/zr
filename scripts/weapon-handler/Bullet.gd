@@ -11,6 +11,21 @@ var lifetime: float = 10
 
 @onready var main: Node = get_node("/root/Main")
 
+func die() -> void:        
+    set_collision_layer(0)
+    set_collision_mask(0)
+    
+    speed = 0
+    
+    var t: Tween = create_tween()
+    var t2: Tween = create_tween()
+
+    t.tween_property(self, "scale", Vector2.ZERO, 0.3)
+
+    t2.tween_property(self, "modulate:a", 0.0, 0.3) 
+
+    t.tween_callback(queue_free)
+
 func _ready() -> void:
     direction = direction.normalized()
     rotation = direction.angle()
@@ -18,7 +33,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
     lifetime -= delta
     if lifetime <= 0:
-        queue_free()
+        die()
         return
 
     var motion: Vector2 = direction * speed * delta
@@ -33,4 +48,4 @@ func _physics_process(delta: float) -> void:
             c.global_rotation = normal.angle()
             main.add_child(c)
  
-        queue_free()
+        die()
