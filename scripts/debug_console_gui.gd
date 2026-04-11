@@ -119,7 +119,7 @@ func show_message(text: String) -> void:
 
     t.tween_interval(1)
 
-    t.tween_property(msg, "modulate:a", 0.0, 1.0)\
+    t.tween_property(msg, "modulate:a", 0.0, 5.0)\
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 

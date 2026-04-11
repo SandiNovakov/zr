@@ -188,31 +188,33 @@ func fullscreen() -> String:
 
 @warning_ignore("untyped_declaration")
 func execute_command(command: String, args: Array = []) -> Variant:     
-    var nullp: Variant = callable_map.get(command, 'invalid')
+    #var nullp: Variant = callable_map.get(command, 'invalid')
+    #
+    #if nullp == null:
+        #return
+        #
+    #var callable: StringName = str(nullp)
+    #
+    ##sends command to invalid to offer guidance.
+    #if callable == 'invalid':
+        #args = [command]
+    #
+    #var retval: Variant
+    #
+    #if args.size() > 0 and Callable(self, callable).get_argument_count() > 0:
+        #Syslog.debug(args)        
+        #retval = call(callable, args)
+    #elif args.size() == 0 and Callable(self, callable).get_argument_count() == 0:
+        #retval = call(callable)
+    #else:
+        #retval = call('invalid_args', [Callable(self, callable).get_argument_count(), args.size()])
+    #
+    #if retval != "":
+        #Syslog.info("Debug: %s" % [retval])
+        #
+    #return retval
     
-    if nullp == null:
-        return
-        
-    var callable: StringName = str(nullp)
-    
-    #sends command to invalid to offer guidance.
-    if callable == 'invalid':
-        args = [command]
-    
-    var retval: Variant
-    
-    if args.size() > 0 and Callable(self, callable).get_argument_count() > 0:
-        Syslog.debug(args)        
-        retval = call(callable, args)
-    elif args.size() == 0 and Callable(self, callable).get_argument_count() == 0:
-        retval = call(callable)
-    else:
-        retval = call('invalid_args', [Callable(self, callable).get_argument_count(), args.size()])
-    
-    if retval != "":
-        Syslog.info("Debug: %s" % [retval])
-        
-    return retval
+    return DebugCommands.execute_command(command, args)
 
 func fps() -> String:
     var fps_visible: bool = DebugConsoleGui.fps.visible
