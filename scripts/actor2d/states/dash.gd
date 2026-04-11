@@ -18,7 +18,7 @@ func enter() -> void:
         dbg_flag = 'rotation'
         dash_dir = Vector2.from_angle(master.global_rotation).normalized()
     
-    master.velocity = dash_dir * master.speed * 3
+    master.velocity = dash_dir * (master.speed + master.dash_speed)
 
     #Syslog.debug('%s dash_dir = %s, sourced from %s' % [master.name, dash_dir, dbg_flag])
     
