@@ -57,15 +57,15 @@ static func make_3point_gradient(
     middle_alpha: float = 0.5,
     end_alpha: float = 0.0
 ) -> Gradient:
-    var s: = start
-    var m: = middle
-    var e: = end
+    var s: Color = start
+    var m: Color = middle
+    var e: Color = end
 
     s.a = start_alpha
     m.a = middle_alpha
     e.a = end_alpha
 
-    var g := Gradient.new()
+    var g: Gradient = Gradient.new()
     g.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
     g.colors = PackedColorArray([s, m, e])
 
@@ -89,11 +89,15 @@ static func enabled_disabled(val: bool) -> String:
     else:
         return "disabled"
 
-static func get_vector(negative_x: StringName, positive_x: StringName, negative_y: StringName, positive_y: StringName) -> Vector2:
+static func get_vector(negative_x: StringName, positive_x: StringName, negative_y: StringName, positive_y: StringName, force_deadzone: bool = false) -> Vector2:
     match InputDeviceManager.current_input_device:
         InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
             return Vector2(Input.get_axis(negative_x, positive_x), Input.get_axis(negative_y, positive_y)).limit_length(1.0)
         InputDeviceManager.InputDevices.CONTROLLER:
+            if force_deadzone: # over-ride for boost
+                return Vector2(Input.get_axis(negative_x, positive_x), Input.get_axis(negative_y, positive_y)).limit_length(1.0)
+
+            
             return Input.get_vector(negative_x, positive_x, negative_y, positive_y)
         _:
             return Vector2.ZERO

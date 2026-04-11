@@ -10,7 +10,7 @@ var lock: bool = false # lock to prevent switching state before exit and enter h
 
 func _initialize_state(state: State) -> void:
     if state not in initialized_states:
-        Syslog.debug('Attempt to init state: %s' % [state.name])
+        #Syslog.debug('Attempt to init state: %s' % [state.name])
         state.set_master(master)
         initialized_states.append(state)
         
@@ -67,11 +67,11 @@ func request_state_change(new_state: State) -> void:
             current_state.name
         ])
         
-    Syslog.debug("Node %s changed states from %s to %s." % [
-        master.name,
-        old_state.name,
-        current_state.name
-    ])
+    #Syslog.debug("Node %s changed states from %s to %s." % [
+        #master.name,
+        #old_state.name,
+        #current_state.name
+    #])
     
     _initialize_state(current_state)
     current_state.enter()

@@ -71,6 +71,6 @@ func enable_charging() -> void:
         handler.allow_charge = true
 
 func invalidate_charges() -> void:
-    Syslog.debug("%s invalidated all charges!" % [self.name])
+    #Syslog.debug("%s invalidated all charges!" % [self.name])
     for handler: WeaponHandler in weapon_handlers:
         handler.invalidate_charge.emit()

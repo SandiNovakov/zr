@@ -20,7 +20,7 @@ func enter() -> void:
     
     master.velocity = dash_dir * master.speed * 3
 
-    Syslog.debug('%s dash_dir = %s, sourced from %s' % [master.name, dash_dir, dbg_flag])
+    #Syslog.debug('%s dash_dir = %s, sourced from %s' % [master.name, dash_dir, dbg_flag])
     
     dash_timer = Timer.new()
     add_child(dash_timer)
