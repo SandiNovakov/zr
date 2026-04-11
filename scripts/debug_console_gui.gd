@@ -9,28 +9,39 @@ var is_open: bool = false
 var history: Array = []
 var history_idx: int
 var previous_text: String
+var command: String
+var enable_text_changed_event: bool = true
 
 func _ready() -> void:
     panel.visible = false
     input.text_submitted.connect(on_submit)
+    input.text_changed.connect(on_text_changed)
 
 func _input(event: InputEvent) -> void:
     
     if event.is_action_pressed(&"toggle_console"):
         toggle_console()
         
-    if input.has_focus() and event.is_action_pressed(&"ui_text_indent"):
-        input.text = DebugConsole.get_autocomplete(input.text.trim_suffix(" "))
-        if input.text != "" and Callable(DebugConsole, input.text).get_argument_count() > 0:
-            input.text += " "
-        
+    if not input.has_focus():
+        return
+    
+    if event.is_action_pressed(&"ui_autocomplete") and not event.is_action_pressed(&"ui_autocomplete_back"):
+        enable_text_changed_event = false
+        input.text = DebugConsole.get_autocomplete(command)
         input.caret_column = input.text.length()
+        enable_text_changed_event = true
+    
+    if event.is_action_pressed(&"ui_autocomplete_back"):
+        enable_text_changed_event = false
+        input.text = DebugConsole.get_autocomplete(command, -1)
+        input.caret_column = input.text.length()
+        enable_text_changed_event = true
         
-    if input.has_focus() and event.is_action_pressed(&"ui_cancel"):
+    if event.is_action_pressed(&"ui_cancel"):
         input.clear()
         toggle_console()
         
-    if input.has_focus() and event.is_action_pressed(&"ui_up"):
+    if event.is_action_pressed(&"ui_up"):
         if history.size() == 0:
             return
         
@@ -42,8 +53,9 @@ func _input(event: InputEvent) -> void:
         
         input.text = history[history_idx]
         input.caret_column = min(input_col, input.text.length())
+        get_viewport().set_input_as_handled()
     
-    if input.has_focus() and event.is_action_pressed(&"ui_down"):
+    if event.is_action_pressed(&"ui_down"):
         if history.size() == 0:
             return
         
@@ -58,6 +70,12 @@ func _input(event: InputEvent) -> void:
         
         input.text = history[history_idx]
         input.caret_column = min(input_col, input.text.length())
+        get_viewport().set_input_as_handled()
+
+func on_text_changed(new_text: String) -> void:
+    if enable_text_changed_event:
+        command = new_text
+        DebugConsole.reset_autocomplete_state()
 
 func toggle_console() -> void:
     is_open = !is_open
@@ -70,36 +88,27 @@ func toggle_console() -> void:
     else:
         Syslog.info("Debug console closed.")
         input.release_focus()
-
+       
 func on_submit(text: String) -> void:
-    var args: Array = []
+    command = text
+    Syslog.debug("Console: ", command)
     
-    if text == "":
+    if command.is_empty():
         return
     
-    text = text.trim_suffix(" ")
-        
-    history.append(text)
+    history.append(command)
     history_idx = history.size()
     
-    args = text.split(" ", false)
+    var result: String = DebugConsole.execute_command(command)
+    
+    if result != "":
+        show_message(str(result))
     
     input.clear()
-    
-    
-    var nullp: Variant
-    
-    if args.size() > 1:
-        var command: String = args.pop_front() # the command will always be the first entry
-        nullp = DebugConsole.execute_command(command, args)
-    else:
-        nullp = DebugConsole.execute_command(text)
-        
-    if nullp != null:
-        var ret_msg: String = nullp
-        show_message(ret_msg)
+
         
 func show_message(text: String) -> void:
+    Syslog.info("Console: ", text)
     var msg: RichTextLabel = RichTextLabel.new()
     msg.bbcode_enabled = true
     msg.text = text
@@ -117,7 +126,7 @@ func show_message(text: String) -> void:
         .set_trans(Tween.TRANS_CUBIC)\
         .set_ease(Tween.EASE_IN_OUT)
 
-    t.tween_interval(1)
+    t.tween_interval(5)
 
     t.tween_property(msg, "modulate:a", 0.0, 1.0)\
         .set_trans(Tween.TRANS_CUBIC)\

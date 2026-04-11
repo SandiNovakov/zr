@@ -36,6 +36,9 @@ func get_action_buffered(action: StringName) -> bool:
     
     return InputBuffer.is_action_press_buffered(action)
 
+func _process(delta: float) -> void:
+    Syslog.debug(Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down"))
+
 func get_boost_dir() -> Vector2:
     if _is_ui_focused():
         return Vector2.ZERO
@@ -52,11 +55,10 @@ func get_boost_dir() -> Vector2:
                 #rotated = dir.rotated(PI / 2)
             #
             #return rotated
-
-            return Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")                                    
+            return Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")                                
             
         InputDeviceManager.InputDevices.CONTROLLER:             
-            return Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
+            return Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
         _:
             Syslog.error('Current input device is not in InputDevices enum!')
             return Vector2.ZERO
@@ -64,8 +66,8 @@ func get_boost_dir() -> Vector2:
 func get_move_dir() -> Vector2:
     if _is_ui_focused():
         return Vector2.ZERO
-    
-    var move_dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
+        
+    var move_dir: Vector2 = Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
     if Input.is_action_pressed("slow"):
         move_dir *= 0.5
     

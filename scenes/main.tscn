@@ -26,7 +26,7 @@ shader_parameter/bigStarAmount = 0.02
 script/source = "extends ColorRect
 
 func _process(delta: float) -> void:
-    var camera = $\"../../../Player/Camera2D\"
+    var camera: Camera2D = $\"../../../Player/Camera2D\"
     if camera:
         material.set_shader_parameter(\"offset\", camera.global_position)
 "
@@ -46,8 +46,8 @@ script/source = "extends Camera2D
 @onready var player: Actor2D = get_parent()
 
 var boost_tween: Tween
-var default_zoom := Vector2.ONE
-var boost_zoom := Vector2(1.1, 1.1)
+var default_zoom: Vector2 = Vector2.ONE
+var boost_zoom: Vector2 = Vector2(1.1, 1.1)
 
 func _ready() -> void:
     player.boost_charge_started.connect(on_boost_charge_started)
