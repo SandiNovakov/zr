@@ -30,7 +30,6 @@ RingBuffer="*uid://cktsd4e0r3x5p"
 
 [debug]
 
-file_logging/enable_file_logging.pc=false
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_local_constant=0
 gdscript/warnings/unused_private_class_variable=0
@@ -166,5 +165,6 @@ common/physics_interpolation=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=2
 rendering_device/driver.windows="d3d12"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

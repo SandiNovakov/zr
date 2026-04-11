@@ -60,6 +60,7 @@ func _ready() -> void:
     
     begin_cap_mode = Line2D.LINE_CAP_ROUND
     end_cap_mode = Line2D.LINE_CAP_ROUND
+    antialiased = true
 
 func _physics_process(delta: float) -> void:
     if parent:
