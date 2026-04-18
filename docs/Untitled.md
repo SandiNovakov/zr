@@ -3,7 +3,7 @@ extends Node
 @warning_ignore_start("inferred_declaration")
 @warning_ignore_start("untyped_declaration")
 
-var history: Array = []
+vara history: Array = []
 
 var callable_map: Dictionary = {
     "invalid": 'invalid',
