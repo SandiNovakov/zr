@@ -120,6 +120,7 @@ boost_speed = 2000
 boost_charge_time = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=277623342]
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 3840
