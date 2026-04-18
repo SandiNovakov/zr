@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bputh8ybfjclg"]
 
 [ext_resource type="PackedScene" uid="uid://cyci24154tn4i" path="res://scenes/bullet/bullet.tscn" id="1_rk576"]
-[ext_resource type="PackedScene" uid="uid://5fvkrrg2poip" path="res://scenes/vfx/bullet_vfx.tscn" id="2_si1ga"]
+[ext_resource type="PackedScene" uid="uid://5fvkrrg2poip" path="res://scenes/vfx/bullet/bullet_vfx.tscn" id="2_si1ga"]
 [ext_resource type="PackedScene" uid="uid://djyvosr140cjt" path="res://scenes/bullet/charge_bullet.tscn" id="3_1n0fm"]
-[ext_resource type="PackedScene" uid="uid://brb31qrl3tkic" path="res://scenes/vfx/charged_vfx.tscn" id="4_v8nq7"]
-[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/charging_vfx.tscn" id="5_5aifu"]
+[ext_resource type="PackedScene" uid="uid://brb31qrl3tkic" path="res://scenes/vfx/bullet/charged_vfx.tscn" id="4_v8nq7"]
+[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/bullet/charging_vfx.tscn" id="5_5aifu"]
 [ext_resource type="Script" uid="uid://fy2kx1pmjlsi" path="res://scripts/weapon-handler/WeaponData.gd" id="6_h4keh"]
 
 [resource]

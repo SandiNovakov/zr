@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bpgkpgrenw4bu"]
 
-[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/bullet/bullet_collide_vfx.tscn" id="1_u5gls"]
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/vfx/bullet/bullet_collide_vfx.tscn" id="1_u5gls"]
 
 [sub_resource type="Gradient" id="Gradient_xxemr"]
 interpolation_mode = 2

@@ -16,30 +16,28 @@
 - [ ] Split debug UI into dedicated structure  
   - Possible: create a dedicated scene for all debug UI layers  
 
-- [ ] Create project-wide code style guide
-
-- [ ] Organize project directories
+- [x] ~~Organize project directories~~
 
 
 ## Debug console overhaul
 
-- [ ] Refactor DebugConsoleGui to be input-transparent  
+- [x] ~~Refactor DebugConsoleGui to be input-transparent~~
   - Must not mutate or interpret input  
   - Only forward raw input to DebugConsole
 
-- [ ] Separate callable registry from DebugConsole  
+- [x] ~~Separate callable registry from DebugConsole~~
   - Move callable definitions into a dedicated script/module
 
-- [ ] Support callable argument introspection  
+- [x] ~~Support callable argument introspection~~
   - Automatically determine expected argument count
 
-- [ ] Add strict argument validation for command execution  
+- [x] ~~Add strict argument validation for command execution~~
   - Reject calls where provided arg count ≠ expected arg count
 
-- [ ] Add structured argument binding system  
+- [x] ~~Add structured argument binding system~~
   - Programmatic mapping of inputs → typed arguments
 
-- [ ] Add flexible boolean parsing for arguments  
+- [x] ~~Add flexible boolean parsing for arguments~~
   - Accept: on/off, true/false, 1/0
 
 
@@ -58,7 +56,7 @@
 - [ ] Implement centralized API for controller vibration strength values  
   - Refactor all calls to RumbleController to use values from there instead
 
-- [ ] Add rumble strength setting for users to reduce or increase rumble strength
+- [x] ~~Add rumble strength setting for users to reduce or increase rumble strength~~
 
 
 ## Gameplay systems
@@ -69,11 +67,11 @@
 
 - [ ] Add stagger state to Actor2D
 
-- [ ] Fix Boost state input handling (currently broken)
+- [x] ~~Fix Boost state input handling (currently broken)~~
 
 - [ ] Implement BoostRecover state
 
-- [ ] Create new VFX for Actor2D actions
+- [x] ~~Create new VFX for Actor2D actions~~
 
 - [ ] Implement enemies  
   - Could reuse Actor2D with AI controller restrictions (no Boost/Dash usage)
@@ -113,10 +111,10 @@
 
 ## Code quality / consistency
 
-- [x] Enforce explicit type declarations everywhere  
+- [x] ~~Enforce explicit type declarations everywhere~~
   - Fix all inferred type definitions to adhere to project spec
 
-- [ ] Remove redundant or unnecessary Syslog.debug() calls  
+- [x] ~~Remove redundant or unnecessary Syslog.debug() calls~~
   - Free space for meaningful debug output
 
 

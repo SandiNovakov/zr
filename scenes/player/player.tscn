@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scripts/actor2d/states/idle.gd" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://wpfnk3a8x282" path="res://scripts/actor2d/states/charged_shot_recoil.gd" id="6_smehm"]
-[ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/weapon_handler.tscn" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/player/weapon_handler.tscn" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://cw5l0fpkkh12a" path="res://scripts/actor2d/states/boost_charge.gd" id="7_je7p5"]
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="8_fm80t"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]

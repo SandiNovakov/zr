@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bl8d2weiiw5bv"]
 
-[ext_resource type="Script" uid="uid://c0dcpq7j0j0wp" path="res://scripts/debug_console_gui.gd" id="1_44xxp"]
+[ext_resource type="Script" uid="uid://c0dcpq7j0j0wp" path="res://scripts/debug/debug_console_gui.gd" id="1_44xxp"]
 [ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="2_ht77c"]
 
 [sub_resource type="GDScript" id="GDScript_ht77c"]

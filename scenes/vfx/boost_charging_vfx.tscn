@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcmuu1ieivw5i"]
 
-[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/charging_vfx.tscn" id="1_dbx86"]
+[ext_resource type="PackedScene" uid="uid://cvhnp2ajpe8cx" path="res://scenes/vfx/bullet/charging_vfx.tscn" id="1_dbx86"]
 
 [node name="boost_charging_vfx" unique_id=1200617565 instance=ExtResource("1_dbx86")]
 

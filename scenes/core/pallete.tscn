@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcwpis2nkkbm0"]
 
-[ext_resource type="Script" uid="uid://dltwmfui2vq0b" path="res://pallete.gd" id="1_jl1yl"]
+[ext_resource type="Script" uid="uid://dltwmfui2vq0b" path="res://scripts/core-utils/pallete.gd" id="1_jl1yl"]
 
 [node name="Pallete" type="Node" unique_id=100671370]
 script = ExtResource("1_jl1yl")
