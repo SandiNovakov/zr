@@ -53,14 +53,14 @@ func shoot() -> void:
     var bullet: Bullet = weapon.bullet.instantiate()
     _spawn_bullet(bullet)
     ammo -= 1
-    Syslog.debug("Ammo: %00d/%00d" % [ammo, weapon.max_ammo])
+    Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
     
 func shoot_charged() -> void:
     charged_shot.emit()
     var bullet: Bullet = weapon.charge_bullet.instantiate()
     _spawn_bullet(bullet)
     ammo -= weapon.charge_ammo_use
-    Syslog.debug("Ammo: %00d/%00d" % [ammo, weapon.max_ammo])
+    Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
 
 func _spawn_bullet(bullet: Bullet) -> void:
     bullet.global_position = shot_origin.global_position

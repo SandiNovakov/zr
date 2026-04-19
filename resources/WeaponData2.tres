@@ -9,7 +9,7 @@
 script = ExtResource("6_hxxkr")
 bullet_vfx = ExtResource("2_eqfkl")
 bullet = ExtResource("1_hol8a")
-bullet_speed = 1500
+bullet_speed = 2500
 charge_bullet = ExtResource("3_xqfva")
 fire_rate = 12
 automatic = true
