@@ -87,7 +87,7 @@ func set_resolution_scale(preset: Levels) -> String:
     return "Resolution scale set to %s preset (%.0f%%)." % [preset, scale * 100]
 
 func set_post_processing(value: bool) -> String:
-    var env: WorldEnvironment = GlobalRef.get_world_env()
+    var env: Environment = GlobalRef.get_world_env().environment
     var msg: String
         
     if env == null:
