@@ -90,9 +90,7 @@ func toggle_console() -> void:
         input.release_focus()
        
 func on_submit(text: String) -> void:
-    command = text
-    Syslog.debug("Console: ", command)
-    
+    command = text    
     if command.is_empty():
         return
     
@@ -108,7 +106,10 @@ func on_submit(text: String) -> void:
 
         
 func show_message(text: String) -> void:
-    Syslog.info("Console: ", text)
+    var lines: PackedStringArray = text.split("\n", false)
+    for line: String in lines:
+        Syslog.info("Console: ", line)
+        
     var msg: RichTextLabel = RichTextLabel.new()
     msg.bbcode_enabled = true
     msg.text = text
