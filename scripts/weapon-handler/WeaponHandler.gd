@@ -28,11 +28,11 @@ func _ready() -> void:
     if weapon.automatic and weapon.can_charge:
         Syslog.warning("%s's Weapon %s is both automatic and chargeable. Automatic will take precedence and charging will be disabled." % [master.name, self.name])
 
-func can_shoot() -> bool:  
+func can_shoot(ammo_required: int = 1) -> bool:  
     if not allow_shoot:
         return false
     
-    if ammo <= 0:
+    if ammo < ammo_required:
         return false
     
     var shot_delay: float = 1.0 / max(weapon.fire_rate, 1) #in seconds. max for divide by zero safety
