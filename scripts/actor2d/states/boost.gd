@@ -28,10 +28,8 @@ func update(delta: float) -> void:
         master.turn(controller.get_boost_dir().normalized(), master.boost_turn_speed, delta)
     
     else:
-        state_machine.request_state_change($"../Idle")
+        state_machine.request_state_change($"../BoostRecovery")
 
 func exit() -> void:
-    master.enable_shooting()
-    master.enable_charging()
     trail_handle.stop()
     RumbleController.end(rumble_handle)

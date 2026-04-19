@@ -14,9 +14,9 @@ class_name Actor2D
 @export_group("Boost")
 @export var boost_speed: int = 1500
 @export var boost_charge_time: float = 0.5
+@export var boost_recovery_time: float = 0.5
 @export var boost_charge_vfx: PackedScene
 @export var boost_charge_vfx_anchor: Node2D
-
 
 @onready var acceleration: int = speed / 0.1
 var turn_speed: float = 2 * PI / 0.3 #300ms to make full circle

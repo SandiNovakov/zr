@@ -1,8 +1,9 @@
-# Urgent
+# New
 - [x] ~~Fix bug with weapon charging.~~
   - Current behavior: When charging and dashing, time spent charging while dashing isn't counted.
   - Expected behavior: Charge time should count whether dashing or idling.
   - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.
+- [ ] Change order of arguments to turn so that p_turn_speed is optional.
 # Normal
 ## Core architecture / refactors
 
@@ -69,7 +70,7 @@
 
 - [x] ~~Fix Boost state input handling (currently broken)~~
 
-- [ ] Implement BoostRecover state
+- [x] ~~Implement BoostRecover state~~
 
 - [x] ~~Create new VFX for Actor2D actions~~
 

@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="8_fm80t"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
+[ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_ugbui"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
 radius = 5.9
@@ -67,6 +68,10 @@ metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="Boost" type="Node" parent="StateMachine" unique_id=775871742]
 script = ExtResource("8_fm80t")
+metadata/_custom_type_script = "uid://b2bv12o52f4ur"
+
+[node name="BoostRecovery" type="Node" parent="StateMachine" unique_id=1635038159]
+script = ExtResource("10_ugbui")
 metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="ActorController" type="Node" parent="." unique_id=327908448]
