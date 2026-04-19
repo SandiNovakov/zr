@@ -6,6 +6,8 @@ var queue: Array
 var parent: Node2D
 
 @export var max_length: int
+@onready var intended_max_length: int = max_length
+
 @export_category("Gradient")
 @export var use_gradient: bool
 
@@ -68,6 +70,9 @@ func _physics_process(delta: float) -> void:
         curr_pos = parent.position
 
 func _process(delta: float) -> void:
+    if not Engine.get_frames_per_second() <= 0:
+        max_length = max(2,intended_max_length * (Engine.get_frames_per_second() / 60))
+    
     if parent:
         if get_tree().physics_interpolation:
             var alpha := Engine.get_physics_interpolation_fraction()
