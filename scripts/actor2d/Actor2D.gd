@@ -18,6 +18,9 @@ class_name Actor2D
 @export var boost_charge_vfx: PackedScene
 @export var boost_charge_vfx_anchor: Node2D
 
+@export var max_health: int = 7500
+
+@onready var health = max_health
 @onready var acceleration: int = speed / 0.1
 var turn_speed: float = 2 * PI / 0.3 #300ms to make full circle
 var boost_turn_speed: float = 2 * PI / 1 #half as fast as turn_speed.
@@ -66,13 +69,13 @@ func disable_shooting() -> void:
     for handler: WeaponHandler in weapon_handlers:
         handler.allow_shoot = false
 
-func disable_charging() -> void:
-    for handler: WeaponHandler in weapon_handlers:
-        handler.allow_charge = false
-        
 func enable_charging() -> void:
     for handler: WeaponHandler in weapon_handlers:
         handler.allow_charge = true
+
+func disable_charging() -> void:
+    for handler: WeaponHandler in weapon_handlers:
+        handler.allow_charge = false
 
 func invalidate_charges() -> void:
     #Syslog.debug("%s invalidated all charges!" % [self.name])
