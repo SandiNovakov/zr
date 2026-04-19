@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://dwybttati8j3c"]
 
-[ext_resource type="FontFile" uid="uid://dimv27swi3r3s" path="res://assets/fonts/Kenney Mini.ttf" id="1_qq4w8"]
+[ext_resource type="FontFile" uid="uid://ljwew0fan8di" path="res://assets/fonts/Fleftex_M.ttf" id="1_qq4w8"]
 
 [resource]
 default_font = ExtResource("1_qq4w8")

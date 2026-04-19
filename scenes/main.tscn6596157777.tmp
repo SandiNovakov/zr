@@ -4,7 +4,6 @@
 [ext_resource type="Shader" uid="uid://wio2y4six3ie" path="res://shaders/main.gdshader" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ccl8najixufmd" path="res://scenes/player/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dpwrggg7nm4ws" path="res://scenes/player/reticle.tscn" id="3_jyhfs"]
-[ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="5_tbgi4"]
 
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
 script/source = "extends Node
@@ -102,55 +101,6 @@ func _ready() -> void:
     GlobalRef.register_ref(\"&ui\", self)
 "
 
-[sub_resource type="GDScript" id="GDScript_o6xl0"]
-script/source = "extends VBoxContainer
-
-var player: Actor2D
-var handlers_labels: Dictionary = {}  # WeaponHandler -> Label
-
-func _ready() -> void:
-    player = GlobalRef.get_player()
-    # Wait a frame or connect to a signal if weapons can be added/removed dynamically
-    _update_handlers()
-
-func _update_handlers() -> void:
-    # Clear existing labels
-    for label in handlers_labels.values():
-        label.queue_free()
-    handlers_labels.clear()
-    
-    # Create new labels for each handler
-    for handler: WeaponHandler in player.weapon_handlers:
-        var label: Label = Label.new()
-        add_child(label)
-        handlers_labels[handler] = label
-
-func _process(delta: float) -> void:
-    if not player or not is_instance_valid(player):
-        return
-    
-    # Update each label with current handler info
-    for handler: WeaponHandler in handlers_labels.keys():
-        var label: Label = handlers_labels[handler]
-        
-        # Make sure handler still exists
-        if not is_instance_valid(handler):
-            # Handler was removed, rebuild the list
-            _update_handlers()
-            return
-        
-        # Update label text with handler name and ammo
-        var handler_name = handler.name  # or handler.get_display_name() if you have one
-        var current_ammo = handler.ammo  # adjust method name as needed
-        var max_ammo = handler.weapon.max_ammo
-        
-        label.text = \"%s: %d/%d\" % [handler_name, current_ammo, max_ammo]
-
-# Optional: Call this if weapons can be added/removed during gameplay
-func refresh_handlers() -> void:
-    _update_handlers()
-"
-
 [node name="Main" type="Node" unique_id=743749111]
 script = SubResource("GDScript_sgp6g")
 
@@ -218,14 +168,3 @@ shape = SubResource("WorldBoundaryShape2D_tbgi4")
 script = SubResource("GDScript_tefeu")
 
 [node name="Reticle" parent="UI" unique_id=1558984002 instance=ExtResource("3_jyhfs")]
-
-[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=386036297]
-theme = ExtResource("5_tbgi4")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=2008408044]
-layout_mode = 2
-script = SubResource("GDScript_o6xl0")

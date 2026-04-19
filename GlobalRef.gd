@@ -11,6 +11,8 @@ func get_main() -> Node:
 func get_world_env() -> WorldEnvironment:
     return _get_ref(&"world_env") as WorldEnvironment
 
+func get_ui() -> CanvasLayer:
+    return _get_ref(&"ui") as CanvasLayer
 
 
 
