@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Actor2D
 
+@export var is_player: bool = false
+
 @export var controller: ActorController
 @export var state_machine: StateMachine
 @export var weapon_handlers: Array[WeaponHandler]
@@ -32,7 +34,15 @@ signal charged_shot(handler: WeaponHandler)
 signal boost_charge_started
 signal boost_charge_ended
 
+func _exit_tree() -> void:
+    if is_player:
+        GlobalRef.clear_player()
+
 func _ready() -> void:
+    if is_player:
+        Syslog.info("Player spawned.")
+        GlobalRef.register_player(self)
+    
     for handler: WeaponHandler in weapon_handlers:
         handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))
 

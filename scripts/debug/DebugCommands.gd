@@ -5,6 +5,7 @@ var commands: Array[Command] = [
     Command.new(hello),
     Command.new(fps),
     Command.new(fullscreen),
+    Command.new(ammo),
     
     Command.new(resolution, [
         CommandArg.new("width", ArgTypes.INT, 640),
@@ -35,6 +36,19 @@ var commands: Array[Command] = [
         CommandArg.new("strength", ArgTypes.BOOL_LEVEL)
     ]),
 ]
+
+func ammo() -> String:
+    var msg: String = ""
+    var player: Actor2D = GlobalRef.player
+    
+    if player == null:
+        return "No player character is currently loaded. Cannot check ammo."
+    
+    for handler: WeaponHandler in player.weapon_handlers:
+        msg += "%s ammo: %00d/%00d\n" % [handler.name, handler.ammo, handler.weapon.max_ammo]
+    
+    return msg
+    
 
 func resolution(width: int, height: int) -> String:
     var mode = DisplayServer.window_get_mode()

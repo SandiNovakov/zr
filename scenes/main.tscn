@@ -115,6 +115,7 @@ script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
+is_player = true
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0

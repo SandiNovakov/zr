@@ -69,10 +69,7 @@ func _physics_process(delta: float) -> void:
         prev_pos = curr_pos
         curr_pos = parent.position
 
-func _process(delta: float) -> void:
-    if not Engine.get_frames_per_second() <= 0:
-        max_length = max(2,intended_max_length * (Engine.get_frames_per_second() / 60))
-    
+func _process(delta: float) -> void:    
     if parent:
         if get_tree().physics_interpolation:
             var alpha := Engine.get_physics_interpolation_fraction()

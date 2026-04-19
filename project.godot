@@ -28,6 +28,7 @@ DebugConsoleGui="*uid://bl8d2weiiw5bv"
 HotkeysManager="*uid://bfnqd55hvy76e"
 RingBuffer="*uid://cktsd4e0r3x5p"
 DebugCommands="*uid://lb7qdvpi6adb"
+GlobalRef="*uid://xd001ulpounq"
 
 [debug]
 
