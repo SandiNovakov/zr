@@ -33,7 +33,7 @@ func _ready() -> void:
     
     parent = get_parent()
     top_level = true
-    reparent.call_deferred(get_node(^"/root/Main"))
+    reparent.call_deferred(GlobalRef.get_main())
     
     if use_gradient:
 
@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
         add_point(point)
         
 func stop(time: float = 0.3) -> void:
-    reparent(get_node(^"/root/Main"), true)
+    reparent(GlobalRef.get_main(), true)
     
     var t: Tween = create_tween()
     var t2: Tween = create_tween()

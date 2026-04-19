@@ -9,7 +9,7 @@ var lifetime: float = 10
 
 @export var collide_vfx: PackedScene
 
-@onready var main: Node = get_node("/root/Main")
+@onready var main: Node = GlobalRef.get_main()
 
 func die() -> void:        
     set_collision_layer(0)

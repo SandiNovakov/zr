@@ -39,7 +39,7 @@ var commands: Array[Command] = [
 
 func ammo() -> String:
     var msg: String = ""
-    var player: Actor2D = GlobalRef.player
+    var player: Actor2D = GlobalRef.get_player()
     
     if player == null:
         return "No player character is currently loaded. Cannot check ammo."
@@ -87,7 +87,7 @@ func set_resolution_scale(preset: Levels) -> String:
     return "Resolution scale set to %s preset (%.0f%%)." % [preset, scale * 100]
 
 func set_post_processing(value: bool) -> String:
-    var env: Environment = get_node("/root/Main/WorldEnvironment").environment
+    var env: WorldEnvironment = GlobalRef.get_world_env()
     var msg: String
         
     if env == null:

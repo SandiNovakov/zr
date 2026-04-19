@@ -68,7 +68,7 @@ func _spawn_bullet(bullet: Bullet) -> void:
     bullet.speed = weapon.bullet_speed
     bullet.damage = weapon.damage
     
-    get_node("/root/Main").add_child(bullet)
+    GlobalRef.get_main().add_child(bullet)
     #bullet.set_as_top_level(true)
     
     var vfx: Node2D = weapon.bullet_vfx.instantiate()
