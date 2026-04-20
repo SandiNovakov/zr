@@ -51,7 +51,7 @@ func ammo() -> String:
     
 
 func resolution(width: int, height: int) -> String:
-    var mode = DisplayServer.window_get_mode()
+    var mode: DisplayServer.WindowMode  = DisplayServer.window_get_mode()
     if mode != DisplayServer.WINDOW_MODE_WINDOWED:
         DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 

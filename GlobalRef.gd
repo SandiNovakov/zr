@@ -21,6 +21,8 @@ func get_ui() -> CanvasLayer:
 #------------------------------------------------------------------------------#
 #                            REGISTERING FUNCTIONS                             #
 #------------------------------------------------------------------------------#
+@warning_ignore_start("untyped_declaration") # Reason: vibe-coded
+@warning_ignore_start("inferred_declaration")
 func register_ref(key: StringName, value: Object, replace := false) -> void:
     if refs.has(key) and is_instance_valid(refs[key]) and not replace:
         Syslog.error("%s tried to register '%s', but already registered." % [value.name, key])

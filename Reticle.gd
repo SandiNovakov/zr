@@ -12,7 +12,7 @@ func _ready() -> void:
     #reparent(master)
 
 func lock_on() -> void:
-    var sprite = $Sprite2D
+    var sprite: Sprite2D = $Sprite2D
     
     var t: Tween = create_tween()
     t.tween_property(self, ^"rotation", PI/2, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
@@ -20,7 +20,7 @@ func lock_on() -> void:
     sprite.frame = 1
     
 func lock_off() -> void:
-    var sprite = $Sprite2D
+    var sprite: Sprite2D = $Sprite2D
     
     var t: Tween = create_tween()
     t.tween_property(self, ^"rotation", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
     if not master:
         return
     
-    var master_screen_pos = master.get_global_transform_with_canvas() * Vector2.ZERO
+    var master_screen_pos: Vector2 = master.get_global_transform_with_canvas() * Vector2.ZERO
     
     if InputDeviceManager.current_input_device == InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
         global_position = get_global_mouse_position()
@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
         global_position = global_position.move_toward(master_screen_pos + (master.controller.get_look_dir() * max_distance), 500/0.05*delta) 
     
     # Fade when cursor is too close to master (in screen space)
-    var distance_to_master = global_position.distance_to(master_screen_pos)
+    var distance_to_master: float = global_position.distance_to(master_screen_pos)
     
     if distance_to_master <= min_visible_distance:
         # Lerp alpha from 1 (at min distance) to 0 (at 0 distance)

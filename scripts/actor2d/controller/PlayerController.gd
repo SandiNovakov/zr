@@ -1,7 +1,4 @@
-extends Node
-class_name ActorController
-
-@onready var master: Actor2D = get_parent()
+extends ActorController
 
 func _is_ui_focused() -> bool:
     return get_viewport().gui_get_focus_owner() != null

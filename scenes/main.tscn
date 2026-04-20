@@ -103,7 +103,8 @@ func _ready() -> void:
 "
 
 [sub_resource type="GDScript" id="GDScript_o6xl0"]
-script/source = "extends VBoxContainer
+script/source = "@warning_ignore_start(\"untyped_declaration\") # Reason: Vibe-coded
+extends VBoxContainer
 
 var player: Actor2D
 var handlers_labels: Dictionary = {}  # WeaponHandler -> Label

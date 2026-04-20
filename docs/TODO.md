@@ -54,7 +54,7 @@
   - Stored in user directory  
   - Initially writable only via console
 
-- [ ] Implement centralized API for controller vibration strength values  
+- [x] Implement centralized API for controller vibration strength values  
   - Refactor all calls to RumbleController to use values from there instead
 
 - [x] ~~Add rumble strength setting for users to reduce or increase rumble strength~~
@@ -74,20 +74,20 @@
 
 - [x] ~~Create new VFX for Actor2D actions~~
 
-- [ ] Implement enemies  
+- [ ] Implement enemies
   - Could reuse Actor2D with AI controller restrictions (no Boost/Dash usage)
 
-- [ ] Implement simple AI controller  
+- [ ] Implement simple AI controller
   - Has list of possible actions per state  
   - Randomly selects actions after random intervals
 
-- [ ] Refactor ActorController into abstract base class  
+- [ ] Refactor ActorController into abstract base class
   - Separate PlayerController and AIController
 
-- [ ] Implement damage system  
+- [ ] Implement damage system
   - Player HP, enemy HP, bullet damage calculation
 
-- [ ] Implement death logic  
+- [ ] Implement death logic
   - Death state, VFX, queue_free handling
 
 - [ ] Implement enemy spawner  
