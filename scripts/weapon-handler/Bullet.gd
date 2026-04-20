@@ -8,7 +8,6 @@ var direction: Vector2
 var lifetime: float = 10
 
 @export var collide_vfx: PackedScene
-
 @onready var main: Node = GlobalRef.get_main()
 
 func die() -> void:        
@@ -41,6 +40,13 @@ func _physics_process(delta: float) -> void:
 
     if collision:
         var normal: Vector2 = collision.get_normal()
+        
+       # Syslog.debug(collision.get_collider())
+        
+        if collision.get_collider() is Actor2D:
+            #Syslog.debug("WORLS")
+            var collider: Actor2D = collision.get_collider() as Actor2D
+            collider.take_damage(damage)
         
         if collide_vfx:
             var c: Node2D = collide_vfx.instantiate()

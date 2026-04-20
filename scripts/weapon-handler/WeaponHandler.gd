@@ -68,6 +68,18 @@ func _spawn_bullet(bullet: Bullet) -> void:
     bullet.speed = weapon.bullet_speed
     bullet.damage = weapon.damage
     
+    bullet.collision_layer = 0
+    bullet.collision_mask = 0
+    
+    if master.is_enemy:
+        bullet.set_collision_layer_value(5, true)
+        bullet.set_collision_mask_value(1, true)
+        bullet.set_collision_mask_value(2, true)
+    else:
+        bullet.set_collision_layer_value(3, true)
+        bullet.set_collision_mask_value(1, true)
+        bullet.set_collision_mask_value(4, true)
+    
     GlobalRef.get_main().add_child(bullet)
     #bullet.set_as_top_level(true)
     

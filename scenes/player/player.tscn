@@ -13,15 +13,17 @@
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_ugbui"]
-[ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/PlayerController.gd" id="11_ugbui"]
+[ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/player_controller.gd" id="11_ugbui"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
-radius = 5.9
-height = 28.95
+radius = 4.0
+height = 23.83
 
 [node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "boost_charge_vfx_anchor")]
-collision_layer = 2
+collision_layer = 34
+collision_mask = 33
 script = ExtResource("1_g2els")
+is_player = true
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
@@ -37,10 +39,10 @@ texture = ExtResource("2_tuyoq")
 hframes = 8
 vframes = 6
 frame = 17
-
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1876382094]
+metadata/_edit_lock_ = true
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=1807979183]
+z_index = 4096
 position = Vector2(-6.085, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_fm80t")
@@ -83,18 +85,23 @@ controller = NodePath("../ActorController")
 shoot_action = &"shoot_right"
 weapon = ExtResource("9_5gtgg")
 shot_origin = NodePath("../BulletOriginRight")
+metadata/_edit_lock_ = true
 
 [node name="WeaponHandler2" parent="." unique_id=356521293 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("7_fjrip")]
 controller = NodePath("../ActorController")
 shoot_action = &"shoot_left"
 weapon = ExtResource("10_h17s1")
 shot_origin = NodePath("../BulletOriginLeft")
+metadata/_edit_lock_ = true
 
 [node name="BulletOriginRight" type="Marker2D" parent="." unique_id=452897967]
 position = Vector2(-7, 15)
+metadata/_edit_lock_ = true
 
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
 position = Vector2(-7, -15)
+metadata/_edit_lock_ = true
 
 [node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=928079377]
 position = Vector2(-27, 0)
+metadata/_edit_lock_ = true

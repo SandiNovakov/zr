@@ -81,7 +81,7 @@
   - Has list of possible actions per state  
   - Randomly selects actions after random intervals
 
-- [ ] Refactor ActorController into abstract base class
+- [x] Refactor ActorController into abstract base class
   - Separate PlayerController and AIController
 
 - [ ] Implement damage system

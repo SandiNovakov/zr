@@ -4,8 +4,6 @@ class_name ActorController
 
 @onready var master: Actor2D = get_parent()
 
-@abstract func _is_ui_focused() -> bool
-
 @abstract func is_shoot_once(shoot_action: StringName) -> bool
 
 @abstract func is_shoot(shoot_action: StringName) -> bool

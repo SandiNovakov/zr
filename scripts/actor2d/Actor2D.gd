@@ -1,12 +1,17 @@
 extends CharacterBody2D
 class_name Actor2D
 
+@export_category("Alignment")
 @export var is_player: bool = false
+@export var is_enemy: bool = false
 
+@export_category("References")
 @export var controller: ActorController
 @export var state_machine: StateMachine
 @export var weapon_handlers: Array[WeaponHandler]
 
+@export_category("stats")
+@export var max_health: int = 7500
 @export var speed: int = 750
 
 @export_group("Dash")
@@ -20,8 +25,6 @@ class_name Actor2D
 @export var boost_charge_vfx: PackedScene
 @export var boost_charge_vfx_anchor: Node2D
 
-@export var max_health: int = 7500
-
 @onready var health: int = max_health
 @onready var acceleration: int = speed / 0.1
 var turn_speed: float = 2 * PI / 0.3 #300ms to make full circle
@@ -29,6 +32,7 @@ var boost_turn_speed: float = 2 * PI / 1 #half as fast as turn_speed.
 
 var allow_shoot: bool = true
 var charged_shot_recovery_time: float = 0.3
+var invincible: bool = false
 
 signal charged_shot(handler: WeaponHandler)
 signal boost_charge_started
@@ -87,3 +91,9 @@ func invalidate_charges() -> void:
     #Syslog.debug("%s invalidated all charges!" % [self.name])
     for handler: WeaponHandler in weapon_handlers:
         handler.invalidate_charge.emit()
+
+func take_damage(dmg: int) -> void:
+    if not invincible:
+        health = max(health - dmg, 0)
+        Syslog.debug("%s took %s damage. HP: %000d/%000d" % [self.name, dmg, health, max_health])
+    

@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://ccl8najixufmd" path="res://scenes/player/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dpwrggg7nm4ws" path="res://scenes/player/reticle.tscn" id="3_jyhfs"]
 [ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://bivd7heky2pdk" path="res://assets/img/icon.svg" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://raqm70q58b88" path="res://scenes/player/enemy.tscn" id="7_o6xl0"]
 
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
 script/source = "extends Node
@@ -49,6 +51,9 @@ script/source = "extends WorldEnvironment
 func _ready() -> void:
     GlobalRef.register_ref(&\"world_env\", self)
 "
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6xl0"]
+size = Vector2(128, 127)
 
 [sub_resource type="GDScript" id="GDScript_jyhfs"]
 script/source = "extends Camera2D
@@ -178,12 +183,23 @@ stretch_mode = 1
 environment = SubResource("Environment_0wfyh")
 script = SubResource("GDScript_tbgi4")
 
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1202100670]
+position = Vector2(1041.0513, 566.33826)
+collision_layer = 16
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1688066291]
+texture = ExtResource("6_tefeu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1439263379]
+position = Vector2(-0.05126953, -0.83825684)
+shape = SubResource("RectangleShape2D_o6xl0")
+
 [node name="Node" type="Node" parent="." unique_id=1795668027]
 script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-is_player = true
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0
@@ -214,6 +230,9 @@ shape = SubResource("WorldBoundaryShape2D_jyhfs")
 [node name="Right" type="CollisionShape2D" parent="WorldBoundary" unique_id=1380447202]
 position = Vector2(3840, 2160)
 shape = SubResource("WorldBoundaryShape2D_tbgi4")
+
+[node name="Enemy" parent="." unique_id=1695465170 instance=ExtResource("7_o6xl0")]
+position = Vector2(2179, 875)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2052478173]
 script = SubResource("GDScript_tefeu")
