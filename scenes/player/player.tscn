@@ -127,4 +127,5 @@ collision_mask = 8
 
 [node name="LockOnController" type="Node" parent="." unique_id=794214981]
 script = ExtResource("15_fcs02")
+lock_on_group = &"enemies"
 metadata/_custom_type_script = "uid://covfsd6l1xqkq"

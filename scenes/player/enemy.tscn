@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_xxevj"]
 [ext_resource type="Script" uid="uid://dmvgr58ok3alv" path="res://scripts/actor2d/controller/dummy_controller.gd" id="11_47qhd"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/player/weapon_handler.tscn" id="12_seexg"]
+[ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="14_47qhd"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="14_xicbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_47qhd"]
@@ -20,35 +21,10 @@ radius = 12.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_70kv8"]
 radius = 8.0
 
-[sub_resource type="GDScript" id="GDScript_msvjk"]
-script/source = "extends Marker2D
+[sub_resource type="CircleShape2D" id="CircleShape2D_msvjk"]
+radius = 300.0
 
-func _process(delta: float) -> void:
-    var master: Actor2D = get_parent()
-    var controller: ActorController = master.controller
-
-    if controller.turn_toward_player:
-        var player := GlobalRef.get_player()
-
-        if player != null:
-            look_at(player.global_position)
-"
-
-[sub_resource type="GDScript" id="GDScript_47qhd"]
-script/source = "extends Marker2D
-
-func _process(delta: float) -> void:
-    var master: Actor2D = get_parent()
-    var controller: ActorController = master.controller
-
-    if controller.turn_toward_player:
-        var player := GlobalRef.get_player()
-
-        if player != null:
-            look_at(player.global_position)
-"
-
-[node name="Enemy" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers")]
+[node name="Enemy" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "lock_on_radius", "lock_on_ray")]
 scale = Vector2(2, 2)
 collision_layer = 40
 collision_mask = 33
@@ -57,6 +33,8 @@ is_enemy = true
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
+lock_on_radius = NodePath("LockOnRadius")
+lock_on_ray = NodePath("LockOnRay")
 max_health = 1500
 boost_charge_vfx = ExtResource("2_70kv8")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
@@ -130,7 +108,7 @@ metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 [node name="ActorController" type="Node" parent="." unique_id=327908448]
 script = ExtResource("11_47qhd")
 shoot = true
-turn_toward_player = true
+turn_toward_player = "Lock-on"
 metadata/_custom_type_script = "uid://bcxus6gqq1243"
 
 [node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("12_seexg")]
@@ -147,8 +125,22 @@ shot_origin = NodePath("../BulletOriginLeft")
 
 [node name="BulletOriginRight" type="Marker2D" parent="." unique_id=452897967]
 position = Vector2(23, 17)
-script = SubResource("GDScript_msvjk")
 
 [node name="BulletOriginLeft" type="Marker2D" parent="." unique_id=1561210140]
 position = Vector2(23, -16)
-script = SubResource("GDScript_47qhd")
+
+[node name="LockOnRay" type="RayCast2D" parent="." unique_id=1914814765]
+target_position = Vector2(300, 0)
+collision_mask = 2
+
+[node name="LockOnController" type="Node" parent="." unique_id=1182336281]
+script = ExtResource("14_47qhd")
+lock_on_group = &"player"
+metadata/_custom_type_script = "uid://covfsd6l1xqkq"
+
+[node name="LockOnRadius" type="Area2D" parent="." unique_id=633296926]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LockOnRadius" unique_id=454504331]
+shape = SubResource("CircleShape2D_msvjk")

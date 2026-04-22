@@ -4,6 +4,8 @@ class_name LockOnController
 var master: Actor2D
 var radius: Area2D
 
+@export var lock_on_group: StringName
+
 func _ready() -> void:
     master = get_parent() as Actor2D
     if not master.lock_on_radius:
@@ -22,31 +24,54 @@ func _process(delta: float) -> void:
     if not master.lock_on:        
         if master.controller.is_lock_on():
             Syslog.debug("Attempting to lock on...")
-            var reticle: Node2D = GlobalRef._get_ref("reticle") #TODO: replace this!
-            
-            var targets: Array[Node2D] = radius.get_overlapping_bodies()
+            if master.is_player:
+                var reticle: Node2D = GlobalRef._get_ref("reticle") #TODO: replace this!
+                
+                var targets: Array[Node2D] = radius.get_overlapping_bodies()
 
-            var reticle_pos: Vector2 = reticle.get_global_transform_with_canvas().origin
+                Syslog.debug(targets)
 
-            var closest: Node2D = null
-            var closest_dist: float = INF
+                var reticle_pos: Vector2 = reticle.get_global_transform_with_canvas().origin
 
-            for target: Node2D in targets:
-                if not target.is_in_group("enemies"):
-                    continue
+                var closest: Node2D = null
+                var closest_dist: float = INF
 
-                var dist := reticle_pos.distance_squared_to(target.get_global_transform_with_canvas().origin)
+                for target: Node2D in targets:
+                    if not target.is_in_group(lock_on_group):
+                        continue
 
-                if dist < closest_dist:
-                    closest = target
-                    closest_dist = dist
+                    var dist := reticle_pos.distance_squared_to(target.get_global_transform_with_canvas().origin)
 
-            if closest:
-                Syslog.debug("Target found: %s" % [closest.name])
-                master.lock_on = closest
-                master.locked_on.emit()
+                    if dist < closest_dist:
+                        closest = target
+                        closest_dist = dist
+
+                if closest:
+                    Syslog.debug("Target found: %s" % [closest.name])
+                    master.lock_on = closest
+                    master.locked_on.emit()
+                else:
+                    Syslog.debug("No targets found.")
             else:
-                Syslog.debug("No targets found.")
+                var targets: Array[Node2D] = radius.get_overlapping_bodies()
+                Syslog.debug(targets)
+                var closest: Node2D = null
+                var closest_dist: float = INF
+
+                for target: Node2D in targets:
+                    if not target.is_in_group(lock_on_group):
+                        continue
+
+                    var dist := master.global_position.distance_squared_to(target.global_position)
+
+                    if dist < closest_dist:
+                        closest = target
+                        closest_dist = dist
+
+                if closest:
+                    Syslog.debug("Target found: %s" % [closest.name])
+                    master.lock_on = closest
+                    master.locked_on.emit()
     else:
         if master.lock_on not in radius.get_overlapping_bodies():
             lock_off()

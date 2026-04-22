@@ -47,14 +47,15 @@ signal locked_off
 
 func _ready() -> void:
     if is_player:
+        add_to_group("player")
         Syslog.info("Player spawned.")
         GlobalRef.register_ref(&"player", self)
     
-    for handler: WeaponHandler in weapon_handlers:
-        handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))
-
     if is_enemy:
         add_to_group("enemies")
+    
+    for handler: WeaponHandler in weapon_handlers:
+        handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))   
 
 func _physics_process(delta: float) -> void:
     move_and_slide()

@@ -1,12 +1,13 @@
 extends ActorController
 
 @export var shoot: bool = false
-@export var turn_toward_player: bool = false
+@export_enum("Never", "Lock-on", "Always") var turn_toward_player: String = "Never"
 @export var shoot_rate: int = 1
 
 var last_shot_timestamp: int = 0
-
 var last_shot_timestamps: Dictionary = {}
+
+var default_heading: Vector2 = Vector2.ZERO
 
 func is_shoot_once(shoot_action: StringName) -> bool:
     return _handle_shoot_logic(shoot_action)
@@ -16,6 +17,9 @@ func is_shoot(shoot_action: StringName) -> bool:
 
 func _handle_shoot_logic(shoot_action: StringName) -> bool:
     if not shoot:
+        return false
+    
+    if turn_toward_player == "Lock-on" and not master.lock_on:
         return false
     
     var current_time = Time.get_ticks_msec()
@@ -48,15 +52,29 @@ func get_move_dir() -> Vector2:
     return Vector2.ZERO
 
 func get_look_dir() -> Vector2:
-    if not turn_toward_player:
-        return Vector2.ZERO
+    match turn_toward_player:
+        "Never":
+            return Vector2.ZERO
+        "Lock-on":
+            if master.lock_on:
+                return (master.lock_on.global_position - master.global_position).normalized()
+            
+            if default_heading == Vector2.ZERO:
+                default_heading = Vector2.from_angle(master.rotation)   
+            
+            return default_heading
+        "Always":
+            var player: Actor2D = GlobalRef.get_player()
     
-    var player: Actor2D = GlobalRef.get_player()
-    
-    if player == null:
-        return Vector2.ZERO
+            if player == null:
+               return Vector2.ZERO
 
-    return (player.global_position - master.global_position).normalized()
+            return (player.global_position - master.global_position).normalized() 
+        _:
+            return Vector2.ZERO
         
 func is_lock_on() -> bool:
+    if not master.lock_on and master.lock_on_radius and master.lock_on_radius.get_overlapping_bodies().size() > 0:
+        return true
     return false
+        
