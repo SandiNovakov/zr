@@ -8,18 +8,15 @@ func is_shoot_once(shoot_action: StringName) -> bool:
         return false #this is probably unnecessary since InputBuffer works using _unhandled_input in the first place.
     return InputBuffer.is_action_press_buffered(shoot_action)
 
-
 func is_shoot(shoot_action: StringName) -> bool:
     if _is_ui_focused():
         return false
     return Input.is_action_pressed(shoot_action)
 
-
 func is_dash() -> bool:
     if _is_ui_focused():
         return false
     return InputBuffer.is_action_press_buffered(&"dash")
-
 
 func is_boost() -> bool:
     if _is_ui_focused():
@@ -68,13 +65,16 @@ func get_move_dir() -> Vector2:
     return move_dir
 
 func get_look_dir() -> Vector2:
+    if master.lock_on:
+        return (master.lock_on.global_position - master.global_position).normalized()
+        
     if _is_ui_focused():
         return Vector2.ZERO
     
     match InputDeviceManager.current_input_device:
         InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
             return (master.get_global_mouse_position() - master.global_position).normalized()
-        InputDeviceManager.InputDevices.CONTROLLER:             
+        InputDeviceManager.InputDevices.CONTROLLER:
             var look_dir: Vector2 = Input.get_vector(&"look_left", &"look_right", &"look_up", &"look_down")
             if look_dir == Vector2.ZERO:
                 return get_move_dir()
@@ -83,3 +83,6 @@ func get_look_dir() -> Vector2:
         _:
             Syslog.error('Current input device is not in InputDevices enum!')
             return Vector2.ZERO
+
+func is_lock_on() -> bool:
+    return Input.is_action_just_pressed(&"lock_on")

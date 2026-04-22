@@ -10,11 +10,11 @@
 - [ ] Introduce a bind-variable system for states and state machine
   - See: StateMachine Bind Variable Spec
 
-- [ ] Improve scene-to-scene referencing  
+- [x] Improve scene-to-scene referencing  
   - Introduce GlobalRef autoload  
   - Holds stable references: Main, Player, WorldEnvironment, etc.
 
-- [ ] Split debug UI into dedicated structure  
+- [x] Split debug UI into dedicated structure  
   - Possible: create a dedicated scene for all debug UI layers  
 
 - [x] ~~Organize project directories~~
@@ -62,7 +62,7 @@
 
 ## Gameplay systems
 
-- [ ] Implement aim reticle in gameplay
+- [x] Implement aim reticle in gameplay
 
 - [ ] Implement lock-on mechanic
 
@@ -84,7 +84,7 @@
 - [x] Refactor ActorController into abstract base class
   - Separate PlayerController and AIController
 
-- [ ] Implement damage system
+- [x] Implement damage system
   - Player HP, enemy HP, bullet damage calculation
 
 - [ ] Implement death logic
@@ -96,7 +96,7 @@
 - [ ] Implement score system  
   - Hook into enemy death signal and assign points to player
 
-- [ ] Add ammo system  
+- [x] Add ammo system  
   - Enemy weapons use infinite ammo
 
 - [ ] Add more unique weapon and bullet types

@@ -20,6 +20,10 @@ signal invalidate_charge
 
 signal charged_shot
 
+func _process(delta: float) -> void:
+    if master.lock_on:
+        lock_on_origins()
+
 func _ready() -> void:
     ammo = weapon.max_ammo
     
@@ -101,3 +105,9 @@ func stop_vfx(vfx: Node2D) -> void:
         vfx.queue_free()
     else:
         vfx.queue_free()
+
+func lock_on_origins() -> void:
+    if master.is_on_target():
+        shot_origin.look_at(master.lock_on.global_position)
+    else:
+        shot_origin.rotation = 0

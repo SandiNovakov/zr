@@ -9,6 +9,8 @@ class_name Actor2D
 @export var controller: ActorController
 @export var state_machine: StateMachine
 @export var weapon_handlers: Array[WeaponHandler]
+@export var lock_on_radius: Area2D
+@export var lock_on_ray: RayCast2D
 
 @export_category("stats")
 @export var max_health: int = 7500
@@ -34,9 +36,14 @@ var allow_shoot: bool = true
 var charged_shot_recovery_time: float = 0.3
 var invincible: bool = false
 
+var lock_on: Node2D
+var allow_lock_on: bool = true
+
 signal charged_shot(handler: WeaponHandler)
 signal boost_charge_started
 signal boost_charge_ended
+signal locked_on
+signal locked_off
 
 func _ready() -> void:
     if is_player:
@@ -45,6 +52,9 @@ func _ready() -> void:
     
     for handler: WeaponHandler in weapon_handlers:
         handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))
+
+    if is_enemy:
+        add_to_group("enemies")
 
 func _physics_process(delta: float) -> void:
     move_and_slide()
@@ -97,3 +107,8 @@ func take_damage(dmg: int) -> void:
         health = max(health - dmg, 0)
         Syslog.debug("%s took %s damage. HP: %000d/%000d" % [self.name, dmg, health, max_health])
     
+func is_on_target() -> bool:
+    if lock_on and lock_on_ray and lock_on_ray.is_colliding():
+        if lock_on_ray.get_collider() == lock_on:
+            return true
+    return false

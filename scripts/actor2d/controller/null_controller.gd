@@ -28,3 +28,6 @@ func get_move_dir() -> Vector2:
 
 func get_look_dir() -> Vector2:
     return Vector2.ZERO
+    
+func is_lock_on() -> bool:
+    return false

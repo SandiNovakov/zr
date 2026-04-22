@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
             look_at(player.global_position)
 "
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "boost_charge_vfx_anchor")]
+[node name="Enemy" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers")]
 scale = Vector2(2, 2)
 collision_layer = 40
 collision_mask = 33
@@ -59,7 +59,6 @@ state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
 max_health = 1500
 boost_charge_vfx = ExtResource("2_70kv8")
-boost_charge_vfx_anchor = NodePath("")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
 [node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=1807979183]

@@ -14,12 +14,16 @@
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_ugbui"]
 [ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/player_controller.gd" id="11_ugbui"]
+[ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="15_fcs02"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
 radius = 4.0
 height = 23.83
 
-[node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "boost_charge_vfx_anchor")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_fcs02"]
+radius = 1000.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "lock_on_radius", "lock_on_ray", "boost_charge_vfx_anchor")]
 collision_layer = 34
 collision_mask = 33
 script = ExtResource("1_g2els")
@@ -27,9 +31,12 @@ is_player = true
 controller = NodePath("ActorController")
 state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
+lock_on_radius = NodePath("LockOnRadius")
+lock_on_ray = NodePath("LockOnRay")
 boost_charge_vfx = ExtResource("2_gx1jg")
 boost_charge_vfx_anchor = NodePath("BoostChargeAnchor")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1638740608]
 modulate = Color(0.8776157, 0.8776158, 0.8776157, 1)
@@ -46,6 +53,7 @@ z_index = 4096
 position = Vector2(-6.085, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_fm80t")
+metadata/_edit_lock_ = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=1710464391 node_paths=PackedStringArray("default_state")]
 script = ExtResource("2_qhqgy")
@@ -105,3 +113,18 @@ metadata/_edit_lock_ = true
 [node name="BoostChargeAnchor" type="Marker2D" parent="." unique_id=928079377]
 position = Vector2(-27, 0)
 metadata/_edit_lock_ = true
+
+[node name="LockOnRadius" type="Area2D" parent="." unique_id=539987757]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LockOnRadius" unique_id=112773184]
+shape = SubResource("CircleShape2D_fcs02")
+
+[node name="LockOnRay" type="RayCast2D" parent="." unique_id=1862790065]
+target_position = Vector2(1000, 0)
+collision_mask = 8
+
+[node name="LockOnController" type="Node" parent="." unique_id=794214981]
+script = ExtResource("15_fcs02")
+metadata/_custom_type_script = "uid://covfsd6l1xqkq"

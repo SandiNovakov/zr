@@ -58,3 +58,5 @@ func get_look_dir() -> Vector2:
 
     return (player.global_position - master.global_position).normalized()
         
+func is_lock_on() -> bool:
+    return false

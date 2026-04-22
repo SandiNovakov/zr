@@ -19,3 +19,5 @@ class_name ActorController
 @abstract func get_move_dir() -> Vector2
 
 @abstract func get_look_dir() -> Vector2
+
+@abstract func is_lock_on() -> bool
