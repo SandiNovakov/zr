@@ -9,8 +9,8 @@ var min_visible_distance: float = 100.0
 var colorize_distance: float = 100.0
 
 func _ready() -> void:
-    $Sprite2D.frame = 1
-    rotation = 0
+    $Sprite2D.frame = 0
+    rotation = PI/2
     #reparent(master)
     GlobalRef.register_ref("reticle", self)
     master.locked_off.connect(lock_off)
@@ -21,7 +21,7 @@ func lock_on() -> void:
     
     var t: Tween = create_tween()
     var t2: Tween = create_tween()
-    t.tween_property(self, ^"rotation", PI/2, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+    t.tween_property(self, ^"rotation", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
     t2.tween_property(self, ^"modulate", Pallete.get_color(Pallete.Colors.BULLET_BALLISTIC_2_TRAIL), 0.1)
 
     sprite.frame = 1
@@ -31,7 +31,7 @@ func lock_off() -> void:
     
     var t: Tween = create_tween()
     var t2: Tween = create_tween()
-    t.tween_property(self, ^"rotation", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+    t.tween_property(self, ^"rotation", PI/2, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
     t2.tween_property(self, ^"modulate", Color.WHITE, 0.1)
 
     sprite.frame = 0

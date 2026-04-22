@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3704tgoj3qq4" path="res://scripts/actor2d/Actor2D.gd" id="1_47qhd"]
 [ext_resource type="PackedScene" uid="uid://dcmuu1ieivw5i" path="res://scenes/vfx/boost_charging_vfx.tscn" id="2_70kv8"]
-[ext_resource type="Texture2D" uid="uid://cv0ya4jpwvwwf" path="res://assets/img/simpleSpace_tilesheet.png" id="3_knkjw"]
+[ext_resource type="Texture2D" uid="uid://0leejlyq8k2p" path="res://assets/img/simpleSpace_tilesheet@2.png" id="3_47qhd"]
 [ext_resource type="Script" uid="uid://coctqesumuueb" path="res://scripts/state-machine/StateMachine.gd" id="4_w5ag0"]
 [ext_resource type="Script" uid="uid://c4pca6sul4xb6" path="res://scripts/actor2d/states/idle.gd" id="5_4dudq"]
 [ext_resource type="Script" uid="uid://ds7buclbfb8yk" path="res://scripts/actor2d/states/dash.gd" id="6_4jkyk"]
@@ -71,7 +71,8 @@ shape = SubResource("CircleShape2D_70kv8")
 modulate = Color(0.8776157, 0.8776158, 0.8776157, 1)
 z_index = 16
 rotation = 1.5707964
-texture = ExtResource("3_knkjw")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_47qhd")
 hframes = 8
 vframes = 6
 frame = 21
