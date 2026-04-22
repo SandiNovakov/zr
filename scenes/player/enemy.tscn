@@ -112,14 +112,12 @@ shoot = true
 turn_toward_player = "Lock-on"
 metadata/_custom_type_script = "uid://bcxus6gqq1243"
 
-[node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("12_seexg")]
-controller = NodePath("../ActorController")
+[node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("shot_origin") instance=ExtResource("12_seexg")]
 shoot_action = &"shoot_right"
 weapon = ExtResource("14_xicbu")
 shot_origin = NodePath("../BulletOriginRight")
 
-[node name="WeaponHandler2" parent="." unique_id=356521293 node_paths=PackedStringArray("controller", "shot_origin") instance=ExtResource("12_seexg")]
-controller = NodePath("../ActorController")
+[node name="WeaponHandler2" parent="." unique_id=356521293 node_paths=PackedStringArray("shot_origin") instance=ExtResource("12_seexg")]
 shoot_action = &"shoot_left"
 weapon = ExtResource("14_xicbu")
 shot_origin = NodePath("../BulletOriginLeft")

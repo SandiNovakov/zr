@@ -23,13 +23,13 @@ func _process(delta: float) -> void:
         
     if not master.lock_on:        
         if master.controller.is_lock_on():
-            Syslog.debug("Attempting to lock on...")
+           # Syslog.debug("Attempting to lock on...")
             if master.is_player:
                 var reticle: Node2D = GlobalRef._get_ref("reticle") #TODO: replace this!
                 
                 var targets: Array[Node2D] = radius.get_overlapping_bodies()
 
-                Syslog.debug(targets)
+               # Syslog.debug(targets)
 
                 var reticle_pos: Vector2 = reticle.get_global_transform_with_canvas().origin
 
@@ -47,11 +47,9 @@ func _process(delta: float) -> void:
                         closest_dist = dist
 
                 if closest:
-                    Syslog.debug("Target found: %s" % [closest.name])
+                    #Syslog.debug("Target found: %s" % [closest.name])
                     master.lock_on = closest
                     master.locked_on.emit()
-                else:
-                    Syslog.debug("No targets found.")
             else:
                 var targets: Array[Node2D] = radius.get_overlapping_bodies()
                 Syslog.debug(targets)
@@ -69,7 +67,7 @@ func _process(delta: float) -> void:
                         closest_dist = dist
 
                 if closest:
-                    Syslog.debug("Target found: %s" % [closest.name])
+                    #Syslog.debug("Target found: %s" % [closest.name])
                     master.lock_on = closest
                     master.locked_on.emit()
     else:
@@ -80,6 +78,6 @@ func _process(delta: float) -> void:
             lock_off()
 
 func lock_off():
-    Syslog.debug("Lock on cleared.")
+   # Syslog.debug("Lock on cleared.")
     master.lock_on = null        
     master.locked_off.emit()  

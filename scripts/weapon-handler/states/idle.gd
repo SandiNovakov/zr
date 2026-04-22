@@ -22,7 +22,7 @@ func check_charge(delta: float) -> void:
         return
     
     if master.weapon.can_charge and not master.weapon.automatic:
-        if controller.is_shoot(master.shoot_action):
+        if get_controller().is_shoot(master.shoot_action):
             time_shoot_is_held += delta
         else:
             time_shoot_is_held = 0
@@ -33,8 +33,8 @@ func check_shoot() -> void:
     if not master.can_shoot():
         return
     
-    if master.weapon.automatic and controller.is_shoot(master.shoot_action):
+    if master.weapon.automatic and get_controller().is_shoot(master.shoot_action):
         master.shoot()
         
-    if not master.weapon.automatic and controller.is_shoot_once(master.shoot_action):
+    if not master.weapon.automatic and get_controller().is_shoot_once(master.shoot_action):
         master.shoot()

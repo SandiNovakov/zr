@@ -2,11 +2,11 @@ extends Node
 class_name WeaponHandler
 
 @onready var master: Actor2D = get_parent()
-@export var controller: ActorController
 @export var shoot_action: StringName
 
 @export var weapon: WeaponData
 @export var shot_origin: Marker2D
+@export var controller: ActorController
 
 var ammo: int = -1
 

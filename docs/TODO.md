@@ -4,6 +4,7 @@
   - Expected behavior: Charge time should count whether dashing or idling.
   - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.
 - [ ] Change order of arguments to turn so that p_turn_speed is optional.
+- [ ] **URGENT**: make lib for collision masks and shi because rn enemy is shooting itself
 # Normal
 ## Core architecture / refactors
 

@@ -16,7 +16,7 @@ func update(delta: float) -> void:
     if not master.allow_charge:
         state_machine.request_state_change($"../Idle")
     
-    if not controller.is_shoot(master.shoot_action) and master.allow_shoot:
+    if not get_controller().is_shoot(master.shoot_action) and master.allow_shoot:
         master.shoot_charged()
         
         # just in case something goes wrong in the pipeline, weapons will stay disabled.

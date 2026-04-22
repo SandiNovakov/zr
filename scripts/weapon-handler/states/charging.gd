@@ -20,7 +20,7 @@ func update(delta: float) -> void:
     if not master.allow_charge:
         state_machine.request_state_change($"../Idle")
     
-    if not controller.is_shoot(master.shoot_action):
+    if not get_controller().is_shoot(master.shoot_action):
         master.shoot()
         state_machine.request_state_change($"../Idle")
     

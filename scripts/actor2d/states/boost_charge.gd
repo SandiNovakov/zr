@@ -12,7 +12,7 @@ func enter() -> void:
     master.disable_charging()
     time_boost_is_held = 0
     
-    if master.boost_charge_vfx:
+    if master.boost_charge_vfx and master.boost_charge_vfx_anchor:
         vfx = master.boost_charge_vfx.instantiate()
         master.boost_charge_vfx_anchor.add_child(vfx)
         

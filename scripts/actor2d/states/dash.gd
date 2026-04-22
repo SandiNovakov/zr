@@ -32,7 +32,8 @@ func enter() -> void:
     master.disable_shooting()
     
     #Input.start_joy_vibration(0, 0.5, 0, 0.1)
-    RumbleController.add(0.5, 0, 0.1)
+    if master.is_player:
+        RumbleController.add(0.5, 0, 0.1)
     
     trail_handle = Trail2D.new()
 
@@ -54,5 +55,6 @@ func _on_dash_timer_timeout() -> void:
     state_machine.request_state_change($"../Idle")
 
 func exit() -> void:
-    trail_handle.stop()
+    if master.is_player:
+        trail_handle.stop()
     master.enable_shooting()
