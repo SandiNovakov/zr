@@ -5,6 +5,7 @@
   - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.
 - [ ] Change order of arguments to turn so that p_turn_speed is optional.
 - [ ] **URGENT**: make lib for collision masks and shi because rn enemy is shooting itself
+- [ ] implement hitboxes.
 # Normal
 ## Core architecture / refactors
 

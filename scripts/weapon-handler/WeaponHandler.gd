@@ -1,3 +1,4 @@
+@icon("res://assets/node-icons/plenticons/gun-gray.png")
 extends Node
 class_name WeaponHandler
 

@@ -1,3 +1,4 @@
+@icon("res://assets/node-icons/white/zoom.png")
 extends Node
 class_name LockOnController
 

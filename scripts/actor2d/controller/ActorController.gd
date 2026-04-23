@@ -1,3 +1,4 @@
+@icon("res://assets/node-icons/white/joystick.png")
 @abstract
 extends Node
 class_name ActorController

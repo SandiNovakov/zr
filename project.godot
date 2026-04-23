@@ -59,6 +59,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale=2.0
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true

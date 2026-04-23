@@ -4,14 +4,12 @@
 [ext_resource type="Shader" uid="uid://wio2y4six3ie" path="res://shaders/main.gdshader" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ccl8najixufmd" path="res://scenes/player/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dpwrggg7nm4ws" path="res://scenes/player/reticle.tscn" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://dmiod0soxeqgs" path="res://scripts/actor2d/controller/null_controller.gd" id="5_85g3d"]
 [ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://raqm70q58b88" path="res://scenes/player/enemy.tscn" id="7_o6xl0"]
-[ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/player_controller.gd" id="8_85g3d"]
-[ext_resource type="Script" uid="uid://dmvgr58ok3alv" path="res://scripts/actor2d/controller/dummy_controller.gd" id="9_choun"]
 
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
-script/source = "extends Node
+script/source = "@icon(\"res://assets/node-icons/white/home.png\")
+extends Node
 
 func _ready() -> void:
     GlobalRef.register_ref(&\"main\", self)
@@ -185,11 +183,8 @@ script = SubResource("GDScript_tbgi4")
 [node name="Node" type="Node" parent="." unique_id=1795668027]
 script = ExtResource("1_o5qli")
 
-[node name="Player" parent="." unique_id=1105171591 node_paths=PackedStringArray("controller") instance=ExtResource("2_0wfyh")]
+[node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-is_player = false
-is_enemy = true
-controller = NodePath("Node")
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0
@@ -205,20 +200,8 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = SubResource("GDScript_jyhfs")
 
-[node name="EnemyController" type="Node" parent="Player" unique_id=1541906868]
-script = ExtResource("9_choun")
-
-[node name="Node" type="Node" parent="Player" unique_id=1211258539]
-script = ExtResource("5_85g3d")
-
-[node name="Enemy" parent="." unique_id=1354497919 node_paths=PackedStringArray("controller") instance=ExtResource("7_o6xl0")]
+[node name="Enemy" parent="." unique_id=1354497919 instance=ExtResource("7_o6xl0")]
 position = Vector2(2699, 905)
-is_player = true
-is_enemy = false
-controller = NodePath("Node")
-
-[node name="Node" type="Node" parent="Enemy" unique_id=168369858]
-script = ExtResource("8_85g3d")
 
 [node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
 

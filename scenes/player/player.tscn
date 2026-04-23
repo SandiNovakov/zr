@@ -11,9 +11,9 @@
 [ext_resource type="Script" uid="uid://cw5l0fpkkh12a" path="res://scripts/actor2d/states/boost_charge.gd" id="7_je7p5"]
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="8_fm80t"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
-[ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_ugbui"]
 [ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/player_controller.gd" id="11_ugbui"]
+[ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="14_fcs02"]
 [ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="15_fcs02"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
@@ -94,9 +94,9 @@ weapon = ExtResource("9_5gtgg")
 shot_origin = NodePath("../BulletOriginRight")
 metadata/_edit_lock_ = true
 
-[node name="WeaponHandler2" parent="." unique_id=356521293 node_paths=PackedStringArray("shot_origin") instance=ExtResource("7_fjrip")]
+[node name="WeaponHandler2" parent="." unique_id=1042370198 node_paths=PackedStringArray("shot_origin") instance=ExtResource("7_fjrip")]
 shoot_action = &"shoot_left"
-weapon = ExtResource("10_h17s1")
+weapon = ExtResource("14_fcs02")
 shot_origin = NodePath("../BulletOriginLeft")
 metadata/_edit_lock_ = true
 
@@ -113,6 +113,7 @@ position = Vector2(-27, 0)
 metadata/_edit_lock_ = true
 
 [node name="LockOnRadius" type="Area2D" parent="." unique_id=539987757]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
