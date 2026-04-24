@@ -43,7 +43,7 @@ viewport_path = NodePath("Background/SubViewport")
 background_mode = 3
 glow_enabled = true
 glow_normalized = true
-glow_bloom = 0.5
+glow_bloom = 0.3
 adjustment_enabled = true
 
 [sub_resource type="GDScript" id="GDScript_tbgi4"]

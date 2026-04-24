@@ -1,29 +1,21 @@
 class_name CollisionLibrary
 extends RefCounted
 
-
 # =========================================================
 # LAYERS
 # =========================================================
-
 enum Layer {
     WORLD = 1,
-    PLAYER = 2,
-    ALLY_BULLET = 3,
+    ALLY = 2,
+    BULLET = 3,
     ENEMY = 4,
-    ENEMY_BULLET = 5,
-    ENTITY = 6
+    ENTITY = 5
 }
 
 
 # =========================================================
 # PRESET CLASS
 # =========================================================
-
-
-
-
-
 class Preset:
     extends RefCounted
 
@@ -37,7 +29,6 @@ class Preset:
 # =========================================================
 # HELPERS
 # =========================================================
-
 static func bit(layer: int) -> int:
         return 1 << (layer - 1)
 
@@ -53,67 +44,49 @@ static func bits(layers: Array[int]) -> int:
 # PRESET COLLECTION
 # Use: CollisionLibrary.Presets.PLAYER
 # =========================================================
-
 var world: Preset = Preset.new(
     bit(Layer.WORLD),
-    bits([
-        Layer.PLAYER,
-        Layer.ENEMY,
-        Layer.ENTITY
-    ])
+    bit(Layer.ENTITY)
 )
 
-var player: Preset = Preset.new(
-    bit(Layer.PLAYER),
+var actor_collision_box: Preset = Preset.new(
+    bit(Layer.ENTITY),
     bits([
         Layer.WORLD,
-        Layer.ENEMY,
-        Layer.ENEMY_BULLET,
         Layer.ENTITY
     ])
 )
 
-var ally: Preset = Preset.new(
-    bit(Layer.ALLY_BULLET),
+var ally_bullet: Preset = Preset.new(
+    bit(Layer.BULLET),
     bits([
         Layer.WORLD,
         Layer.ENEMY
-    ])
-)
-
-var enemy: Preset = Preset.new(
-    bit(Layer.ENEMY),
-    bits([
-        Layer.WORLD,
-        Layer.PLAYER,
-        Layer.ALLY_BULLET,
-        Layer.ENTITY
     ])
 )
 
 var enemy_bullet: Preset = Preset.new(
-    bit(Layer.ENEMY_BULLET),
+    bit(Layer.BULLET),
     bits([
         Layer.WORLD,
-        Layer.PLAYER
+        Layer.ALLY
     ])
 )
 
-var entity: Preset = Preset.new(
-    bit(Layer.ENTITY),
-    bits([
-        Layer.WORLD,
-        Layer.PLAYER,
-        Layer.ENEMY
-    ])
+var ally_hitbox: Preset = Preset.new(
+    bit(Layer.ALLY),
+    bit(Layer.BULLET)
 )
 
+var enemy_hitbox: Preset = Preset.new(
+    bit(Layer.ENEMY),
+    bit(Layer.BULLET)
+)
 
 # =========================================================
 # USER-FACING API
 # Use: CollisionLibrary.set_collisions(self, CollisionLibrary.Presets.PLAYER)
 # =========================================================
-
 static func set_collisions(body: CollisionObject2D, preset: Preset) -> void:
     body.collision_layer = preset.collision_layer
     body.collision_mask = preset.collision_mask
