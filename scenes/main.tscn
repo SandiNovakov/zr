@@ -43,7 +43,8 @@ viewport_path = NodePath("Background/SubViewport")
 background_mode = 3
 glow_enabled = true
 glow_normalized = true
-glow_bloom = 0.98
+glow_bloom = 0.5
+adjustment_enabled = true
 
 [sub_resource type="GDScript" id="GDScript_tbgi4"]
 script/source = "extends WorldEnvironment
@@ -161,7 +162,7 @@ script = SubResource("GDScript_sgp6g")
 z_index = -4096
 
 [node name="SubViewport" type="SubViewport" parent="Background" unique_id=56327333]
-size = Vector2i(1920, 1080)
+size = Vector2i(3840, 2160)
 
 [node name="ColorRect" type="ColorRect" parent="Background/SubViewport" unique_id=1848412542]
 material = SubResource("ShaderMaterial_sugp2")
