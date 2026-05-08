@@ -35,7 +35,22 @@ var commands: Array[Command] = [
     Command.new(set_vibration, [
         CommandArg.new("strength", ArgTypes.BOOL_LEVEL)
     ]),
+    
+    Command.new(set_graphics, [
+        CommandArg.new("preset", ArgTypes.LEVEL)
+    ])
 ]
+
+func set_graphics(preset: Levels) -> String:
+    match preset:
+        Levels.LOW:
+            GlobalRef._get_ref("background").size = Vector2(960, 540)
+        Levels.MEDIUM:
+            GlobalRef._get_ref("background").size = Vector2(1920, 1080)
+        Levels.HIGH:
+            GlobalRef._get_ref("background").size = Vector2(3840, 2160)
+            
+    return "Graphics set to %s preset." % [preset]
 
 func ammo() -> String:
     var msg: String = ""
