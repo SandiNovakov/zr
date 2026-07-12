@@ -192,8 +192,9 @@ script = SubResource("GDScript_tbgi4")
 [node name="Node" type="Node" parent="." unique_id=1795668027]
 script = ExtResource("1_o5qli")
 
-[node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
+[node name="Player" parent="." unique_id=1105171591 node_paths=PackedStringArray("weapon_handlers") instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
+weapon_handlers = []
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0
@@ -209,8 +210,9 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = SubResource("GDScript_jyhfs")
 
-[node name="Enemy" parent="." unique_id=1354497919 instance=ExtResource("7_o6xl0")]
+[node name="Enemy" parent="." unique_id=1354497919 node_paths=PackedStringArray("weapon_handlers") instance=ExtResource("7_o6xl0")]
 position = Vector2(2699, 905)
+weapon_handlers = []
 
 [node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
 
