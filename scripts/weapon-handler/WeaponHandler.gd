@@ -37,8 +37,9 @@ func can_shoot(ammo_required: int = 1) -> bool:
     if not allow_shoot:
         return false
     
-    if ammo < ammo_required:
-        return false
+    # removing ammo for now
+    #if ammo < ammo_required:
+        #return false
     
     var shot_delay: float = 1.0 / max(weapon.fire_rate, 1) #in seconds. max for divide by zero safety
     @warning_ignore("narrowing_conversion")

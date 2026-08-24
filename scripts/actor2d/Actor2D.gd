@@ -135,6 +135,13 @@ func take_damage(dmg: int) -> void:
         health = max(health - dmg, 0)
         Syslog.debug("%s took %s damage. HP: %000d/%000d" % [self.name, dmg, health, max_health])
     
+    
+        $Sprite2D.modulate = Color.from_rgba8(255,127,127,255)
+        var tween := create_tween()
+        tween.set_ease(Tween.EASE_OUT)
+        #tween.tween_property($Sprite2D, "modulate", Color.from_rgba8(255,127,127,255), 0.00)
+        tween.tween_property($Sprite2D, "modulate", Color.WHITE, 0.08)
+    
 func is_on_target() -> bool:
     if lock_on and lock_on_ray and lock_on_ray.is_colliding():
         if lock_on_ray.get_collider() == lock_on:

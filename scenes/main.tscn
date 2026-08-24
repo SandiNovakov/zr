@@ -124,21 +124,41 @@ bg_color = Color(0.37337306, 0.23726645, 1, 1)
 script/source = "extends ProgressBar
 
 var player: Actor2D
+var internal_value: int
 
 func _ready() -> void:
     player = GlobalRef.get_player()
-    
     if player:
         max_value = player.max_health
-        value = player.health
+        internal_value = player.health
+        value = internal_value
+        
 
 func _process(delta: float) -> void:
     if not player:
         player = GlobalRef.get_player()
         return
+        
+    if internal_value != player.health:
+        internal_value = player.health
+        
+        var original_position := position
+        var shake := create_tween()
+        shake.set_trans(Tween.TRANS_SINE)
+        shake.tween_property(self, \"position\", original_position + Vector2(3, 1), 0.025)
+        shake.tween_property(self, \"position\", original_position + Vector2(-3, -2), 0.025)
+        shake.tween_property(self, \"position\", original_position + Vector2(2, 3), 0.025)
+        
+        shake.finished.connect(func(): position = original_position)
 
-    value = move_toward(value, player.health, player.max_health * delta)
-    
+    if value != internal_value:
+        modulate = Color(1.0, 0.498, 0.498, 1.0)
+
+        var tween := create_tween()
+        tween.set_ease(Tween.EASE_OUT)
+        tween.tween_property(self, \"modulate\", Color.WHITE, 0.08)
+
+    value = move_toward(value, internal_value, max_value * delta)
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
@@ -181,7 +201,8 @@ func _process(delta: float) -> void:
         global_position -= Vector2(64, 96)
         
         max_value = target.max_health
-        value = move_toward(value, target.health, max_value * delta)
+        if value != target.health:
+            value = move_toward(value, target.health, max_value * delta)
         
         return
     

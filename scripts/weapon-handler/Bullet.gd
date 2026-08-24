@@ -45,7 +45,6 @@ func _physics_process(delta: float) -> void:
        # Syslog.debug(collision.get_collider())
         
         if collision.get_collider() is Actor2D:
-            #Syslog.debug("WORLS")
             var collider: Actor2D = collision.get_collider() as Actor2D
             collider.take_damage(damage)
         
