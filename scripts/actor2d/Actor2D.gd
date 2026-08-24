@@ -40,11 +40,16 @@ var invincible: bool = false
 var lock_on: Node2D
 var allow_lock_on: bool = true
 
+var is_dying: bool = false
+var is_boosting: bool = false
+
 signal charged_shot(handler: WeaponHandler)
 signal boost_charge_started
 signal boost_charge_ended
 signal locked_on
 signal locked_off
+signal killed
+signal freed
 
 func _ready() -> void:
     if is_player:
@@ -64,6 +69,20 @@ func _ready() -> void:
             Syslog.debug("shot CHARGED! on player")
             charged_shot.emit(handler)
         )
+
+func _process(delta: float) -> void:
+    if health <= 0 and not is_dying:
+        killed.emit()
+        $Sprite2D.visible = false
+        state_machine.request_state_change($StateMachine/Dying)
+        
+        if is_enemy:
+            Syslog.info("Enemy killed! +1000 points!")
+            self.queue_free()
+        
+        else:
+            Syslog.info("Player died. End game.")
+            
 
 func _physics_process(delta: float) -> void:
     move_and_slide()

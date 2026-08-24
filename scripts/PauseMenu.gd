@@ -40,7 +40,6 @@ func toggle_pause() -> void:
     else:
         pause()
 
-
 func pause() -> void:
     visible = true
     get_tree().paused = true
@@ -53,6 +52,7 @@ func resume() -> void:
     visible = false
     get_tree().paused = false
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+    resume_button.release_focus()
     
 
 

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c7bkbvo2vokn3"]
+
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/vfx/bullet/bullet_collide_vfx.tscn" id="1_xoyyj"]
+
+[sub_resource type="Gradient" id="Gradient_xxemr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.53246754, 1)
+colors = PackedColorArray(1, 0.811, 0.45999998, 1, 1, 0.65, 0, 1, 1, 0.65, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_casb3"]
+gradient = SubResource("Gradient_xxemr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xoyyj"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.02
+color_ramp = SubResource("GradientTexture1D_casb3")
+
+[node name="ExplosionVFX" unique_id=2023029930 instance=ExtResource("1_xoyyj")]
+amount = 256
+lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_xoyyj")
+color_start = 7
+color_middle = 7
+color_end = 8

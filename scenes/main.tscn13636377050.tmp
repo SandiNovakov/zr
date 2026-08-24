@@ -137,60 +137,8 @@ func _process(delta: float) -> void:
         player = GlobalRef.get_player()
         return
 
-    value = move_toward(value, player.health, player.max_health * delta)
+    value = player.health
     
-"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
-bg_color = Color(1, 1, 1, 0.1254902)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
-bg_color = Color(0.79732656, 0, 0.24842963, 1)
-
-[sub_resource type="GDScript" id="GDScript_ya4ey"]
-script/source = "extends ProgressBar
-
-var player: Actor2D
-
-var target: Node2D
-
-func _ready() -> void:
-    player = GlobalRef.get_player()
-    visible = false
-    modulate.a = 0.0
-
-func _process(delta: float) -> void:
-    if not player:
-        player = GlobalRef.get_player()
-        visible = false
-        return
-    
-    if player.lock_on and \"max_health\" in player.lock_on:        
-        target = player.lock_on as Actor2D
-        
-        if visible == false:
-            visible = true
-            max_value = target.max_health
-            value = target.health
-            
-            var tween := create_tween()
-            tween.set_ease(Tween.EASE_OUT)
-            tween.tween_property(self, \"modulate:a\", 1.0, 0.08)
-        
-        global_position = target.get_global_transform_with_canvas().origin
-        global_position -= Vector2(64, 96)
-        
-        max_value = target.max_health
-        value = move_toward(value, target.health, max_value * delta)
-        
-        return
-    
-    if visible:
-        visible = false
-        
-        var tween := create_tween()
-        tween.set_ease(Tween.EASE_OUT)
-        tween.tween_property(self, \"modulate:a\", 0.0, 0.08)
 "
 
 [node name="Main" type="Node" unique_id=743749111]
@@ -225,7 +173,7 @@ script = ExtResource("1_o5qli")
 
 [node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-max_health = 300
+max_health = 50
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0
@@ -271,7 +219,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme = ExtResource("5_tbgi4")
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
@@ -280,38 +227,16 @@ theme_override_constants/margin_bottom = 32
 
 [node name="Control" type="Control" parent="UI/MarginContainer" unique_id=270954531]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="Healthbar" type="ProgressBar" parent="UI/MarginContainer/Control" unique_id=21805338]
-custom_minimum_size = Vector2(512, 36)
+custom_minimum_size = Vector2(1024, 36)
 layout_mode = 0
 offset_right = 4.0
 offset_bottom = 31.0
-mouse_filter = 2
 theme_override_font_sizes/font_size = 24
 theme_override_styles/background = SubResource("StyleBoxFlat_o6xl0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tipki")
 script = SubResource("GDScript_o6xl0")
-
-[node name="EnemyHealthbar" type="ProgressBar" parent="UI" unique_id=673132033]
-custom_minimum_size = Vector2(128, 12)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -48.0
-offset_right = 64.0
-offset_bottom = -36.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/background = SubResource("StyleBoxFlat_85g3d")
-theme_override_styles/fill = SubResource("StyleBoxFlat_choun")
-show_percentage = false
-script = SubResource("GDScript_ya4ey")
 
 [node name="PauseMenu" parent="." unique_id=1572698564 instance=ExtResource("7_tipki")]
 visible = false

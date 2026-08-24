@@ -157,7 +157,6 @@ var target: Node2D
 func _ready() -> void:
     player = GlobalRef.get_player()
     visible = false
-    modulate.a = 0.0
 
 func _process(delta: float) -> void:
     if not player:
@@ -165,32 +164,21 @@ func _process(delta: float) -> void:
         visible = false
         return
     
-    if player.lock_on and \"max_health\" in player.lock_on:        
-        target = player.lock_on as Actor2D
-        
+    if player.lock_on and \"max_health\" in player.lock_on:
         if visible == false:
             visible = true
-            max_value = target.max_health
-            value = target.health
-            
-            var tween := create_tween()
-            tween.set_ease(Tween.EASE_OUT)
-            tween.tween_property(self, \"modulate:a\", 1.0, 0.08)
+        
+        target = player.lock_on as Actor2D
         
         global_position = target.get_global_transform_with_canvas().origin
         global_position -= Vector2(64, 96)
         
         max_value = target.max_health
-        value = move_toward(value, target.health, max_value * delta)
+        value = target.health
         
         return
     
-    if visible:
-        visible = false
-        
-        var tween := create_tween()
-        tween.set_ease(Tween.EASE_OUT)
-        tween.tween_property(self, \"modulate:a\", 0.0, 0.08)
+    visible = false
 "
 
 [node name="Main" type="Node" unique_id=743749111]

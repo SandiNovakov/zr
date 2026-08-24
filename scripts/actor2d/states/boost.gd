@@ -17,6 +17,8 @@ func enter() -> void:
     #master.add_child(trail_handle)
     master.add_child(trail_handle)    
     rumble_handle = RumbleController.start(0.3, 0)
+    
+    master.is_boosting = true
 
 func update(delta: float) -> void:
     #Syslog.debug("SPEED: %s" % [master.velocity])
@@ -31,5 +33,6 @@ func update(delta: float) -> void:
         state_machine.request_state_change($"../BoostRecovery")
 
 func exit() -> void:
+    master.is_boosting = false
     trail_handle.stop()
     RumbleController.end(rumble_handle)

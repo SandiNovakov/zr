@@ -39,14 +39,17 @@ func lock_off() -> void:
 func _process(delta: float) -> void:
     if not master:
         return
-    
+          
     var master_screen_pos: Vector2 = master.get_global_transform_with_canvas().origin
         
     if master.lock_on:
         var lock_on_pos: Vector2 = master.lock_on.get_global_transform_with_canvas().origin
         global_position = global_position.move_toward(lock_on_pos, 500/0.05*delta)
     else:
-        if InputDeviceManager.current_input_device == InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
+        if master.is_boosting:
+            global_position = global_position.move_toward(master_screen_pos, 500/0.05*delta) 
+        
+        elif InputDeviceManager.current_input_device == InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
             global_position = get_global_mouse_position()
         else:
             global_position = global_position.move_toward(master_screen_pos + (master.controller.get_look_dir() * max_distance), 500/0.05*delta) 

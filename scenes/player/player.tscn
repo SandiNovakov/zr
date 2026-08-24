@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="8_fm80t"]
 [ext_resource type="Resource" uid="uid://bputh8ybfjclg" path="res://resources/WeaponData1.tres" id="9_5gtgg"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_ugbui"]
+[ext_resource type="Script" uid="uid://b7cxistsp1ced" path="res://scenes/player/dying.gd" id="11_myrg7"]
 [ext_resource type="Script" uid="uid://c576empqtnov3" path="res://scripts/actor2d/controller/player_controller.gd" id="11_ugbui"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="14_fcs02"]
 [ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="15_fcs02"]
@@ -82,6 +83,10 @@ metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="BoostRecovery" type="Node" parent="StateMachine" unique_id=1635038159]
 script = ExtResource("10_ugbui")
+metadata/_custom_type_script = "uid://b2bv12o52f4ur"
+
+[node name="Dying" type="Node" parent="StateMachine" unique_id=1839251473]
+script = ExtResource("11_myrg7")
 metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="ActorController" type="Node" parent="." unique_id=327908448]

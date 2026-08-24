@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="9_cp3xb"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_xxevj"]
 [ext_resource type="Script" uid="uid://dmvgr58ok3alv" path="res://scripts/actor2d/controller/dummy_controller.gd" id="11_47qhd"]
+[ext_resource type="Script" uid="uid://b7cxistsp1ced" path="res://scenes/player/dying.gd" id="11_70kv8"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/player/weapon_handler.tscn" id="12_seexg"]
 [ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="14_47qhd"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="14_xicbu"]
@@ -35,7 +36,7 @@ state_machine = NodePath("StateMachine")
 weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
 lock_on_radius = NodePath("LockOnRadius")
 lock_on_ray = NodePath("LockOnRay")
-max_health = 1500
+max_health = 100
 boost_charge_vfx = ExtResource("2_70kv8")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
@@ -100,6 +101,10 @@ metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="Boost" type="Node" parent="StateMachine" unique_id=775871742]
 script = ExtResource("9_cp3xb")
+metadata/_custom_type_script = "uid://b2bv12o52f4ur"
+
+[node name="Dying" type="Node" parent="StateMachine" unique_id=1330556022]
+script = ExtResource("11_70kv8")
 metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="BoostRecovery" type="Node" parent="StateMachine" unique_id=1635038159]

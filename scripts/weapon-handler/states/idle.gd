@@ -9,8 +9,8 @@ func update(delta: float) -> void:
     check_shoot()
     check_charge(delta)
     
-    if time_shoot_is_held >= master.time_until_charging:
-        state_machine.request_state_change($"../Charging")
+    if master.weapon.can_charge and time_shoot_is_held >= master.time_until_charging:
+            state_machine.request_state_change($"../Charging")
 
 func check_charge(delta: float) -> void:
     if not master.can_shoot(master.weapon.charge_ammo_use):
