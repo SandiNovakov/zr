@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dpwrggg7nm4ws" path="res://scenes/player/reticle.tscn" id="3_jyhfs"]
 [ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://raqm70q58b88" path="res://scenes/player/enemy.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dci8ncxrt0h5q" path="res://scenes/pause_menu.tscn" id="7_tipki"]
 
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
 script/source = "@icon(\"res://assets/node-icons/white/home.png\")
@@ -14,6 +15,7 @@ extends Node
 func _ready() -> void:
     GlobalRef.register_ref(&\"main\", self)
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+    Settings.apply_settings()
 "
 
 [sub_resource type="GDScript" id="GDScript_tipki"]
@@ -192,9 +194,8 @@ script = SubResource("GDScript_tbgi4")
 [node name="Node" type="Node" parent="." unique_id=1795668027]
 script = ExtResource("1_o5qli")
 
-[node name="Player" parent="." unique_id=1105171591 node_paths=PackedStringArray("weapon_handlers") instance=ExtResource("2_0wfyh")]
+[node name="Player" parent="." unique_id=1105171591 instance=ExtResource("2_0wfyh")]
 position = Vector2(1920, 1080)
-weapon_handlers = []
 dash_speed = 1500
 boost_speed = 2000
 boost_charge_time = 1.0
@@ -210,9 +211,8 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = SubResource("GDScript_jyhfs")
 
-[node name="Enemy" parent="." unique_id=1354497919 node_paths=PackedStringArray("weapon_handlers") instance=ExtResource("7_o6xl0")]
+[node name="Enemy" parent="." unique_id=1354497919 instance=ExtResource("7_o6xl0")]
 position = Vector2(2699, 905)
-weapon_handlers = []
 
 [node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
 
@@ -245,3 +245,6 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=2008408044]
 layout_mode = 2
 script = SubResource("GDScript_o6xl0")
+
+[node name="PauseMenu" parent="." unique_id=1572698564 instance=ExtResource("7_tipki")]
+visible = false

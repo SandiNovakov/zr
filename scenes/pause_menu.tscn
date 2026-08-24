@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dci8ncxrt0h5q"]
+
+[ext_resource type="Script" uid="uid://bs2lt5luehpiy" path="res://scripts/PauseMenu.gd" id="1_n87rw"]
+[ext_resource type="Theme" uid="uid://dwybttati8j3c" path="res://resources/ui_theme/theme_01.tres" id="2_myx47"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1572698564]
+script = ExtResource("1_n87rw")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1518045915]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=977931347]
+custom_minimum_size = Vector2(540, 540)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_myx47")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1253578521]
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1833016694]
+layout_mode = 2
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1093643888]
+layout_mode = 2
+text = "Exit"

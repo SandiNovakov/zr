@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dqmgw4atmsiam"]
+
+[ext_resource type="PackedScene" uid="uid://ccw53wh5ijigm" path="res://scenes/title_screen.tscn" id="1_1bxvr"]
+
+[sub_resource type="GDScript" id="GDScript_m7djw"]
+script/source = "extends Node
+
+func _ready() -> void:
+    GlobalRef.register_ref(&\"root\", self)
+    Settings.apply_settings()
+"
+
+[node name="Root" type="Node" unique_id=155447071]
+script = SubResource("GDScript_m7djw")
+
+[node name="TitleScreen" parent="." unique_id=1426911963 instance=ExtResource("1_1bxvr")]

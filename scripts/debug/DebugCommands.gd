@@ -42,15 +42,19 @@ var commands: Array[Command] = [
 ]
 
 func set_graphics(preset: Levels) -> String:
-    match preset:
-        Levels.LOW:
-            GlobalRef._get_ref("background").size = Vector2(960, 540)
-        Levels.MEDIUM:
-            GlobalRef._get_ref("background").size = Vector2(1920, 1080)
-        Levels.HIGH:
-            GlobalRef._get_ref("background").size = Vector2(3840, 2160)
+    var null_ptr: Object = GlobalRef._get_ref("background")
+    if null_ptr:
+        match preset:
+            Levels.LOW:
+                null_ptr.size = Vector2(960, 540)
+            Levels.MEDIUM:
+                null_ptr.size = Vector2(1920, 1080)
+            Levels.HIGH:
+                null_ptr.size = Vector2(3840, 2160)
             
-    return "Graphics set to %s preset." % [preset]
+        return "Graphics set to %s preset." % [preset]
+    else:
+        return "Graphics not set, no background available."
 
 func ammo() -> String:
     var msg: String = ""
@@ -63,7 +67,6 @@ func ammo() -> String:
         msg += "%s ammo: %00d/%00d\n" % [handler.name, handler.ammo, handler.weapon.max_ammo]
     
     return msg
-    
 
 func resolution(width: int, height: int) -> String:
     var mode: DisplayServer.WindowMode  = DisplayServer.window_get_mode()
@@ -102,12 +105,14 @@ func set_resolution_scale(preset: Levels) -> String:
     return "Resolution scale set to %s preset (%.0f%%)." % [preset, scale * 100]
 
 func set_post_processing(value: bool) -> String:
-    var env: Environment = GlobalRef.get_world_env().environment
-    var msg: String
-        
-    if env == null:
+    var null_ref: Object = GlobalRef.get_world_env()
+    
+    if null_ref == null:
         Syslog.error("No WorldEnvironment found!")
         return "No WorldEnvironment found!"
+    
+    var env: Environment = null_ref.environment
+    var msg: String
     
     match value:
         true:

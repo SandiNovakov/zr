@@ -68,11 +68,11 @@ func request_state_change(new_state: State) -> void:
             current_state.name
         ])
         
-    #Syslog.debug("Node %s changed states from %s to %s." % [
-        #master.name,
-        #old_state.name,
-        #current_state.name
-    #])
+    Syslog.debug("Node %s changed states from %s to %s." % [
+        master.name,
+        old_state.name,
+        current_state.name
+    ])
     
     _initialize_state(current_state)
     current_state.enter()

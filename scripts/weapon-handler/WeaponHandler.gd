@@ -61,10 +61,12 @@ func shoot() -> void:
     #Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
     
 func shoot_charged() -> void:
+    Syslog.debug("shot CHARGED!")
     charged_shot.emit()
     var bullet: Bullet = weapon.charge_bullet.instantiate()
     _spawn_bullet(bullet)
     ammo -= weapon.charge_ammo_use
+    
     #Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
 
 func _spawn_bullet(bullet: Bullet) -> void:

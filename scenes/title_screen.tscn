@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://ccw53wh5ijigm"]
+
+[ext_resource type="FontFile" uid="uid://ljwew0fan8di" path="res://assets/fonts/Fleftex_M.ttf" id="1_fgkus"]
+[ext_resource type="Shader" uid="uid://wio2y4six3ie" path="res://shaders/main.gdshader" id="2_sa3yf"]
+
+[sub_resource type="GDScript" id="GDScript_sa3yf"]
+script/source = "extends Node
+
+func _ready() -> void:
+    GlobalRef.register_ref(&\"title\", self)
+"
+
+[sub_resource type="GDScript" id="GDScript_3yumr"]
+script/source = "extends SubViewport
+
+func _ready() -> void:
+    GlobalRef.register_ref(\"background\", self)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
+shader = ExtResource("2_sa3yf")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 16.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s4lrb"]
+viewport_path = NodePath("Background/SubViewport")
+
+[sub_resource type="Environment" id="Environment_sa3yf"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.3
+adjustment_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_mgrm8"]
+script/source = "extends WorldEnvironment
+
+func _ready() -> void:
+    GlobalRef.register_ref(&\"world_env\", self)
+"
+
+[sub_resource type="Theme" id="Theme_sa3yf"]
+default_font = ExtResource("1_fgkus")
+default_font_size = 32
+
+[sub_resource type="FontFile" id="FontFile_sa3yf"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_s4lrb"]
+
+[sub_resource type="Theme" id="Theme_s4lrb"]
+
+[sub_resource type="GDScript" id="GDScript_s4lrb"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+    Util.change_scene(\"res://scenes/main.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_dc4i4"]
+script/source = "extends Button
+
+
+func _on_pressed() -> void:
+    Util.change_scene(\"res://scenes/settings.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_e54dn"]
+script/source = "extends Button
+
+
+func _on_pressed() -> void:
+    get_tree().quit()
+"
+
+[node name="TitleScreen" type="Node" unique_id=1426911963]
+script = SubResource("GDScript_sa3yf")
+
+[node name="Background" type="Node2D" parent="." unique_id=585407720]
+z_index = -4096
+
+[node name="SubViewport" type="SubViewport" parent="Background" unique_id=326971537]
+size = Vector2i(960, 540)
+script = SubResource("GDScript_3yumr")
+
+[node name="ColorRect" type="ColorRect" parent="Background/SubViewport" unique_id=140896284]
+material = SubResource("ShaderMaterial_sugp2")
+offset_right = 3840.0
+offset_bottom = 2160.0
+
+[node name="BGDisplay" type="TextureRect" parent="Background" unique_id=1967536263]
+modulate = Color(1, 1, 1, 0.49803922)
+offset_right = 3840.0
+offset_bottom = 2160.0
+texture = SubResource("ViewportTexture_s4lrb")
+stretch_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1516824409]
+environment = SubResource("Environment_sa3yf")
+script = SubResource("GDScript_mgrm8")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=539054952]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_sa3yf")
+theme_override_constants/margin_left = 810
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 810
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1816235436]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=1412666198]
+clip_contents = false
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("FontFile_sa3yf")
+theme_override_fonts/bold_font = SubResource("FontVariation_s4lrb")
+theme_override_font_sizes/bold_font_size = 64
+bbcode_enabled = true
+text = "[b]Zavrsni rad
+(placeholder name)[/b]"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1920995161]
+custom_minimum_size = Vector2(540, 72)
+layout_mode = 2
+theme = SubResource("Theme_s4lrb")
+text = "Play"
+script = SubResource("GDScript_s4lrb")
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2005362824]
+custom_minimum_size = Vector2(540, 72)
+layout_mode = 2
+theme = SubResource("Theme_s4lrb")
+text = "Options"
+script = SubResource("GDScript_dc4i4")
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1070519829]
+custom_minimum_size = Vector2(540, 72)
+layout_mode = 2
+theme = SubResource("Theme_s4lrb")
+text = "Exit
+"
+script = SubResource("GDScript_e54dn")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="MarginContainer/VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsButton" to="MarginContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="MarginContainer/VBoxContainer/QuitButton" method="_on_pressed"]

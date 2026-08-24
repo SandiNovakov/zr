@@ -2,6 +2,12 @@ extends Node
 
 var refs: Dictionary = {}
 
+func get_root() -> Node:
+    return _get_ref(&"root") as Node
+
+func get_title() -> Node:
+    return _get_ref(&"title") as Node
+
 func get_player() -> Actor2D:
     return _get_ref(&"player") as Actor2D
 

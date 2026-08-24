@@ -8,10 +8,3 @@ func _input(event: InputEvent) -> void:
 
 func toggle_borderless() -> void:
     is_borderless = !is_borderless
-
-    if is_borderless:
-        DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-    else:
-        DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

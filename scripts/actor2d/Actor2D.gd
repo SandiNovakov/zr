@@ -55,8 +55,15 @@ func _ready() -> void:
     if is_enemy:
         add_to_group("enemies")
     
+    Syslog.debug("Weapon handlers: %s" % weapon_handlers.size())
+
     for handler: WeaponHandler in weapon_handlers:
-        handler.charged_shot.connect(func () -> void: charged_shot.emit(handler))   
+        Syslog.debug("Connecting charged_shot for: %s" % handler.name)
+
+        handler.charged_shot.connect(func() -> void:
+            Syslog.debug("shot CHARGED! on player")
+            charged_shot.emit(handler)
+        )
 
 func _physics_process(delta: float) -> void:
     move_and_slide()

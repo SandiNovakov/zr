@@ -55,7 +55,13 @@ func end(id: String) -> void:
             return
             
     Syslog.error("Called for stop of vibration %s but such vibration doesn't exist or already stopped." % [id])
-    
+
+func stop_all() -> void:
+    rumbles.clear()
+    rumble_strong_str = 0.0
+    rumble_weak_str = 0.0
+    Input.stop_joy_vibration(0)
+
 func _get_id() -> int:
     var retval: int = id_serial
     id_serial += 1

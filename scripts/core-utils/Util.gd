@@ -102,6 +102,15 @@ static func get_vector(negative_x: StringName, positive_x: StringName, negative_
         _:
             return Vector2.ZERO
         
+static func change_scene(path: String) -> void:
+    var root = GlobalRef.get_root()
+    
+    for child in root.get_children():
+        child.queue_free()
+    
+    await root.get_tree().process_frame
+    
+    root.add_child(load(path).instantiate())
         
         
         
