@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://cw5l0fpkkh12a" path="res://scripts/actor2d/states/boost_charge.gd" id="8_akb4s"]
 [ext_resource type="Script" uid="uid://he6k2nlbkugh" path="res://scripts/actor2d/states/boost.gd" id="9_cp3xb"]
 [ext_resource type="Script" uid="uid://dnemk5ridakdv" path="res://scripts/actor2d/states/boost_recovery.gd" id="10_xxevj"]
-[ext_resource type="Script" uid="uid://dmvgr58ok3alv" path="res://scripts/actor2d/controller/dummy_controller.gd" id="11_47qhd"]
 [ext_resource type="Script" uid="uid://b7cxistsp1ced" path="res://scenes/player/dying.gd" id="11_70kv8"]
+[ext_resource type="Script" uid="uid://1iiko2pc0fyk" path="res://scripts/actor2d/controller/ai_controller.gd" id="12_70kv8"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/player/weapon_handler.tscn" id="12_seexg"]
 [ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://scripts/actor2d/LockOnController.gd" id="14_47qhd"]
 [ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/AutoWeapon.tres" id="14_xicbu"]
@@ -37,6 +37,8 @@ weapon_handlers = [NodePath("WeaponHandler"), NodePath("WeaponHandler2")]
 lock_on_radius = NodePath("LockOnRadius")
 lock_on_ray = NodePath("LockOnRay")
 max_health = 100
+speed = 300
+dash_speed = 1500
 boost_charge_vfx = ExtResource("2_70kv8")
 metadata/_custom_type_script = "uid://b3704tgoj3qq4"
 
@@ -112,9 +114,7 @@ script = ExtResource("10_xxevj")
 metadata/_custom_type_script = "uid://b2bv12o52f4ur"
 
 [node name="ActorController" type="Node" parent="." unique_id=327908448]
-script = ExtResource("11_47qhd")
-shoot = true
-turn_toward_player = "Lock-on"
+script = ExtResource("12_70kv8")
 metadata/_custom_type_script = "uid://bcxus6gqq1243"
 
 [node name="WeaponHandler" parent="." unique_id=2011087148 node_paths=PackedStringArray("shot_origin") instance=ExtResource("12_seexg")]
