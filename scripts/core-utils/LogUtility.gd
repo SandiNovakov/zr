@@ -1,37 +1,22 @@
 extends Node
+## Autoload. Writes lines formatted by Syslog to stdout, and to a .txt file
+## under user:// when LOG_TO_FILE is true.
 
-var html_file_ref: FileAccess
+const LOG_TO_FILE: bool = true
+
 var log_file_ref: FileAccess
 
-func write_log(msg: String, destination: CoreConfig.LogDestination) -> void:
-    match destination:
-        CoreConfig.LogDestination.PRINT:
-            print(msg)
-        
-        CoreConfig.LogDestination.PRINT_RICH:
-            print_rich(msg)
-        
-        CoreConfig.LogDestination.LOG_FILE:
-            if log_file_ref:
-                log_file_ref.store_line(msg)
-                log_file_ref.flush()
-            
-        CoreConfig.LogDestination.HTML_FILE:
-            if html_file_ref:            
-                html_file_ref.store_line(msg)
-                html_file_ref.flush()
-
-func _ready() -> void: 
-    var destinations: Dictionary = CoreConfig.get_active_log_destinations()
-    
-    if destinations[CoreConfig.LogDestination.LOG_FILE]:
+func _ready() -> void:
+    if LOG_TO_FILE:
         var file_name: String = _get_file_name_from_systime()
         log_file_ref = FileAccess.open("user://%s.txt" % [file_name], FileAccess.WRITE)
-        
-    if destinations[CoreConfig.LogDestination.HTML_FILE]:
-        var file_name: String = _get_file_name_from_systime()
-        html_file_ref = FileAccess.open("user://%s.html" % [file_name], FileAccess.WRITE)
-        HtmlUtil.write_html_header(html_file_ref)
+
+func write_log(p_colored_msg: String, p_plain_msg: String) -> void:
+    print_rich(p_colored_msg)
+
+    if LOG_TO_FILE and log_file_ref:
+        log_file_ref.store_line(p_plain_msg)
+        log_file_ref.flush()
 
 func _get_file_name_from_systime() -> String:
     var prefix: String = "log_"

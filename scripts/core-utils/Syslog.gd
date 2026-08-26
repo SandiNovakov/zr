@@ -1,64 +1,54 @@
 extends Node
 class_name Syslog
+## Static logging API. Formats a leveled message and hands it to LogUtility.
 
-static func _log_msg(messages: Array, log_level: CoreConfig.LogLevel) -> void: 
-    if CoreConfig.get_log_level() < log_level:
+enum LogLevel { ERROR, WARNING, INFO, DEBUG }
+
+## Only messages at this level or more severe (lower enum value) are logged.
+const ACTIVE_LOG_LEVEL: LogLevel = LogLevel.DEBUG
+
+const LEVEL_LABEL: Dictionary = {
+    LogLevel.ERROR: "  [ERROR]",
+    LogLevel.WARNING: "[WARNING]",
+    LogLevel.INFO: "   [INFO]",
+    LogLevel.DEBUG: "  [DEBUG]",
+}
+
+const LEVEL_COLOR: Dictionary = {
+    LogLevel.ERROR: "#ff7a7a",
+    LogLevel.WARNING: "#ffd166",
+    LogLevel.INFO: "#6ecbff",
+    LogLevel.DEBUG: "#9aa0a6",
+}
+
+static func _log_msg(p_messages: Array, p_level: LogLevel) -> void:
+    if ACTIVE_LOG_LEVEL < p_level:
         return
-        
-    var msg: String = _join_msg(messages)   
-    var destinations: Dictionary = CoreConfig.get_active_log_destinations()
-    
-    if destinations[CoreConfig.LogDestination.PRINT]:
-        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT)
-        LogUtility.write_log(f_msg, CoreConfig.LogDestination.PRINT)
-        
-    if destinations[CoreConfig.LogDestination.PRINT_RICH]:
-        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.PRINT_RICH)
-        LogUtility.write_log(f_msg, CoreConfig.LogDestination.PRINT_RICH)
-        
-    if destinations[CoreConfig.LogDestination.LOG_FILE]:
-        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.LOG_FILE)
-        LogUtility.write_log(f_msg, CoreConfig.LogDestination.LOG_FILE)
-        
-    if destinations[CoreConfig.LogDestination.HTML_FILE]:
-        var f_msg: String = _format_msg(msg, log_level, CoreConfig.LogDestination.HTML_FILE)
-        LogUtility.write_log(f_msg, CoreConfig.LogDestination.HTML_FILE)
-               
-static func _format_msg(msg: String, log_level: CoreConfig.LogLevel, destination: CoreConfig.LogDestination, add_timestamp: bool = true) -> String:
-    var f_msg: String = msg
-    
-    if add_timestamp:
-        f_msg = "%s %s | %s" % [Util.get_uptime_formatted(), CoreConfig.get_log_level_string(log_level), msg]
-        
-    match destination:
-        CoreConfig.LogDestination.PRINT_RICH: # bbcode
-            var color: String = CoreConfig.get_log_color(log_level)
-            f_msg = "[color=%s]%s[/color]" % [color, f_msg]
-            
-        CoreConfig.LogDestination.HTML_FILE: # inline css
-            var color: String = CoreConfig.get_log_color(log_level)
-            f_msg = "<p style='color: %s;'>%s</p>" % [color, f_msg]
 
-    return f_msg
+    var msg: String = _join_msg(p_messages)
+    var plain_msg: String = "%s %s | %s" % [Util.get_uptime_formatted(), LEVEL_LABEL[p_level], msg]
+    var colored_msg: String = "[color=%s]%s[/color]" % [LEVEL_COLOR[p_level], plain_msg]
 
-static func _join_msg(messages: Array) -> String: 
+    LogUtility.write_log(colored_msg, plain_msg)
+
+static func _join_msg(p_messages: Array) -> String:
     var msg: String = ""
-    
-    for message: Variant in messages:
+
+    for message: Variant in p_messages:
         msg += str(message)
-    
+
     return msg
 
 @warning_ignore_start("untyped_declaration") #Types unsupported on variadic arguments
-static func error(...messages) -> void:
-    _log_msg(messages, CoreConfig.LogLevel.ERROR)
+static func error(...p_messages) -> void:
+    _log_msg(p_messages, LogLevel.ERROR)
 
-static func warning(...messages) -> void:
-    _log_msg(messages, CoreConfig.LogLevel.WARNING)
+static func warning(...p_messages) -> void:
+    _log_msg(p_messages, LogLevel.WARNING)
 
-static func info(...messages) -> void:
-    _log_msg(messages, CoreConfig.LogLevel.INFO)
+static func info(...p_messages) -> void:
+    _log_msg(p_messages, LogLevel.INFO)
 
-static func debug(...messages) -> void:
-    _log_msg(messages, CoreConfig.LogLevel.DEBUG)
-@warning_ignore_restore("untyped_declaration") #Types unsupported on variadic arguments
+static func debug(...p_messages) -> void:
+    _log_msg(p_messages, LogLevel.DEBUG)
+@warning_ignore_restore("untyped_declaration")
