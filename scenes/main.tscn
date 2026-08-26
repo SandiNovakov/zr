@@ -18,12 +18,25 @@
 [sub_resource type="GDScript" id="GDScript_sgp6g"]
 script/source = "extends Node
 
+const SCORE_SCREEN_DELAY: float = 3.0
+const SCORE_SCREEN_PATH: String = \"res://scenes/score_display.tscn\"
+
 var score: int = 0
 
 func _ready() -> void:
     GlobalRef.register_ref(&\"main\", self)
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
     Settings.apply_settings()
+
+    var player: Actor2D = GlobalRef.get_player()
+    if player:
+        player.killed.connect(_on_player_killed)
+
+func _on_player_killed() -> void:
+    Settings.last_score = score
+
+    await get_tree().create_timer(SCORE_SCREEN_DELAY).timeout
+    Util.change_scene(SCORE_SCREEN_PATH)
 
 func update_score(amount) -> void:
     score += amount

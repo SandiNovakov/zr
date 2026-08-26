@@ -6,8 +6,30 @@
 [sub_resource type="GDScript" id="GDScript_sa3yf"]
 script/source = "extends Node
 
+const SCORE_DIGITS: int = 12
+const LEADING_ZERO_COLOR: String = \"#ffffff80\"
+
 func _ready() -> void:
     GlobalRef.register_ref(&\"title\", self)
+
+    var score_label: RichTextLabel = $MarginContainer/VBoxContainer/HBoxContainer/Score
+    _set_score_text(0.0, score_label)
+
+    var tween: Tween = create_tween()
+    tween.set_trans(Tween.TRANS_CUBIC)
+    tween.set_ease(Tween.EASE_OUT)
+    tween.tween_method(_set_score_text.bind(score_label), 0.0, float(Settings.get_high_score()), 1.5)
+
+func _set_score_text(p_value: float, p_label: RichTextLabel) -> void:
+    var displayed: int = int(round(p_value))
+    var score_text: String = str(displayed).lpad(SCORE_DIGITS, \"0\")
+    var zero_count: int = SCORE_DIGITS - str(displayed).length()
+
+    p_label.text = \"[color=%s]%s[/color]%s\" % [
+        LEADING_ZERO_COLOR,
+        score_text.left(zero_count),
+        score_text.substr(zero_count)
+    ]
 "
 
 [sub_resource type="GDScript" id="GDScript_3yumr"]
@@ -148,8 +170,27 @@ theme_override_fonts/normal_font = SubResource("FontFile_sa3yf")
 theme_override_fonts/bold_font = SubResource("FontVariation_s4lrb")
 theme_override_font_sizes/bold_font_size = 64
 bbcode_enabled = true
-text = "[b]Zavrsni rad
-(placeholder name)[/b]"
+text = "[b]Zavrsni rad[/b]"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=396265259]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=107019161]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "High Score: "
+
+[node name="Score" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=38204175]
+clip_contents = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
+text = "000000000"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1

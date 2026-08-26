@@ -20,6 +20,11 @@ var effects_enabled: bool = true
 # -- score --
 var high_score: int = 0
 
+## Score from the run that just ended. Transient (not persisted) - set by
+## Main right before switching to the score display scene, since
+## Util.change_scene() has no other way to hand data to the new scene.
+var last_score: int = 0
+
 
 func _ready() -> void:
     Syslog.info("Initializing save data.")
