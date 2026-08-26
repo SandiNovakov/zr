@@ -33,26 +33,8 @@ func get_action_buffered(action: StringName) -> bool:
 func get_boost_dir() -> Vector2:
     if _is_ui_focused():
         return Vector2.ZERO
-    
-    match InputDeviceManager.current_input_device:
-        InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
-            #var dir: Vector2 = Vector2.from_angle(master.global_rotation)
-#
-            #var rotated: Vector2 = dir
-#
-            #if Input.is_action_pressed("move_left"):
-                #rotated = dir.rotated(-PI / 2)
-            #elif Input.is_action_pressed("move_right"):
-                #rotated = dir.rotated(PI / 2)
-            #
-            #return rotated
-            return Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")                                
-            
-        InputDeviceManager.InputDevices.CONTROLLER:             
-            return Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down", true)
-        _:
-            Syslog.error('Current input device is not in InputDevices enum!')
-            return Vector2.ZERO
+
+    return Util.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
 
 func get_move_dir() -> Vector2:
     if _is_ui_focused():
@@ -67,22 +49,11 @@ func get_move_dir() -> Vector2:
 func get_look_dir() -> Vector2:
     if master.lock_on:
         return (master.lock_on.global_position - master.global_position).normalized()
-        
+
     if _is_ui_focused():
         return Vector2.ZERO
-    
-    match InputDeviceManager.current_input_device:
-        InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
-            return (master.get_global_mouse_position() - master.global_position).normalized()
-        InputDeviceManager.InputDevices.CONTROLLER:
-            var look_dir: Vector2 = Input.get_vector(&"look_left", &"look_right", &"look_up", &"look_down")
-            if look_dir == Vector2.ZERO:
-                return get_move_dir()
-            else:
-                return look_dir
-        _:
-            Syslog.error('Current input device is not in InputDevices enum!')
-            return Vector2.ZERO
+
+    return (master.get_global_mouse_position() - master.global_position).normalized()
 
 func is_lock_on() -> bool:
     return Input.is_action_just_pressed(&"lock_on")

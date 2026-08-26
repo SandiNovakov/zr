@@ -3,7 +3,6 @@ extends Node2D
 @onready var master: Actor2D = GlobalRef.get_player()
 @onready var ui_node: CanvasLayer = GlobalRef.get_ui()
 
-var max_distance: float = 250
 var min_visible_distance: float = 100.0
 
 var colorize_distance: float = 100.0
@@ -45,15 +44,11 @@ func _process(delta: float) -> void:
     if master.lock_on:
         var lock_on_pos: Vector2 = master.lock_on.get_global_transform_with_canvas().origin
         global_position = global_position.move_toward(lock_on_pos, 500/0.05*delta)
+    elif master.is_boosting:
+        global_position = global_position.move_toward(master_screen_pos, 500/0.05*delta)
     else:
-        if master.is_boosting:
-            global_position = global_position.move_toward(master_screen_pos, 500/0.05*delta) 
-        
-        elif InputDeviceManager.current_input_device == InputDeviceManager.InputDevices.KEYBOARD_MOUSE:
-            global_position = get_global_mouse_position()
-        else:
-            global_position = global_position.move_toward(master_screen_pos + (master.controller.get_look_dir() * max_distance), 500/0.05*delta) 
-    
+        global_position = get_global_mouse_position()
+
     colorize()
     
     # Fade when cursor is too close to master (in screen space)
