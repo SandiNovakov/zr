@@ -58,6 +58,7 @@ func _ready() -> void:
     
     if is_enemy:
         add_to_group("enemies")
+        add_to_group("lockable")
     
     Syslog.debug("Weapon handlers: %s" % weapon_handlers.size())
 

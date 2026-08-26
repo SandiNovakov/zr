@@ -28,6 +28,8 @@ func _ready() -> void:
     if weapon.automatic and weapon.can_charge:
         Syslog.warning("%s's Weapon %s is both automatic and chargeable. Automatic will take precedence and charging will be disabled." % [master.name, self.name])
 
+    master.locked_off.connect(_on_locked_off)
+
 func can_shoot() -> bool:
     if not allow_shoot:
         return false
@@ -66,10 +68,12 @@ func _spawn_bullet(bullet: Bullet) -> void:
         bullet.set_collision_layer_value(5, true)
         bullet.set_collision_mask_value(1, true)
         bullet.set_collision_mask_value(2, true)
+        bullet.set_collision_mask_value(7, true)
     else:
         bullet.set_collision_layer_value(3, true)
         bullet.set_collision_mask_value(1, true)
         bullet.set_collision_mask_value(4, true)
+        bullet.set_collision_mask_value(7, true)
     
     GlobalRef.get_main().add_child(bullet)
     #bullet.set_as_top_level(true)
@@ -98,3 +102,6 @@ func lock_on_origins() -> void:
         shot_origin.look_at(master.lock_on.global_position)
     else:
         shot_origin.rotation = 0
+
+func _on_locked_off() -> void:
+    shot_origin.rotation = 0

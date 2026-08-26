@@ -46,7 +46,15 @@ func _physics_process(delta: float) -> void:
         if collision.get_collider() is Actor2D:
             var collider: Actor2D = collision.get_collider() as Actor2D
             collider.take_damage(damage)
-        
+
+        if collision.get_collider() is Asteroid:
+            var collider: Asteroid = collision.get_collider() as Asteroid
+            collider.take_damage(damage, get_collision_layer_value(3))
+
+        if collision.get_collider() is ItemContainer:
+            var collider: ItemContainer = collision.get_collider() as ItemContainer
+            collider.take_damage(damage)
+
         if collide_vfx:
             var c: Node2D = collide_vfx.instantiate()
             c.global_position = collision.get_position()

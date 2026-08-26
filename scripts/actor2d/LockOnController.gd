@@ -40,7 +40,13 @@ func _process(delta: float) -> void:
                     if not target.is_in_group(lock_on_group):
                         continue
 
-                    var dist := reticle_pos.distance_squared_to(target.get_global_transform_with_canvas().origin)
+                    var target_screen_pos: Vector2 = target.get_global_transform_with_canvas().origin
+
+                    # Off-screen targets are excluded even if close to the reticle in screen space.
+                    if not get_viewport().get_visible_rect().has_point(target_screen_pos):
+                        continue
+
+                    var dist := reticle_pos.distance_squared_to(target_screen_pos)
 
                     if dist < closest_dist:
                         closest = target

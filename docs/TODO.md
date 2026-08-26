@@ -1,129 +1,20 @@
 # New
-- [x] ~~Fix bug with weapon charging.~~
-  - Current behavior: When charging and dashing, time spent charging while dashing isn't counted.
-  - Expected behavior: Charge time should count whether dashing or idling.
-  - Possible fix: master.can_shoot() check in idle state returns prematurely. Fix this.
-- [ ] Change order of arguments to turn so that p_turn_speed is optional.
-- [ ] **URGENT**: make lib for collision masks and shi because rn enemy is shooting itself
-- [ ] implement hitboxes.
+- [ ] Add asteroids the player can shoot for extra score.
+- [ ] Add capsules containing health packs.
+- [ ] Add a generic spawner for the three spawnable object types (enemies, asteroids, health capsules).
+- [ ] Give enemies actual movement (currently stationary — only rotate to face/track and shoot).
+- [ ] Add a manager for enemies/entities to track on-screen count, etc.
+- [ ] Show the player's score after death.
+- [ ] Add a highscore comparison screen after player death.
+
 # Normal
 ## Core architecture / refactors
-
 - [ ] Introduce a bind-variable system for states and state machine
   - See: StateMachine Bind Variable Spec
-
-- [x] Improve scene-to-scene referencing  
-  - Introduce GlobalRef autoload  
-  - Holds stable references: Main, Player, WorldEnvironment, etc.
-
-- [x] Split debug UI into dedicated structure  
-  - Possible: create a dedicated scene for all debug UI layers  
-
-- [x] ~~Organize project directories~~
-
-
-## Debug console overhaul
-
-- [x] ~~Refactor DebugConsoleGui to be input-transparent~~
-  - Must not mutate or interpret input  
-  - Only forward raw input to DebugConsole
-
-- [x] ~~Separate callable registry from DebugConsole~~
-  - Move callable definitions into a dedicated script/module
-
-- [x] ~~Support callable argument introspection~~
-  - Automatically determine expected argument count
-
-- [x] ~~Add strict argument validation for command execution~~
-  - Reject calls where provided arg count ≠ expected arg count
-
-- [x] ~~Add structured argument binding system~~
-  - Programmatic mapping of inputs → typed arguments
-
-- [x] ~~Add flexible boolean parsing for arguments~~
-  - Accept: on/off, true/false, 1/0
-
-
-## Settings / display system
-
-- [x] Add common resolution scaling presets
-
-- [ ] Centralize display settings logic  
-  - Replace fragmented display calls across codebase  
-  - Debug console and settings menu must use the same API
-
-- [x] Implement persistent user settings storage  
-  - Stored in user directory  
-  - Initially writable only via console
-
-- [x] Implement centralized API for controller vibration strength values  
-  - Refactor all calls to RumbleController to use values from there instead
-
-- [x] ~~Add rumble strength setting for users to reduce or increase rumble strength~~
-
+- [ ] Change order of arguments to `turn` so that `p_turn_speed` is optional.
+- [ ] Implement dedicated hitboxes instead of relying on body-to-body collision for damage.
 
 ## Gameplay systems
-
-- [x] Implement aim reticle in gameplay
-
-- [ ] Implement lock-on mechanic
-
 - [ ] Add stagger state to Actor2D
-
-- [x] ~~Fix Boost state input handling (currently broken)~~
-
-- [x] ~~Implement BoostRecover state~~
-
-- [x] ~~Create new VFX for Actor2D actions~~
-
-- [ ] Implement enemies
-  - Could reuse Actor2D with AI controller restrictions (no Boost/Dash usage)
-
-- [ ] Implement simple AI controller
-  - Has list of possible actions per state  
-  - Randomly selects actions after random intervals
-
-- [x] Refactor ActorController into abstract base class
-  - Separate PlayerController and AIController
-
-- [x] Implement damage system
-  - Player HP, enemy HP, bullet damage calculation
-
-- [ ] Implement death logic
-  - Death state, VFX, queue_free handling
-
-- [ ] Implement enemy spawner  
-  - Spawns enemies at random or fixed intervals
-
-- [ ] Implement score system  
-  - Hook into enemy death signal and assign points to player
-
-- [x] Add ammo system  
-  - Enemy weapons use infinite ammo
-
-- [ ] Add more unique weapon and bullet types
-
-
-## Input / cheats / controller systems
-
-- [ ] Add cheat code system  
-  - See Cheat Codes Spec
-
-- [ ] Add controller support for cheat codes
-
-
-## Code quality / consistency
-
-- [x] ~~Enforce explicit type declarations everywhere~~
-  - Fix all inferred type definitions to adhere to project spec
-
-- [x] ~~Remove redundant or unnecessary Syslog.debug() calls~~
-  - Free space for meaningful debug output
-
-
-## UI / UX
-
-- [ ] Create proper UI theme  
-  - Debug UI theme as baseline
-
-- [ ] Implement basic UI showing all player-important stats
+- [ ] Implement a proper AI controller: a list of possible actions per state, randomly selected after random intervals. Current `dummy_controller` only turns toward the player and shoots on a timer.
+- [ ] Add more unique weapon and bullet types.

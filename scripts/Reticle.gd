@@ -61,16 +61,16 @@ func _process(delta: float) -> void:
         modulate.a = 1.0
 
 func colorize() -> void:
-    var enemies: Array[Node] = get_tree().get_nodes_in_group("enemies")
+    var targets: Array[Node] = get_tree().get_nodes_in_group("lockable")
 
     var closest_distance: float = INF
 
-    for enemy in enemies:
-        if not enemy is Node2D:
+    for target in targets:
+        if not target is Node2D:
             continue
 
-        var enemy_screen_pos: Vector2 = enemy.get_global_transform_with_canvas().origin
-        var dist: float = global_position.distance_to(enemy_screen_pos)
+        var target_screen_pos: Vector2 = target.get_global_transform_with_canvas().origin
+        var dist: float = global_position.distance_to(target_screen_pos)
 
         if dist < closest_distance:
             closest_distance = dist

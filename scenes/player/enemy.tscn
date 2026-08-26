@@ -28,7 +28,7 @@ radius = 300.0
 [node name="Enemy" type="CharacterBody2D" unique_id=1105171591 node_paths=PackedStringArray("controller", "state_machine", "weapon_handlers", "lock_on_radius", "lock_on_ray")]
 scale = Vector2(2, 2)
 collision_layer = 40
-collision_mask = 33
+collision_mask = 97
 script = ExtResource("1_47qhd")
 is_enemy = true
 controller = NodePath("ActorController")

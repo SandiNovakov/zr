@@ -135,6 +135,7 @@ pause={
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="EnemyBullet"
 2d_physics/layer_6="Entity"
+2d_physics/layer_7="Destructible"
 
 [physics]
 
