@@ -31,11 +31,7 @@ var commands: Array[Command] = [
     Command.new(set_tps, [
         CommandArg.new("value", ArgTypes.INT, 1, 120, 60)  # min 1, max 120, default 60
     ]),
-    
-    Command.new(set_vibration, [
-        CommandArg.new("strength", ArgTypes.BOOL_LEVEL)
-    ]),
-    
+
     Command.new(set_graphics, [
         CommandArg.new("preset", ArgTypes.LEVEL)
     ])
@@ -140,27 +136,6 @@ func set_tps(value: int) -> String:
     Engine.physics_ticks_per_second = value
     return "Physics TPS set to %d" % [value]
 
-func set_vibration(strength: BoolLevels) -> String:
-    match strength:
-        BoolLevels.OFF:
-            CoreConfig.enable_vibration = false
-            CoreConfig.vibration_strength = 0.0
-            return "Vibration disabled"
-        BoolLevels.LOW:
-            CoreConfig.enable_vibration = true
-            CoreConfig.vibration_strength = 0.33
-            return "Vibration set to low: 33%"
-        BoolLevels.MEDIUM:
-            CoreConfig.enable_vibration = true
-            CoreConfig.vibration_strength = 0.66
-            return "Vibration set to medium: 66%"
-        BoolLevels.HIGH:
-            CoreConfig.enable_vibration = true
-            CoreConfig.vibration_strength = 1
-            return "Vibration set to high: 100%"
-        _:
-            return "Vibration unchanged."
-
 func help() -> String:
     var names: Array[String] = []
     
@@ -193,17 +168,9 @@ enum ArgTypes{
     STRING,
     BOOL, # YES/NO, TRUE/FALSE, ON/OFF
     LEVEL, # LOW, MEDIUM, HIGH
-    BOOL_LEVEL, #OFF = 0, LOW, MEDIUM, HIGH
 }
 
 enum Levels {
-    LOW,
-    MEDIUM,
-    HIGH,
-}
-
-enum BoolLevels {
-    OFF,
     LOW,
     MEDIUM,
     HIGH,
@@ -223,13 +190,6 @@ var level_map: Dictionary = {
     "low": Levels.LOW,
     "medium": Levels.MEDIUM,
     "high": Levels.HIGH,
-}
-
-var bool_level_map: Dictionary = {
-    "off": BoolLevels.OFF,
-    "low": BoolLevels.LOW,
-    "medium": BoolLevels.MEDIUM,
-    "high": BoolLevels.HIGH,
 }
 
 class CommandArg:

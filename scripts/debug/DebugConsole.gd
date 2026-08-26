@@ -40,13 +40,10 @@ func is_valid_type(expected_type: DebugCommands.ArgTypes, value: String) -> bool
             
         DebugCommands.ArgTypes.BOOL:
             return DebugCommands.bool_map.has(value)
-            
+
         DebugCommands.ArgTypes.LEVEL:
             return DebugCommands.level_map.has(value)
-            
-        DebugCommands.ArgTypes.BOOL_LEVEL:
-            return DebugCommands.bool_level_map.has(value)
-            
+
         _:
             return false
 
@@ -96,15 +93,12 @@ func convert_value(expected_type: DebugCommands.ArgTypes, value: String) -> Vari
             
         DebugCommands.ArgTypes.BOOL:
             return DebugCommands.bool_map.get(value)
-            
+
         DebugCommands.ArgTypes.LEVEL:
             return DebugCommands.level_map.get(value)
-            
-        DebugCommands.ArgTypes.BOOL_LEVEL:
-            return DebugCommands.bool_level_map.get(value)
-            
+
         _:
-            return null    
+            return null
 
 func type_to_string(t: DebugCommands.ArgTypes) -> String:
     match t:
@@ -113,7 +107,6 @@ func type_to_string(t: DebugCommands.ArgTypes) -> String:
         DebugCommands.ArgTypes.STRING: return "string"
         DebugCommands.ArgTypes.BOOL: return "bool"
         DebugCommands.ArgTypes.LEVEL: return "level"
-        DebugCommands.ArgTypes.BOOL_LEVEL: return "bool_level"
         _: return "unknown"
 
 func build_arg_syntax(arg: DebugCommands.CommandArg) -> String:
@@ -141,9 +134,6 @@ func build_arg_syntax(arg: DebugCommands.CommandArg) -> String:
             
         DebugCommands.ArgTypes.LEVEL:
             constraint = " (low/medium/high)"
-            
-        DebugCommands.ArgTypes.BOOL_LEVEL:
-            constraint = " (off/low/medium/high)"
     
     var base: String = "%s:%s%s" % [arg.display, type_str, constraint]
     

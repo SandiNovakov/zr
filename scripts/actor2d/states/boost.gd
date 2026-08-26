@@ -1,7 +1,6 @@
 extends ActorState
 
 var trail_handle: Trail2D
-var rumble_handle: String
 
 func enter() -> void:
     trail_handle = Trail2D.new()
@@ -15,9 +14,8 @@ func enter() -> void:
     trail_handle.z_index = -4096
     
     #master.add_child(trail_handle)
-    master.add_child(trail_handle)    
-    rumble_handle = RumbleController.start(0.3, 0)
-    
+    master.add_child(trail_handle)
+
     master.is_boosting = true
 
 func update(delta: float) -> void:
@@ -35,4 +33,3 @@ func update(delta: float) -> void:
 func exit() -> void:
     master.is_boosting = false
     trail_handle.stop()
-    RumbleController.end(rumble_handle)

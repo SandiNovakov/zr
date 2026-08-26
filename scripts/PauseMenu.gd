@@ -45,7 +45,6 @@ func pause() -> void:
     get_tree().paused = true
     resume_button.grab_focus()
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-    RumbleController.stop_all()
 
 
 func resume() -> void:

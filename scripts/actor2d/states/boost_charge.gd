@@ -3,7 +3,6 @@ extends ActorState
 var time_boost_is_held: float = 0
 var next: ActorState
 var vfx: Node2D
-var rumble_handle: String
 
 
 func enter() -> void:
@@ -15,9 +14,7 @@ func enter() -> void:
     if master.boost_charge_vfx and master.boost_charge_vfx_anchor:
         vfx = master.boost_charge_vfx.instantiate()
         master.boost_charge_vfx_anchor.add_child(vfx)
-        
-    rumble_handle = RumbleController.start(0.1, 0)
-    
+
     master.boost_charge_started.emit()
 
 func update(delta: float) -> void:
@@ -38,11 +35,9 @@ func update(delta: float) -> void:
 func exit() -> void:
     master.boost_charge_ended.emit()
     
-    if vfx:    
+    if vfx:
         vfx.queue_free()
 
-    RumbleController.end(rumble_handle)
-    
     if next == $"../Idle":
         master.enable_shooting()
         master.enable_charging()

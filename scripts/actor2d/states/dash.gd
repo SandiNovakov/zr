@@ -30,11 +30,7 @@ func enter() -> void:
     dash_timer.start()
     
     master.disable_shooting()
-    
-    #Input.start_joy_vibration(0, 0.5, 0, 0.1)
-    if master.is_player:
-        RumbleController.add(0.5, 0, 0.1)
-    
+
     trail_handle = Trail2D.new()
 
     trail_handle.color_start = Pallete.Colors.BOOST_MIDDLE

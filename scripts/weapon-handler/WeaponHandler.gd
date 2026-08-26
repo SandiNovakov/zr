@@ -52,10 +52,7 @@ func can_shoot(ammo_required: int = 1) -> bool:
     
 func shoot() -> void:
     last_shot_timestamp = Time.get_ticks_usec()
-    
-    #Input.start_joy_vibration(0, 1, 0, 0.1)
-    RumbleController.add(0.5, 0, 0.1)
-    
+
     var bullet: Bullet = weapon.bullet.instantiate()
     _spawn_bullet(bullet)
     ammo -= 1
