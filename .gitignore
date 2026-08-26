@@ -15,4 +15,7 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
+# Editor crash-recovery autosave files
+*.tmp
+
 docs/.obsidian/workspace.json

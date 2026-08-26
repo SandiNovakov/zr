@@ -46,13 +46,13 @@
 
 ## Settings / display system
 
-- [ ] Add common resolution scaling presets
+- [x] Add common resolution scaling presets
 
 - [ ] Centralize display settings logic  
   - Replace fragmented display calls across codebase  
   - Debug console and settings menu must use the same API
 
-- [ ] Implement persistent user settings storage  
+- [x] Implement persistent user settings storage  
   - Stored in user directory  
   - Initially writable only via console
 
