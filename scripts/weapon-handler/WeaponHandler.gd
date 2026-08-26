@@ -8,9 +8,7 @@ class_name WeaponHandler
 @export var shot_origin: Marker2D
 @export var controller: ActorController
 
-var ammo: int = -1
-
-## Only used for player characters    
+## Only used for player characters
 var time_until_charging: float = 0.3
 var last_shot_timestamp: int = 0
 
@@ -25,21 +23,15 @@ func _process(delta: float) -> void:
         lock_on_origins()
 
 func _ready() -> void:
-    ammo = weapon.max_ammo
-    
     if weapon.fire_rate == 0:
         Syslog.warning("Fire rate for weapon: %s on Actor %s is 0!" % ["[replace with resource name]", master.name])
     if weapon.automatic and weapon.can_charge:
         Syslog.warning("%s's Weapon %s is both automatic and chargeable. Automatic will take precedence and charging will be disabled." % [master.name, self.name])
 
-func can_shoot(ammo_required: int = 1) -> bool:  
+func can_shoot() -> bool:
     if not allow_shoot:
         return false
-    
-    # removing ammo for now
-    #if ammo < ammo_required:
-        #return false
-    
+
     var shot_delay: float = 1.0 / max(weapon.fire_rate, 1) #in seconds. max for divide by zero safety
     @warning_ignore("narrowing_conversion")
     var shot_delay_usec: int = Util.to_usec(shot_delay)
@@ -54,17 +46,12 @@ func shoot() -> void:
 
     var bullet: Bullet = weapon.bullet.instantiate()
     _spawn_bullet(bullet)
-    ammo -= 1
-    #Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
-    
+
 func shoot_charged() -> void:
     Syslog.debug("shot CHARGED!")
     charged_shot.emit()
     var bullet: Bullet = weapon.charge_bullet.instantiate()
     _spawn_bullet(bullet)
-    ammo -= weapon.charge_ammo_use
-    
-    #Syslog.debug("%s Ammo: %00d/%00d" % [self.name, ammo, weapon.max_ammo])
 
 func _spawn_bullet(bullet: Bullet) -> void:
     bullet.global_position = shot_origin.global_position

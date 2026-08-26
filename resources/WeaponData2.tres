@@ -14,5 +14,4 @@ charge_bullet = ExtResource("3_xqfva")
 fire_rate = 12
 damage = 7
 automatic = true
-max_ammo = 240
 metadata/_custom_type_script = "uid://fy2kx1pmjlsi"

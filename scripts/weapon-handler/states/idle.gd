@@ -13,7 +13,7 @@ func update(delta: float) -> void:
             state_machine.request_state_change($"../Charging")
 
 func check_charge(delta: float) -> void:
-    if not master.can_shoot(master.weapon.charge_ammo_use):
+    if not master.can_shoot():
         time_shoot_is_held = 0
         return
     
