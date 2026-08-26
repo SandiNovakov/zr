@@ -39,7 +39,14 @@ func die() -> void:
 
     if drop_scene:
         var drop: Node2D = drop_scene.instantiate()
+        var target_scale: Vector2 = drop.scale
         drop.global_position = global_position
+        drop.scale = Vector2.ZERO
         GlobalRef.get_main().add_child(drop)
+
+        var drop_tween: Tween = drop.create_tween()
+        drop_tween.set_trans(Tween.TRANS_BOUNCE)
+        drop_tween.set_ease(Tween.EASE_OUT)
+        drop_tween.tween_property(drop, "scale", target_scale, 0.3)
 
     queue_free()

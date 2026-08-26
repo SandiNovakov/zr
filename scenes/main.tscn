@@ -429,7 +429,7 @@ spawn_vfx = ExtResource("8_tipki")
 max_count = 10
 min_position = Vector2(100, 100)
 max_position = Vector2(3740, 2060)
-max_interval = 20.0
+max_interval = 10.0
 metadata/_custom_type_script = "uid://ckqho8nfxwy83"
 
 [node name="MeteorBigASpawner" type="Node" parent="." unique_id=1034683803 node_paths=PackedStringArray("target_parent")]
@@ -440,7 +440,7 @@ spawn_vfx = ExtResource("8_tipki")
 min_position = Vector2(100, 100)
 max_position = Vector2(3740, 2060)
 min_interval = 2.0
-max_interval = 10.0
+max_interval = 8.0
 metadata/_custom_type_script = "uid://ckqho8nfxwy83"
 
 [node name="MeteorBigBSpawner" type="Node" parent="." unique_id=1053067186 node_paths=PackedStringArray("target_parent")]
@@ -451,7 +451,7 @@ spawn_vfx = ExtResource("8_tipki")
 min_position = Vector2(100, 100)
 max_position = Vector2(3740, 2060)
 min_interval = 2.0
-max_interval = 10.0
+max_interval = 8.0
 metadata/_custom_type_script = "uid://ckqho8nfxwy83"
 
 [node name="MeteorSmallASpawner" type="Node" parent="." unique_id=1434772507 node_paths=PackedStringArray("target_parent")]
@@ -462,7 +462,7 @@ spawn_vfx = ExtResource("10_a8y0u")
 max_count = 10
 min_position = Vector2(100, 100)
 max_position = Vector2(3740, 2060)
-max_interval = 10.0
+max_interval = 8.0
 metadata/_custom_type_script = "uid://ckqho8nfxwy83"
 
 [node name="MeteorSmallBSpawner" type="Node" parent="." unique_id=1456194854 node_paths=PackedStringArray("target_parent")]
@@ -473,7 +473,7 @@ spawn_vfx = ExtResource("10_a8y0u")
 max_count = 10
 min_position = Vector2(100, 100)
 max_position = Vector2(3740, 2060)
-max_interval = 10.0
+max_interval = 8.0
 metadata/_custom_type_script = "uid://ckqho8nfxwy83"
 
 [node name="MedkitSpawner" type="Node" parent="." unique_id=1362578276 node_paths=PackedStringArray("target_parent")]

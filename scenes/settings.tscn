@@ -62,7 +62,7 @@ func _ready() -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
 shader = ExtResource("1_r6d6q")
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0.003921569, 0.047058824, 0.101960786, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/bigStarSlow = 2.0
 shader_parameter/mediumStarSlow = 6.0

@@ -45,8 +45,15 @@ func _try_spawn() -> void:
     )
 
     var instance: Node2D = scene.instantiate()
+    var target_scale: Vector2 = instance.scale
     instance.global_position = spawn_position
+    instance.scale = Vector2.ZERO
     target_parent.add_child(instance)
+
+    var spawn_tween: Tween = instance.create_tween()
+    spawn_tween.set_trans(Tween.TRANS_BOUNCE)
+    spawn_tween.set_ease(Tween.EASE_OUT)
+    spawn_tween.tween_property(instance, "scale", target_scale, 0.3)
 
     live_count += 1
     instance.tree_exiting.connect(func() -> void:
