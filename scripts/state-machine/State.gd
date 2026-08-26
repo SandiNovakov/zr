@@ -1,4 +1,3 @@
-@icon("res://assets/node-icons/white/forward.png")
 @abstract
 extends Node
 class_name State

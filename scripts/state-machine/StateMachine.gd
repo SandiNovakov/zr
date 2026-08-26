@@ -1,4 +1,3 @@
-@icon("res://assets/node-icons/white/share2.png")
 extends Node
 class_name StateMachine
 

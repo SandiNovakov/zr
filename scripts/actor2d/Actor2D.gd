@@ -1,4 +1,3 @@
-@icon("res://assets/node-icons/blue/singleplayer.png")
 extends CharacterBody2D
 class_name Actor2D
 

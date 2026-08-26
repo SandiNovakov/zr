@@ -1,4 +1,3 @@
-@icon("res://assets/node-icons/plenticons/arrow-blue.png")
 extends CharacterBody2D
 class_name Bullet
 
