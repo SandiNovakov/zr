@@ -2,7 +2,9 @@ extends Node
 ## Autoload. Persists settings + high score to disk and loads/applies them.
 ## Call `apply_settings()` after `save_settings()` (e.g. when the settings
 ## menu hits "Apply") to push the new values live via the resolution/window
-## APIs -- those calls get filled in once you send them over.
+## APIs.
+
+enum GraphicsPreset { LOW, MEDIUM, HIGH }
 
 const SAVE_PATH: String = "user://savedata.cfg"
 
@@ -12,7 +14,7 @@ const SECTION_SCORE: String = "score"
 # -- settings --
 var resolution: Vector2i = Vector2i(1920, 1080)
 var fullscreen: bool = false
-var background_detail: int = 2 # TODO: swap for an enum once detail levels are finalized
+var background_detail: int = 2 # GraphicsPreset value, stored as int for ConfigFile
 var effects_enabled: bool = true
 
 # -- score --
@@ -70,23 +72,18 @@ func save_settings() -> void:
     )
 
 
-## Pushes the currently held settings values live via the DebugCommands
-## autoload's command functions.
+## Pushes the currently held settings values live via the window/display APIs.
 func apply_settings() -> void:
     Syslog.info(
         "Applying settings: resolution=%s, fullscreen=%s, background_detail=%d, effects_enabled=%s."
         % [resolution, fullscreen, background_detail, effects_enabled]
     )
-    
+
     if not fullscreen:
-        var resolution_status: String = DebugCommands.resolution(resolution.x, resolution.y)
-        Syslog.info(resolution_status)
-        
-    var graphics_status: String = DebugCommands.set_graphics(background_detail as DebugCommands.Levels)
-    Syslog.info(graphics_status)
-    
-    var post_processing_status: String = DebugCommands.set_post_processing(effects_enabled)
-    Syslog.info(post_processing_status)
+        _apply_resolution(resolution.x, resolution.y)
+
+    _apply_graphics_preset(background_detail as GraphicsPreset)
+    _apply_post_processing(effects_enabled)
 
     if fullscreen:
         DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
@@ -96,6 +93,43 @@ func apply_settings() -> void:
         DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
         DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
         Syslog.info("Window mode set to windowed.")
+
+
+func _apply_resolution(p_width: int, p_height: int) -> void:
+    if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+    DisplayServer.window_set_size(Vector2i(p_width, p_height))
+    Syslog.info("Resolution set to %dx%d." % [p_width, p_height])
+
+
+func _apply_graphics_preset(p_preset: GraphicsPreset) -> void:
+    var background: SubViewport = GlobalRef.get_background()
+
+    if not background:
+        Syslog.info("Graphics preset not applied, no background available.")
+        return
+
+    match p_preset:
+        GraphicsPreset.LOW:
+            background.size = Vector2(960, 540)
+        GraphicsPreset.MEDIUM:
+            background.size = Vector2(1920, 1080)
+        GraphicsPreset.HIGH:
+            background.size = Vector2(3840, 2160)
+
+    Syslog.info("Graphics set to %s preset." % [p_preset])
+
+
+func _apply_post_processing(p_enabled: bool) -> void:
+    var world_env: WorldEnvironment = GlobalRef.get_world_env()
+
+    if not world_env:
+        Syslog.error("No WorldEnvironment found!")
+        return
+
+    world_env.environment.glow_enabled = p_enabled
+    Syslog.info("Post-processing %s." % [Util.enabled_disabled(p_enabled)])
 
 
 func save_high_score(score: int) -> void:
