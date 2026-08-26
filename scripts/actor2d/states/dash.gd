@@ -33,9 +33,9 @@ func enter() -> void:
 
     trail_handle = Trail2D.new()
 
-    trail_handle.color_start = Pallete.Colors.BOOST_MIDDLE
-    trail_handle.color_middle = Pallete.Colors.BOOST_MIDDLE
-    trail_handle.color_end = Pallete.Colors.BOOST_END
+    trail_handle.color_start = Color(0.2666669, 0, 1, 1)
+    trail_handle.color_middle = Color(0.2666669, 0, 1, 1)
+    trail_handle.color_end = Color(0.2666669, 0, 1, 0)
     trail_handle.use_gradient = true
     trail_handle.max_length = 7
     trail_handle.width = 15

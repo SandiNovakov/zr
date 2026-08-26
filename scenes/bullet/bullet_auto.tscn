@@ -12,3 +12,6 @@ scale = Vector2(0.6, 0.6)
 
 [node name="Trail2D" parent="." index="1" unique_id=1520931933]
 width = 6.0
+color_start = Color(1, 1, 1, 1)
+color_middle = null
+color_end = null

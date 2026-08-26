@@ -23,21 +23,20 @@ color_ramp = SubResource("GradientTexture1D_casb3")
 [sub_resource type="GDScript" id="GDScript_klc8q"]
 script/source = "extends GPUParticles2D
 
-@export var color_start: Pallete.Colors
-@export var color_middle: Pallete.Colors
-@export var color_end: Pallete.Colors
+@export var color_start: Color = Color.WHITE
+@export var color_middle: Color = Color.WHITE
+@export var color_end: Color = Color.WHITE
 
 func _ready() -> void:
-    if color_start != null and color_middle != null and color_end != null:
-        process_material.color_ramp.gradient = Util.make_3point_gradient(
-            Pallete.get_color(color_start),
-            Pallete.get_color(color_middle),
-            Pallete.get_color(color_end),
-            1.0,
-            1.0,
-            0.0
-        )
-    
+    process_material.color_ramp.gradient = Util.make_3point_gradient(
+        color_start,
+        color_middle,
+        color_end,
+        1.0,
+        1.0,
+        0.0
+    )
+
     finished.connect(queue_free)
     one_shot = true
     restart()
@@ -50,8 +49,8 @@ lifetime = 0.3
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_t88xh")
 script = SubResource("GDScript_klc8q")
-color_start = 1
-color_middle = 1
-color_end = 3
+color_start = Color(1, 0.94509804, 0.8392157, 1)
+color_middle = Color(1, 0.94509804, 0.8392157, 1)
+color_end = Color(1, 0.65, 0, 1)
 
 [connection signal="finished" from="." to="." method="_on_finished"]

@@ -5,5 +5,5 @@
 [node name="boost_charging_vfx" unique_id=1200617565 instance=ExtResource("1_dbx86")]
 
 [node name="ModulateFlasher" parent="." index="0" unique_id=965494691]
-color_1 = 12
-color_2 = 13
+color_1 = Color(0.8826667, 0.84000003, 1, 1)
+color_2 = Color(0.2666669, 0, 1, 1)

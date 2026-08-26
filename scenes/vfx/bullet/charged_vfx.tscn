@@ -7,8 +7,8 @@ modulate = Color(0, 0.7166667, 1, 1)
 scale = Vector2(1, 1)
 frame_progress = 0.3745828
 speed_scale = 1.25
-color = 2
+color = Color(0.8392157, 0.93333334, 1, 1)
 
 [node name="ModulateFlasher" parent="." index="0" unique_id=965494691]
-color_1 = 2
-color_2 = 4
+color_1 = Color(0.8392157, 0.93333334, 1, 1)
+color_2 = Color(0, 0.6833334, 1, 1)

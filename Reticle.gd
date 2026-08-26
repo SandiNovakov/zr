@@ -21,7 +21,7 @@ func lock_on() -> void:
     var t: Tween = create_tween()
     var t2: Tween = create_tween()
     t.tween_property(self, ^"rotation", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-    t2.tween_property(self, ^"modulate", Pallete.get_color(Pallete.Colors.BULLET_BALLISTIC_2_TRAIL), 0.1)
+    t2.tween_property(self, ^"modulate", Color(1, 0, 0, 1), 0.1)
 
     sprite.frame = 1
     

@@ -30,9 +30,9 @@ end_cap_mode = 2
 script = ExtResource("3_c6pnf")
 max_length = 3
 use_gradient = true
-color_start = 1
-color_middle = 3
-color_end = 5
+color_start = Color(1, 0.94509804, 0.8392157, 1)
+color_middle = Color(1, 0.65, 0, 1)
+color_end = Color(1, 0.65, 0, 0)
 metadata/_custom_type_script = "uid://bxwew27e8r0px"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=135057820]

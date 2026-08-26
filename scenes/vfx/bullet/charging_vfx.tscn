@@ -44,12 +44,11 @@ animations = [{
 [sub_resource type="GDScript" id="GDScript_comp1"]
 script/source = "extends AnimatedSprite2D
 
-@export var color: Pallete.Colors
+@export var color: Color = Color.WHITE
 
 func _ready() -> void:
     play(\"default\")
-    if color:
-        modulate = Pallete.get_color(color)
+    modulate = color
 "
 
 [node name="charging_vfx" type="AnimatedSprite2D" unique_id=1200617565]
@@ -59,13 +58,13 @@ scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gji7r")
 frame_progress = 0.62784445
 script = SubResource("GDScript_comp1")
-color = 12
+color = Color(0.8826667, 0.84000003, 1, 1)
 
 [node name="ModulateFlasher" type="Node" parent="." unique_id=965494691]
 script = ExtResource("2_wfiq5")
 enabled = true
-color_1 = 1
-color_2 = 3
+color_1 = Color(1, 0.94509804, 0.8392157, 1)
+color_2 = Color(1, 0.65, 0, 1)
 flash_speed = 0.1
 transition = 7
 easing = 2

@@ -3,6 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/vfx/bullet/bullet_collide_vfx.tscn" id="1_rvtls"]
 
 [node name="Bullet2CollideVfx" unique_id=2023029930 instance=ExtResource("1_rvtls")]
-color_start = 7
-color_middle = 7
-color_end = 8
+color_start = Color(1, 0.84000003, 0.84000003, 1)
+color_middle = Color(1, 0.84000003, 0.84000003, 1)
+color_end = Color(1, 0, 0, 1)
