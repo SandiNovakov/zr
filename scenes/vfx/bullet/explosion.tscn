@@ -21,8 +21,11 @@ scale_max = 0.02
 color_ramp = SubResource("GradientTexture1D_casb3")
 
 [node name="ExplosionVFX" unique_id=2023029930 instance=ExtResource("1_xoyyj")]
+z_index = -4096
 amount = 256
 lifetime = 1.0
+explosiveness = 0.8
+randomness = 0.59
 process_material = SubResource("ParticleProcessMaterial_xoyyj")
 color_start = Color(1, 0.84000003, 0.84000003, 1)
 color_middle = Color(1, 0.84000003, 0.84000003, 1)

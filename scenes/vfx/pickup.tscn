@@ -27,6 +27,7 @@ z_index = 4096
 amount = 25
 texture = ExtResource("2_t8ltr")
 lifetime = 0.5
+explosiveness = 0.5
 process_material = SubResource("ParticleProcessMaterial_xoyyj")
 color_start = Color(0.84000003, 1, 0.936, 1)
 color_middle = Color(0.84000003, 1, 0.912, 1)

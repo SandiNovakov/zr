@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dj743rsokphuu" path="res://scripts/entities/ItemContainer.gd" id="1_gc75g"]
 [ext_resource type="PackedScene" uid="uid://c7bkbvo2vokn3" path="res://scenes/vfx/bullet/explosion.tscn" id="2_m2g6a"]
 [ext_resource type="Texture2D" uid="uid://0leejlyq8k2p" path="res://assets/img/simpleSpace_tilesheet@2.png" id="2_noyfx"]
+[ext_resource type="PackedScene" uid="uid://dbu040kkri6kk" path="res://scenes/entities/medkit.tscn" id="3_m2g6a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2g6a"]
 radius = 45.0
@@ -13,6 +14,7 @@ collision_mask = 0
 script = ExtResource("1_gc75g")
 sprite = NodePath("Sprite2D")
 death_vfx = ExtResource("2_m2g6a")
+drop_scene = ExtResource("3_m2g6a")
 metadata/_custom_type_script = "uid://dj743rsokphuu"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1346396025]

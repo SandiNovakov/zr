@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dt8gfoxl3seva"]
+
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/vfx/bullet/bullet_collide_vfx.tscn" id="1_hivkf"]
+
+[sub_resource type="Gradient" id="Gradient_xxemr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.53246754, 1)
+colors = PackedColorArray(1, 0.811, 0.45999998, 1, 1, 0.65, 0, 1, 1, 0.65, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_casb3"]
+gradient = SubResource("Gradient_xxemr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xoyyj"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 75.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -200.0
+radial_accel_max = -200.0
+scale_min = 0.02
+scale_max = 0.03
+color_ramp = SubResource("GradientTexture1D_casb3")
+
+[node name="SpawnVFX" unique_id=2023029930 instance=ExtResource("1_hivkf")]
+z_index = 4096
+amount = 256
+lifetime = 0.75
+speed_scale = 2.0
+explosiveness = 0.49
+process_material = SubResource("ParticleProcessMaterial_xoyyj")
+color_start = Color(0.84000003, 0.96, 1, 1)
+color_middle = Color(0.84000003, 0.96, 1, 1)
+color_end = Color(0, 0.73333335, 1, 1)
