@@ -50,6 +50,8 @@ signal locked_off
 signal killed
 signal freed
 
+signal damaged
+
 func _ready() -> void:
     if is_player:
         add_to_group("player")
@@ -133,6 +135,7 @@ func invalidate_charges() -> void:
 
 func take_damage(dmg: int) -> void:
     if not invincible:
+        damaged.emit()
         health = max(health - dmg, 0)
         Syslog.debug("%s took %s damage. HP: %000d/%000d" % [self.name, dmg, health, max_health])
     

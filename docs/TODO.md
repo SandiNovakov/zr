@@ -1,5 +1,5 @@
 # New
-- [ ] Add asteroids the player can shoot for extra score.
+- [x] Add asteroids the player can shoot for extra score.
 - [ ] Add capsules containing health packs.
 - [ ] Add a generic spawner for the three spawnable object types (enemies, asteroids, health capsules).
 - [ ] Give enemies actual movement (currently stationary — only rotate to face/track and shoot).

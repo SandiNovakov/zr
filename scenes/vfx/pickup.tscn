@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://emahut1tn6mb"]
+
+[ext_resource type="PackedScene" uid="uid://drs1erw5rb3rr" path="res://scenes/vfx/bullet/bullet_collide_vfx.tscn" id="1_kfn7s"]
+[ext_resource type="Texture2D" uid="uid://18ti3elxbig7" path="res://assets/img/particles/star_06.png" id="2_t8ltr"]
+
+[sub_resource type="Gradient" id="Gradient_xxemr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.53246754, 1)
+colors = PackedColorArray(1, 0.811, 0.45999998, 1, 1, 0.65, 0, 1, 1, 0.65, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_casb3"]
+gradient = SubResource("Gradient_xxemr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xoyyj"]
+lifetime_randomness = 0.58
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+color_ramp = SubResource("GradientTexture1D_casb3")
+
+[node name="PickupVFX" unique_id=2023029930 instance=ExtResource("1_kfn7s")]
+z_index = 4096
+amount = 25
+texture = ExtResource("2_t8ltr")
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_xoyyj")
+color_start = Color(0.84000003, 1, 0.936, 1)
+color_middle = Color(0.84000003, 1, 0.912, 1)
+color_end = Color(0, 1, 0.5500002, 1)
