@@ -2,7 +2,7 @@ extends ActorController
 
 @export var shoot: bool = false
 @export_enum("Never", "Lock-on", "Always") var turn_toward_player: String = "Never"
-@export var shoot_rate: int = 1
+@export var shoot_rate: int = 3
 
 var last_shot_timestamp: int = 0
 var last_shot_timestamps: Dictionary = {}

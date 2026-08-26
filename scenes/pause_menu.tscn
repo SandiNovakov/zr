@@ -29,9 +29,11 @@ theme_override_constants/separation = 16
 alignment = 1
 
 [node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1833016694]
+custom_minimum_size = Vector2(512, 72)
 layout_mode = 2
 text = "Resume"
 
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1093643888]
+custom_minimum_size = Vector2(512, 72)
 layout_mode = 2
 text = "Exit"

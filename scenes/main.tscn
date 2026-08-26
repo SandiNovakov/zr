@@ -12,10 +12,23 @@
 script/source = "@icon(\"res://assets/node-icons/white/home.png\")
 extends Node
 
+var score: int = 0
+
 func _ready() -> void:
     GlobalRef.register_ref(&\"main\", self)
     Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
     Settings.apply_settings()
+
+func update_score(amount) -> void:
+    score += amount
+
+    var score_label: Label = $\"UI/MarginContainer/Control/VBoxContainer/Score+\"
+    score_label.text = \"+%s\" % amount
+    score_label.modulate.a = 1.0
+
+    var tween := create_tween()
+    tween.set_ease(Tween.EASE_IN)
+    tween.tween_property(score_label, \"modulate:a\", 0.0, 1)
 "
 
 [sub_resource type="GDScript" id="GDScript_tipki"]
@@ -27,7 +40,7 @@ func _ready() -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
 shader = ExtResource("1_sugp2")
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0.003300667, 0.045604877, 0.10247462, 1)
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/bigStarSlow = 2.0
 shader_parameter/mediumStarSlow = 6.0
@@ -50,6 +63,7 @@ viewport_path = NodePath("Background/SubViewport")
 
 [sub_resource type="Environment" id="Environment_0wfyh"]
 background_mode = 3
+background_canvas_max_layer = 3
 glow_enabled = true
 glow_normalized = true
 glow_bloom = 0.3
@@ -161,6 +175,30 @@ func _process(delta: float) -> void:
     value = move_toward(value, internal_value, max_value * delta)
 "
 
+[sub_resource type="GDScript" id="GDScript_85g3d"]
+script/source = "extends RichTextLabel
+
+var display: int = 0
+var main: Node
+
+func _process(delta: float) -> void:
+    if not main:
+        main = GlobalRef.get_main()
+        return
+    
+    if display != main.score:
+        display = move_toward(display, main.score, 1000 * delta)
+    
+    var score_text := str(display).lpad(12, \"0\")
+    var zero_count := 12 - str(display).length()
+
+    text = \"[color=#ffffff80]%s[/color]%s\" % [
+        score_text.left(zero_count),
+        score_text.substr(zero_count)
+    ]
+        
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
 bg_color = Color(1, 1, 1, 0.1254902)
 
@@ -202,7 +240,7 @@ func _process(delta: float) -> void:
         
         max_value = target.max_health
         if value != target.health:
-            value = move_toward(value, target.health, max_value * delta)
+            value = move_toward(value, target.health, max_value * 2 * delta)
         
         return
     
@@ -263,9 +301,37 @@ drag_vertical_enabled = true
 script = SubResource("GDScript_jyhfs")
 
 [node name="Enemy" parent="." unique_id=1354497919 instance=ExtResource("7_o6xl0")]
+position = Vector2(1392, 567)
+
+[node name="Enemy2" parent="." unique_id=1116665147 instance=ExtResource("7_o6xl0")]
+position = Vector2(1797, 1895)
+
+[node name="Enemy3" parent="." unique_id=1466568800 instance=ExtResource("7_o6xl0")]
+position = Vector2(2833, 1820)
+
+[node name="Enemy4" parent="." unique_id=476913857 instance=ExtResource("7_o6xl0")]
+position = Vector2(3706, 1540)
+
+[node name="Enemy5" parent="." unique_id=2103454451 instance=ExtResource("7_o6xl0")]
+position = Vector2(3346, 512)
+
+[node name="Enemy6" parent="." unique_id=753528052 instance=ExtResource("7_o6xl0")]
+position = Vector2(2223, 379)
+
+[node name="Enemy7" parent="." unique_id=1852541679 instance=ExtResource("7_o6xl0")]
+position = Vector2(251, 1686)
+
+[node name="Enemy8" parent="." unique_id=260570347 instance=ExtResource("7_o6xl0")]
 position = Vector2(2699, 905)
 
+[node name="Enemy9" parent="." unique_id=1277688697 instance=ExtResource("7_o6xl0")]
+position = Vector2(1020, 1682)
+
+[node name="Enemy10" parent="." unique_id=208591564 instance=ExtResource("7_o6xl0")]
+position = Vector2(481, 591)
+
 [node name="WorldBoundary" type="StaticBody2D" parent="." unique_id=648540822]
+metadata/_edit_lock_ = true
 
 [node name="Left" type="CollisionShape2D" parent="WorldBoundary" unique_id=1973977341]
 shape = SubResource("WorldBoundaryShape2D_0wfyh")
@@ -298,21 +364,60 @@ theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
+metadata/_edit_lock_ = true
 
 [node name="Control" type="Control" parent="UI/MarginContainer" unique_id=270954531]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Healthbar" type="ProgressBar" parent="UI/MarginContainer/Control" unique_id=21805338]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/Control" unique_id=115545373]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI/MarginContainer/Control/HBoxContainer" unique_id=313436838]
+layout_mode = 2
+text = "HP"
+
+[node name="Healthbar" type="ProgressBar" parent="UI/MarginContainer/Control/HBoxContainer" unique_id=21805338]
 custom_minimum_size = Vector2(512, 36)
-layout_mode = 0
-offset_right = 4.0
-offset_bottom = 31.0
+layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 24
 theme_override_styles/background = SubResource("StyleBoxFlat_o6xl0")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tipki")
 script = SubResource("GDScript_o6xl0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/Control" unique_id=634812779]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -624.0
+offset_bottom = 40.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/MarginContainer/Control/VBoxContainer" unique_id=551657990]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/Control/VBoxContainer/HBoxContainer2" unique_id=115105153]
+layout_mode = 2
+text = "SCORE "
+
+[node name="Score" type="RichTextLabel" parent="UI/MarginContainer/Control/VBoxContainer/HBoxContainer2" unique_id=1639483160]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "000000000000"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = SubResource("GDScript_85g3d")
+
+[node name="Score+" type="Label" parent="UI/MarginContainer/Control/VBoxContainer" unique_id=317083768]
+layout_mode = 2
+horizontal_alignment = 2
 
 [node name="EnemyHealthbar" type="ProgressBar" parent="UI" unique_id=673132033]
 custom_minimum_size = Vector2(128, 12)

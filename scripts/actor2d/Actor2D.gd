@@ -78,6 +78,7 @@ func _process(delta: float) -> void:
         
         if is_enemy:
             Syslog.info("Enemy killed! +1000 points!")
+            GlobalRef.get_main().update_score(1000)
             self.queue_free()
         
         else:
