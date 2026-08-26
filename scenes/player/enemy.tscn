@@ -13,8 +13,8 @@
 [ext_resource type="Script" uid="uid://dmvgr58ok3alv" path="res://scripts/actor2d/controller/dummy_controller.gd" id="11_47qhd"]
 [ext_resource type="Script" uid="uid://b7cxistsp1ced" path="res://scenes/player/dying.gd" id="11_70kv8"]
 [ext_resource type="PackedScene" uid="uid://dpuwytub1fhs8" path="res://scenes/player/weapon_handler.tscn" id="12_seexg"]
-[ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://LockOnController.gd" id="14_47qhd"]
-[ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/WeaponData2.tres" id="14_xicbu"]
+[ext_resource type="Script" uid="uid://covfsd6l1xqkq" path="res://scripts/actor2d/LockOnController.gd" id="14_47qhd"]
+[ext_resource type="Resource" uid="uid://bm25s2w4k42r" path="res://resources/AutoWeapon.tres" id="14_xicbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_47qhd"]
 radius = 12.0
