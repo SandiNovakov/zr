@@ -47,19 +47,19 @@ func shoot() -> void:
     last_shot_timestamp = Time.get_ticks_usec()
 
     var bullet: Bullet = weapon.bullet.instantiate()
-    _spawn_bullet(bullet)
+    _spawn_bullet(bullet, weapon.damage)
 
 func shoot_charged() -> void:
     Syslog.debug("shot CHARGED!")
     charged_shot.emit()
     var bullet: Bullet = weapon.charge_bullet.instantiate()
-    _spawn_bullet(bullet)
+    _spawn_bullet(bullet, weapon.charge_damage)
 
-func _spawn_bullet(bullet: Bullet) -> void:
+func _spawn_bullet(bullet: Bullet, p_damage: int) -> void:
     bullet.global_position = shot_origin.global_position
     bullet.direction = Vector2.from_angle(shot_origin.global_rotation)
     bullet.speed = weapon.bullet_speed
-    bullet.damage = weapon.damage
+    bullet.damage = p_damage
     
     bullet.collision_layer = 0
     bullet.collision_mask = 0

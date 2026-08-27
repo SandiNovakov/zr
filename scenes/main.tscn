@@ -34,6 +34,7 @@ func _ready() -> void:
 
 func _on_player_killed() -> void:
     Settings.last_score = score
+    Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
     await get_tree().create_timer(SCORE_SCREEN_DELAY).timeout
     Util.change_scene(SCORE_SCREEN_PATH)

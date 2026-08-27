@@ -1,0 +1,7 @@
+
+
+Razvoj 2D akcijske video igre koristeći Godot Game Engine
+
+    Opis:
+
+    Izradila bi se 2D akcijske video igra u stilu top-down shootera. Za razvoj bi se koristio besplatan i otvorenog koda Godot Game Engine te njegov skriptni jezik GDScript. Igra bi bila arkadnog tipa, odnosno trajala bi dok igrač ne izgubi, s ciljem da se osvoji što veći rezultat u bodovima. Neke od tehničkih značajki: Rad s Godotovim Node sustavom i usporedba s objektno-orijentiranim pristupom. Implementacija jednostavne umjetne inteligencije protivnika. Izrada sustava stanja (finite state machine) za upravljanje igračem i neprijateljima. Trajno spremanje podataka (postavke, rezultati, postignuća). Izrada korisničkog sučelja za prikaz bodova i statusa igrača tijekom igre.

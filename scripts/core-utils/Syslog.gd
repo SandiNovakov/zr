@@ -5,7 +5,7 @@ class_name Syslog
 enum LogLevel { ERROR, WARNING, INFO, DEBUG }
 
 ## Only messages at this level or more severe (lower enum value) are logged.
-const ACTIVE_LOG_LEVEL: LogLevel = LogLevel.DEBUG
+const ACTIVE_LOG_LEVEL: LogLevel = LogLevel.WARNING
 
 const LEVEL_LABEL: Dictionary = {
     LogLevel.ERROR: "  [ERROR]",
