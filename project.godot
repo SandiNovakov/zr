@@ -19,7 +19,6 @@ config/icon="res://assets/img/icon.svg"
 
 LogUtility="*uid://b3gcc86r33uyl"
 InputBuffer="*uid://d0sfhvg1r8wna"
-HotkeysManager="*uid://bfnqd55hvy76e"
 GlobalRef="*uid://xd001ulpounq"
 Settings="*uid://dfx0t7l7ta75i"
 Notifications="*uid://ewruehcoutum"

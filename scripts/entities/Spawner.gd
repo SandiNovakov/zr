@@ -50,6 +50,7 @@ func _try_spawn() -> void:
     instance.scale = Vector2.ZERO
     target_parent.add_child(instance)
 
+
     var spawn_tween: Tween = instance.create_tween()
     spawn_tween.set_trans(Tween.TRANS_BOUNCE)
     spawn_tween.set_ease(Tween.EASE_OUT)

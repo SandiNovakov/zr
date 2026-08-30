@@ -12,7 +12,7 @@ const SECTION_SETTINGS: String = "settings"
 const SECTION_SCORE: String = "score"
 
 # -- settings --
-var resolution: Vector2i = Vector2i(1920, 1080)
+var resolution: Vector2i = Vector2i(1280, 1080)
 var fullscreen: bool = false
 var background_detail: int = 2 # GraphicsPreset value, stored as int for ConfigFile
 var effects_enabled: bool = true

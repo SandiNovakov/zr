@@ -11,7 +11,7 @@ script/source = "extends Button
 
 
 func _on_pressed() -> void:
-    Util.change_scene(\"res://scenes/title_screen.tscn\")
+    Util.change_scene(\"res://scenes/main.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_7iorc"]
@@ -88,7 +88,7 @@ horizontal_alignment = 1
 [node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/VBoxContainer3" unique_id=846989498]
 layout_mode = 2
 
-[node name="ApplyButton" type="Button" parent="CenterContainer/VBoxContainer3/VBoxContainer3" unique_id=409329679]
+[node name="RetryButton" type="Button" parent="CenterContainer/VBoxContainer3/VBoxContainer3" unique_id=409329679]
 custom_minimum_size = Vector2(540, 72)
 layout_mode = 2
 theme = SubResource("Theme_vxlqx")
@@ -103,5 +103,5 @@ theme = SubResource("Theme_vxlqx")
 text = "Save & Quit to Title"
 script = SubResource("GDScript_7iorc")
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer3/VBoxContainer3/ApplyButton" to="CenterContainer/VBoxContainer3/VBoxContainer3/ApplyButton" method="_on_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer3/VBoxContainer3/RetryButton" to="CenterContainer/VBoxContainer3/VBoxContainer3/RetryButton" method="_on_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer3/VBoxContainer3/QuitButton" to="CenterContainer/VBoxContainer3/VBoxContainer3/QuitButton" method="_on_pressed"]
